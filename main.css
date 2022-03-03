@@ -98,6 +98,11 @@ em {
 	font-size: 80%;
 }
 
+#characterName {
+	max-width: 425px;
+	margin: 0 auto;
+}
+
 #errorMessage {
 	margin: auto;
 	padding: 10px;
@@ -480,16 +485,13 @@ em {
 }
 
 .stamp {
-	display: block;
+	width: 0px;
+	height: 0px;
+	overflow: visible;
 	color: orangered;
 	font-size: 0.8em;
-}
-
-@media (min-width: 80em) {
-	.stamp {
-		display: inline-block;
-		position: absolute;
-		transform: rotate(10deg);
-		margin: 0.6em 0 0 0.2em;
-	}
+	display: inline-block;
+	position: absolute;
+	transform: rotate(10deg);
+	margin: 0.6em 0 0 0.2em;
 }

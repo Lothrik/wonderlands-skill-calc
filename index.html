@@ -6,12 +6,13 @@
 	<link href="main.css" rel="stylesheet" type="text/css">
 	<link href="https://fonts.googleapis.com/css?family=Homenaje" rel="stylesheet" type="text/css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="libs/lz-string.js"></script>
 </head>
 <body>
 	<div id="header">
-		<div class="links"><a href="#" class="reset">reset</a> | <a href="#" class="permalink">Permalink to this build</a></div>
-		<h1>Wonderlands skill calculator <div class="stamp">(WIP)</div></h1>
-		<h2>Character Name</h2>
+		<div class="links"><a onclick="location.href=location.href.split('#')[0]" href="#" class="reset">reset</a> | <a href="#" class="permalink">Permalink to this build</a></div>
+		<h1 id="toolName">Wonderlands skill calculator<div class="stamp">&nbsp;(WIP)</div></h1>
+		<h2 id="characterName" class="disabled" contentEditable="true">Character Name</h2>
 		<h3>Level <span id="charLevel">1</span> <span id="primaryClassName">None</span> / <span id="secondaryClassName">None</span></h3>
 	</div>
 	<div id="actionSkills">

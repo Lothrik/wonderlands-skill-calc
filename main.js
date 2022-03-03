@@ -311,51 +311,84 @@ function saveToHash(mode) {
 
 function loadFromHash(mode) {
 	if (window.location.hash != "") {
-		let hash = window.location.hash.replace("#", "");
+		let curHash = decompressHash();
 		// classes have 2 slots: [0, 1]
 		if (mode == 0 || mode == 2) {
-			$("#primaryClassSelector").prop("selectedIndex", Math.min(hash.charAt(0), $("#primaryClassSelector option").length - 1));
-			$("#secondaryClassSelector").prop("selectedIndex", Math.min(hash.charAt(1), $("#secondaryClassSelector option").length - 1));
+			$("#primaryClassSelector").prop("selectedIndex", Math.min(curHash.charAt(0), $("#primaryClassSelector option").length - 1));
+			$("#secondaryClassSelector").prop("selectedIndex", Math.min(curHash.charAt(1), $("#secondaryClassSelector option").length - 1));
 		}
 		if (mode == 1 || mode == 2) {
 			// action skills have 4 slots: [2, 3, 4, 5]
 			for (let i = 0; i < 4; i++) {
 				let actionSkill = i < 2 ? $("#primaryActionSkills .actionSkill")[i] : $("#secondaryActionSkills .actionSkill")[i - 2];
 				if (actionSkill) {
-					actionSkill.setAttribute("data-points", Math.min(hash.charAt(i + 2), parseInt(actionSkill.getAttribute("data-max"))));
+					actionSkill.setAttribute("data-points", Math.min(curHash.charAt(i + 2), parseInt(actionSkill.getAttribute("data-max"))));
 				}
 			}
 			// passive skills have 42 slots: [6 ... 48]
 			for (let i = 0; i < 42; i++) {
 				let skill = i < 21 ? $("#primaryTree .skill")[i] : $("#secondaryTree .skill")[i - 21];
 				if (skill) {
-					skill.setAttribute("data-points", Math.min(hash.charAt(i + 6), parseInt(skill.getAttribute("data-max"))));
+					skill.setAttribute("data-points", Math.min(curHash.charAt(i + 6), parseInt(skill.getAttribute("data-max"))));
 				}
+			}
+			if (curHash.substr(48, 19).length > 0) {
+				$("#characterName").text(curHash.substr(48, 19));
 			}
 		}
 	}
 }
 
 function constructHash(mode) {
-	let hash;
+	let curHash = decompressHash();
+	let newHash;
 	if (mode == 1) {
-		hash = window.location.hash.substr(1, 2) || "00";
+		newHash = curHash.substr(0, 2) || "00";
 	} else {
-		hash = $("#primaryClassSelector").prop("selectedIndex").toString() + $("#secondaryClassSelector").prop("selectedIndex").toString();
+		newHash = $("#primaryClassSelector").prop("selectedIndex").toString() + $("#secondaryClassSelector").prop("selectedIndex").toString();
 	}
 	if (mode == 0) {
-		hash += window.location.hash.substr(3);
+		newHash += curHash.substr(2);
 	} else {
 		for (let i = 0; i < 4; i++) {
 			let actionSkill = i < 2 ? $("#primaryActionSkills .actionSkill")[i] : $("#secondaryActionSkills .actionSkill")[i - 2];
-			hash += actionSkill ? actionSkill.getAttribute("data-points") : "0";
+			newHash += actionSkill ? actionSkill.getAttribute("data-points") : "0";
 		}
 		for (let i = 0; i < 42; i++) {
 			let skill = i < 21 ? $("#primaryTree .skill")[i] : $("#secondaryTree .skill")[i - 21];
-			hash += skill ? skill.getAttribute("data-points") : "0";
+			newHash += skill ? skill.getAttribute("data-points") : "0";
+		}
+		if ($("#characterName").text() !== "Character Name") {
+			newHash += $("#characterName").text().substr(0, 19);
 		}
 	}
-	return hash;
+	if ((newHash.length) < 3) {
+		return "";
+	}
+	return compressHash(newHash);
+}
+
+function compressHash(rawHash) {
+	console.log("compressing " + rawHash);
+	if (LZString) {
+		let compressedHash = LZString.compressToEncodedURIComponent(rawHash);
+		if (compressedHash) {
+			return compressedHash;
+		}
+	}
+	return rawHash;
+}
+
+function decompressHash() {
+	let rawHash = window.location.hash.replace("#", "");
+	console.log("decompressing " + rawHash);
+	if (LZString) {
+		let decompressedHash = LZString.decompressFromEncodedURIComponent(rawHash);
+		if (decompressedHash) {
+			return decompressedHash;
+		}
+	}
+	return rawHash;
 }
 
 var finishedLoading = false;
@@ -364,5 +397,12 @@ $(document).ready(function () {
 	loadFromHash(0);
 	$("#primaryClassSelector").trigger("change");
 	$("#secondaryClassSelector").trigger("change");
-	setTimeout(function() { finishedLoading = true; updateActionSkills(); }, 1500);
+	setTimeout(function() {
+		$("#characterName").removeClass("disabled");
+		$("#characterName").on("input", function() { saveToHash(2); });
+	}, 100);
+	setTimeout(function() {
+		finishedLoading = true;
+		updateActionSkills();
+	}, 1500);
 });
