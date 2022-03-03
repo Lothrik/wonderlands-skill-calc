@@ -364,7 +364,7 @@ em {
 	color: red;
 }
 
-/* The only thing this is actually used for is Elemental Damage, which is actually gold in-game.. I think this is better though. */
+/* The only thing this is used for is Elemental Damage, which is actually gold in-game.. I think this is better though. */
 .description .rainbow, #summary .rainbow {
     background: linear-gradient(
         90deg,
@@ -391,7 +391,6 @@ em {
     0% {
         background-position: 0 0;
     }
-
     100% {
         background-position: 200% 0;
     }
@@ -403,10 +402,6 @@ em {
 
 .description .purple, #summary .purple {
 	color: purple;
-}
-
-.description .cyan, #summary .cyan {
-	color: #0ff;
 }
 
 .description .blue, #summary .blue {
