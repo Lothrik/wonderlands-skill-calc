@@ -86,6 +86,16 @@ function setClass(event) {
 		$("#errorMessage").addClass("hidden");
 		$("#featSummaryHeader").text("List of Feats");
 		$("#summarySpacer").removeClass("hidden");
+		if ($("#primaryClassName").text() == "None") {
+			$("#primaryClassFeat").css({ "padding": "0px" });
+			$("#secondaryClassFeat").css({ "padding": "0px", "max-width": "850px" });
+		} else if ($("#secondaryClassName").text() == "None") {
+			$("#primaryClassFeat").css({ "padding": "0px", "max-width": "850px" });
+			$("#secondaryClassFeat").css({ "padding": "0px" });
+		} else {
+			$("#primaryClassFeat").css({ "padding": "", "max-width": "" });
+			$("#secondaryClassFeat").css({ "padding": "", "max-width": "" });
+		}
 	}
 }
 
