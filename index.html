@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Wonderlands Skill Calculator</title>
+	<link href="main.css" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Homenaje" rel="stylesheet" type="text/css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+	<div class="header">
+		<div class="links"><a href="index.html" class="reset">reset</a> | <a href="#" class="permalink">Permalink to this build</a></div>
+		<h1>Wonderlands skill calculator <div class="stamp">(WIP)</div></h1>
+		<h2>Character Name</h2>
+		<h3>Level <span id="charLevel">1</span> <span id="primaryClassName">None</span> / <span id="secondaryClassName">None</span></h3>
+	</div>
+	<div id="actionSkills">
+		<div id="errorMessage">You need to enable Javascript.</div>
+		<div id="primaryActionSkills"></div>
+		<div id="secondaryActionSkills"></div>
+	</div>
+	<div id="skillTrees">
+		<div id="primaryTree"></div>
+		<div id="secondaryTree"></div>
+	</div>
+	<div id="classSelectors">
+		<select id="primaryClassSelector">
+			<option value="none">None</option>
+			<option value="brrzerker">Brr-zerker</option>
+			<option value="clawbringer">Clawbringer</option>
+			<option value="graveborn">Graveborn</option>
+			<option value="spellshot">Spellshot</option>
+			<option value="sporewarden">Spore Warden</option>
+			<option value="stabbomancer">Stabbomancer</option>
+		</select>
+		<select id="secondaryClassSelector">
+			<option value="none">None</option>
+			<option value="brrzerker">Brr-zerker</option>
+			<option value="clawbringer">Clawbringer</option>
+			<option value="graveborn">Graveborn</option>
+			<option value="spellshot">Spellshot</option>
+			<option value="sporewarden">Spore Warden</option>
+			<option value="stabbomancer">Stabbomancer</option>
+		</select>
+	</div>
+	<div class="summary">
+		<h2>List of Skills:</h2>
+		<div class="descriptionContainer"></div>
+		<div class="footer">Art &copy; 2012 <a href="https://gearboxsoftware.com/">Gearbox Studios</a>. <a href="https://google.com/webfonts">Fonts</a> by Google. Forked from <a href="https://github.com/seigler/bl2skills.com">this project</a>. <a href="https://github.com/lothrik/wonderlands-skill-calc">Source Code</a>.</div>
+	</div>
+	<script src="main.js"></script>
+</body>
+</html>

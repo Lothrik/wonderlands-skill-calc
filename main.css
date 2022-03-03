@@ -1,0 +1,444 @@
+html, body {
+	min-height: 100vh;
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	overflow-y: scroll;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	background: #333 url("images/background.jpg") no-repeat fixed center center;
+	background-size: cover;
+	color: #fff;
+	font: 15pt/17pt Homenaje, Impact, sans-serif;
+	cursor: default;
+	text-align: center;
+}
+
+::-moz-selection {
+	color: #fff;
+	background: #fbb406;
+}
+
+::selection {
+	color: #fff;
+	background: #fbb406;
+}
+
+h1, h2, h3 {
+	margin: 0;
+	font-weight: normal;
+}
+
+em {
+	font-style: normal;
+}
+
+.header {
+	font-size: 24pt;
+	text-transform: uppercase;
+	line-height: 1;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+}
+
+.header * {
+	position: relative;
+	z-index: 11;
+}
+
+.header .links {
+	text-align: center;
+	line-height: 1.2em;
+	font-size: 50%;
+	z-index: 20;
+}
+
+.header .permalink {
+	color: #fff;
+	padding: 0.5em 0;
+	-moz-user-select: text;
+	-webkit-user-select: text;
+	-ms-user-select: text;
+	-o-user-select: text;
+	user-select: text;
+}
+
+.header .reset {
+	color: red;
+}
+
+.header, .summary, #errorMessage {
+	background-color: rgba(0, 0, 0, 0.5);
+	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.header h1 {
+	color: #ffde09;
+	font-size: 140%;
+}
+
+.header h1 em {
+	font-style: normal;
+	font-size: 200%;
+	position: relative;
+	top: 0.15em;
+}
+
+.header h2 {
+	color: #fbb406;
+	font-size: 150%;
+}
+
+.header h3 {
+	font-size: 80%;
+}
+
+#errorMessage {
+	margin: auto;
+	padding: 10px;
+	border: 2px solid #fff;
+	transform: translateY(50%);
+}
+
+#actionSkills {
+	margin: auto;
+	min-height: 92px;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
+
+#primaryActionSkills, #secondaryActionSkills {
+	float: left;
+}
+
+.actionSkill {
+	display: inline-block;
+	position: relative;
+	cursor: pointer;
+}
+
+#skillTrees {
+	margin: auto;
+	min-height: 416px;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
+
+#primaryTree, #secondaryTree {
+	float: left;
+}
+
+#primaryTree .skillTree, #secondaryTree .skillTree {
+	width: 247px;
+}
+
+.skills {
+	width: 174px;
+	margin: 0 auto;
+	text-align: center;
+	padding-top: 20px;
+}
+
+.bgLayer {
+	position: absolute;
+	width: 247px;
+	height: 396px;
+}
+
+.green .gray {
+	background: url("images/skill_bg_green_gray.png") transparent;
+}
+
+.blue .gray {
+	background: url("images/skill_bg_blue_gray.png") transparent;
+}
+
+.red .gray {
+	background: url("images/skill_bg_red_gray.png") transparent;
+}
+
+.green .color {
+	background: url("images/skill_bg_green.png") transparent;
+}
+
+.blue .color {
+	background: url("images/skill_bg_blue.png") transparent;
+}
+
+.red .color {
+	background: url("images/skill_bg_red.png") transparent;
+}
+
+.skill {
+	padding: 3px;
+	width: 52px;
+	height: 53px;
+	cursor: pointer;
+	position: relative;
+	float: left;
+}
+
+.skill > img {
+	width: 52px;
+	height: 53px;
+}
+
+.points {
+	visibility: hidden;
+	position: absolute;
+	width: 40px;
+	height: 21px;
+	bottom: 0;
+	right: 0;
+	background: url("icons/points_overlay.png") transparent;
+	color: #fff;
+}
+
+.actionSkill .points {
+	visibility: initial;
+}
+
+.tier, .totalPoints, .className {
+	clear: both;
+}
+
+.className, .totalPoints {
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 18pt;
+	color: #fff;
+	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+	position: absolute;
+	display: block;
+	margin-top: 60px;
+	width: 174px;
+}
+
+.className {
+	text-align: left;
+}
+
+.totalPoints {
+	text-align: right;
+}
+
+.push1 {
+	margin-left: 58px;
+}
+
+.partial .perLevel, .full .perLevel, .hidden {
+	display: none;
+}
+
+.disabled {
+	visibility: hidden;
+	pointer-events: none;
+}
+
+.description {
+	display: none;
+	position: absolute;
+	top: 0;
+	width: 300px;
+	z-index: 21;
+	background-color: rgba(0, 0, 0, 0.75);
+	border: 1px solid #fff;
+	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+	color: #fff;
+	padding: 0 0.25em 0.5em;
+	text-align: center;
+}
+
+#primaryTree .description {
+	right: 110%;
+}
+
+#secondaryTree .description {
+	left: 110%;
+}
+
+.actionSkill .description {
+	top: 110%;
+	left: -25%;
+}
+
+.tier[data-level='4'] .description {
+	top: auto;
+	bottom: -59px;
+}
+
+.tier[data-level='4'] .description.shortTier4Description {
+	top: 0;
+	bottom: auto;
+}
+
+.tier[data-level='5'] .description {
+	top: auto;
+	bottom: 0;
+}
+
+.description h2 {
+	padding: 0.15em 0;
+	margin-bottom: 0.15em;
+	font-size: 125%;
+	border-bottom: 1px solid #fff;
+}
+
+.summary {
+	display: flex;
+	flex-grow: 1;
+	flex-direction: column;
+	position: relative;
+	margin: 10px 0 0;
+	padding: 8px 0;
+	line-height: 1.1;
+	z-index: 10;
+}
+
+.descriptionContainer {
+	max-width: 850px;
+	margin: 0 auto;
+}
+
+.descriptionContainer .skillText {
+	clear: both;
+	border-top: 1px solid #fff;
+	text-align: left;
+}
+
+.descriptionContainer strong {
+	display: block;
+	font-weight: normal;
+	font-size: 120%;
+	float: left;
+	clear: left;
+	width: 220px;
+	margin-right: -220px;
+	text-align: right;
+}
+
+.descriptionContainer div.descriptionText {
+	margin: 4px 0 4px 230px;
+	padding: 0;
+}
+
+.descriptionContainer .perLevel {
+	display: none;
+}
+
+.footer {
+	padding-top: 20px;
+	margin-top: auto;
+	text-align: center;
+	font-size: 70%;
+	color: rgba(255, 255, 255, 0.5);
+}
+
+.footer a {
+	color: rgba(255, 255, 255, 0.5);
+}
+
+.footer a:hover {
+	color: red;
+}
+
+.description .gold, .summary .gold {
+	color: gold;
+}
+
+.description .purple, .summary .purple {
+	color: purple;
+}
+
+.description .cyan, .summary .cyan {
+	color: #0ff;
+}
+
+.description .red, .summary .red {
+	color: #f00;
+}
+
+.description .orange, .summary .orange, .partial, .partial .points {
+	color: #f80;
+}
+
+.description .green, .summary .green, .full, .full .points {
+	color: #0d0;
+}
+
+.skill:hover .description {
+	display: block;
+}
+
+.skill:hover .description:hover {
+	display: none;
+}
+
+.actionSkill:hover .description {
+	display: block;
+}
+
+.actionSkill:hover .description:hover {
+	display: none;
+}
+
+.green .className {
+	color: #41974d;
+}
+
+.blue .className {
+	color: #2a87c7;
+}
+
+.red .className {
+	color: #a93640;
+}
+
+.biglink {
+	display: inline-block;
+	color: inherit;
+	padding: 1em;
+	margin: 10px;
+	background: rgba(0, 0, 0, 0.5);
+	border: 2px solid #fff;
+	text-decoration: none;
+}
+
+.biglink:hover {
+	background: #000;
+	text-decoration: underline;
+}
+
+.unavailable {
+	cursor: not-allowed;
+}
+
+.unavailable:hover {
+	text-decoration: none;
+}
+
+.stamp {
+	display: block;
+	color: orangered;
+	font-size: 0.8em;
+}
+
+@media (min-width: 80em) {
+	.stamp {
+		display: inline-block;
+		position: absolute;
+		transform: rotate(10deg);
+		margin: 0.6em 0 0 0.2em;
+	}
+}
