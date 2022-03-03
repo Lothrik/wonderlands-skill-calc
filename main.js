@@ -364,5 +364,5 @@ $(document).ready(function () {
 	loadFromHash(0);
 	$("#primaryClassSelector").trigger("change");
 	$("#secondaryClassSelector").trigger("change");
-	setTimeout(function() { finishedLoading = true; }, 2500);
+	setTimeout(function() { finishedLoading = true; updateActionSkills(); }, 1500);
 });
