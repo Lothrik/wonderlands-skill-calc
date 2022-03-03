@@ -8,7 +8,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
-	<div class="header">
+	<div id="header">
 		<div class="links"><a href="index.html" class="reset">reset</a> | <a href="#" class="permalink">Permalink to this build</a></div>
 		<h1>Wonderlands skill calculator <div class="stamp">(WIP)</div></h1>
 		<h2>Character Name</h2>
@@ -43,10 +43,16 @@
 			<option value="stabbomancer">Stabbomancer</option>
 		</select>
 	</div>
-	<div class="summary">
-		<h2>List of Skills:</h2>
-		<div class="descriptionContainer"></div>
-		<div class="footer">Art &copy; 2012 <a href="https://gearboxsoftware.com/">Gearbox Studios</a>. <a href="https://google.com/webfonts">Fonts</a> by Google. Forked from <a href="https://github.com/seigler/bl2skills.com">this project</a>. <a href="https://github.com/lothrik/wonderlands-skill-calc">Source Code</a>.</div>
+	<div id="summary">
+		<h2 id="featSummaryHeader">Test</h2>
+		<div id="featSummaryContainer">
+			<div id="primaryClassFeat"></div>
+			<div id="secondaryClassFeat"></div>
+		</div>
+		<div id="summarySpacer" class="hidden"></div>
+		<h2 id="skillSummaryHeader"></h2>
+		<div id="skillSummaryContainer"></div>
+		<div id="footer">Art &copy; 2012 <a href="https://gearboxsoftware.com/">Gearbox Studios</a>. <a href="https://google.com/webfonts">Fonts</a> by Google. Forked from <a href="https://github.com/seigler/bl2skills.com">this project</a>. <a href="https://github.com/lothrik/wonderlands-skill-calc">Source Code</a>.</div>
 	</div>
 	<script src="main.js"></script>
 </body>

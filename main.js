@@ -41,6 +41,7 @@ function splitMulti(str, tokens) {
 	str = str.split(tempChar);
 	return str;
 }
+
 var splitOrig = String.prototype.split;
 String.prototype.split = function (){
 	if(arguments[0].length > 0){
@@ -64,19 +65,27 @@ function setClass(event) {
 	}
 	if (this.id == "primaryClassSelector") {
 		$("#primaryActionSkills").load("classes/" + className + ".html .actionSkill");
+		$("#primaryClassFeat").load("classes/" + className + ".html .classFeat");
 		$("#primaryTree").load("classes/" + className +".html .skillTree", updateClassSelection);
 		$("#primaryTree").removeClass("red green blue").addClass(classColor);
 		$("#primaryClassName").text(classNameFull);
 	} else {
 		$("#secondaryActionSkills").load("classes/" + className + ".html .actionSkill");
+		$("#secondaryClassFeat").load("classes/" + className + ".html .classFeat");
 		$("#secondaryTree").load("classes/" + className + ".html .skillTree", updateClassSelection);
 		$("#secondaryTree").removeClass("red green blue").addClass(classColor);
 		$("#secondaryClassName").text(classNameFull);
 	}
 	if ($("#primaryClassName").text() == "None" && $("#secondaryClassName").text() == "None") {
 		$("#errorMessage").text("No class selected.").removeClass("hidden");
+		$("#featSummaryHeader").text("");
+		$("#primaryClassFeat").html("");
+		$("#secondaryClassFeat").html("");
+		$("#summarySpacer").addClass("hidden");
 	} else {
 		$("#errorMessage").addClass("hidden");
+		$("#featSummaryHeader").text("List of Feats");
+		$("#summarySpacer").removeClass("hidden");
 	}
 }
 
@@ -272,7 +281,8 @@ function updateStats() {
 			descriptions += "</div></div>";
 		}
 	});
-	$(".descriptionContainer").html(descriptions);
+	$("#skillSummaryHeader").text(total > 0 ? "List of Skills" : "");
+	$("#skillSummaryContainer").html(descriptions);
 }
 
 function saveToHash(mode) {

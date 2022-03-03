@@ -38,7 +38,7 @@ em {
 	font-style: normal;
 }
 
-.header {
+#header {
 	font-size: 24pt;
 	text-transform: uppercase;
 	line-height: 1;
@@ -46,19 +46,19 @@ em {
 	margin-bottom: 10px;
 }
 
-.header * {
+#header * {
 	position: relative;
 	z-index: 11;
 }
 
-.header .links {
+#header .links {
 	text-align: center;
 	line-height: 1.2em;
 	font-size: 50%;
 	z-index: 20;
 }
 
-.header .permalink {
+#header .permalink {
 	color: #fff;
 	padding: 0.5em 0;
 	-moz-user-select: text;
@@ -68,33 +68,33 @@ em {
 	user-select: text;
 }
 
-.header .reset {
+#header .reset {
 	color: red;
 }
 
-.header, .summary, #errorMessage {
+#header, #summary, #errorMessage {
 	background-color: rgba(0, 0, 0, 0.5);
 	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
-.header h1 {
+#header h1 {
 	color: #ffde09;
 	font-size: 140%;
 }
 
-.header h1 em {
+#header h1 em {
 	font-style: normal;
 	font-size: 200%;
 	position: relative;
 	top: 0.15em;
 }
 
-.header h2 {
+#header h2 {
 	color: #fbb406;
 	font-size: 150%;
 }
 
-.header h3 {
+#header h3 {
 	font-size: 80%;
 }
 
@@ -295,7 +295,7 @@ em {
 	border-bottom: 1px solid #fff;
 }
 
-.summary {
+#summary {
 	display: flex;
 	flex-grow: 1;
 	flex-direction: column;
@@ -306,18 +306,37 @@ em {
 	z-index: 10;
 }
 
-.descriptionContainer {
+#primaryClassFeat, #secondaryClassFeat {
+	max-width: 405px;
+	float: left;
+	border-top: 1px solid #fff;
+	text-align: justify;
+}
+
+#primaryClassFeat {
+	padding-right: 10px;
+}
+
+#secondaryClassFeat {
+	padding-left: 10px;
+}
+
+#summarySpacer {
+	height: 20px;
+}
+
+#featSummaryHeader, #featSummaryContainer, #skillSummaryContainer {
 	max-width: 850px;
 	margin: 0 auto;
 }
 
-.descriptionContainer .skillText {
+#skillSummaryContainer .skillText {
 	clear: both;
 	border-top: 1px solid #fff;
 	text-align: left;
 }
 
-.descriptionContainer strong {
+#skillSummaryContainer strong {
 	display: block;
 	font-weight: normal;
 	font-size: 120%;
@@ -328,16 +347,16 @@ em {
 	text-align: right;
 }
 
-.descriptionContainer div.descriptionText {
+#skillSummaryContainer div.descriptionText {
 	margin: 4px 0 4px 230px;
 	padding: 0;
 }
 
-.descriptionContainer .perLevel {
+#skillSummaryContainer .perLevel {
 	display: none;
 }
 
-.footer {
+#footer {
 	padding-top: 20px;
 	margin-top: auto;
 	text-align: center;
@@ -345,35 +364,35 @@ em {
 	color: rgba(255, 255, 255, 0.5);
 }
 
-.footer a {
+#footer a {
 	color: rgba(255, 255, 255, 0.5);
 }
 
-.footer a:hover {
+#footer a:hover {
 	color: red;
 }
 
-.description .gold, .summary .gold {
+.description .gold, #summary .gold {
 	color: gold;
 }
 
-.description .purple, .summary .purple {
+.description .purple, #summary .purple {
 	color: purple;
 }
 
-.description .cyan, .summary .cyan {
+.description .cyan, #summary .cyan {
 	color: #0ff;
 }
 
-.description .red, .summary .red {
+.description .red, #summary .red {
 	color: #f00;
 }
 
-.description .orange, .summary .orange, .partial, .partial .points {
+.description .orange, #summary .orange, .partial, .partial .points {
 	color: #f80;
 }
 
-.description .green, .summary .green, .full, .full .points {
+.description .green, #summary .green, .full, .full .points {
 	color: #0d0;
 }
 
