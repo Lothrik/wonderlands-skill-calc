@@ -90,12 +90,10 @@ function setClass(event) {
 }
 
 function updateClassSelection() {
-	$(".skill").mousedown(handleMouseDown);
-	$(".skill").mouseup(handleMouseUp);
-	$(".skillTree").bind("contextmenu", function() { return false; });
-	$(".actionSkill").mousedown(handleMouseDown);
-	$(".actionSkill").mouseup(handleMouseUp);
-	$(".actionSkills").bind("contextmenu", function() { return false; });
+	$(".skill, .actionSkill, .skillTree").off();
+	$(".skill, .actionSkill").mousedown(handleMouseDown);
+	$(".skill, .actionSkill").mouseup(handleMouseUp);
+	$(".skillTree, .actionSkill").bind("contextmenu", function() { return false; });
 	if (!finishedLoading) {
 		loadFromHash(1);
 	}
@@ -145,8 +143,9 @@ function checkLongTouch(fromTimer) {
 			for (let i = 0; i < 4; i++) {
 				updatePoints(lastTouched, -1);
 			}
+		} else {
+			updatePoints(lastTouched, 1);
 		}
-		updatePoints(lastTouched, 1);
 		lastTouched = null;
 	}
 }
