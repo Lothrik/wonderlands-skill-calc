@@ -313,14 +313,6 @@ em {
 	text-align: justify;
 }
 
-#primaryClassFeat {
-	padding-right: 10px;
-}
-
-#secondaryClassFeat {
-	padding-left: 10px;
-}
-
 #summarySpacer {
 	height: 20px;
 }
@@ -372,6 +364,39 @@ em {
 	color: red;
 }
 
+/* The only thing this is actually used for is Elemental Damage, which is actually gold in-game.. I think this is better though. */
+.description .rainbow, #summary .rainbow {
+    background: linear-gradient(
+        90deg,
+        rgb(255, 0, 0) 0%,
+        rgb(255, 154, 0) 10%,
+        rgb(208, 222, 33) 20%,
+        rgb(79, 220, 74) 30%,
+        rgb(63, 218, 216) 40%,
+        rgb(47, 201, 226) 50%,
+        rgb(28, 127, 238) 60%,
+        rgb(95, 21, 242) 70%,
+        rgb(186, 12, 248) 80%,
+        rgb(251, 7, 217) 90%,
+        rgb(255, 0, 0) 100%
+    );
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	animation: rainbow_animation 4s linear 0s infinite forwards;
+	background-size: 200% 100%;
+	text-shadow: none;
+}
+
+@keyframes rainbow_animation {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 200% 0;
+    }
+}
+
 .description .gold, #summary .gold {
 	color: gold;
 }
@@ -382,6 +407,10 @@ em {
 
 .description .cyan, #summary .cyan {
 	color: #0ff;
+}
+
+.description .blue, #summary .blue {
+	color: #08f;
 }
 
 .description .red, #summary .red {

@@ -93,8 +93,8 @@ function setClass(event) {
 			$("#primaryClassFeat").css({ "padding": "0px", "max-width": "850px" });
 			$("#secondaryClassFeat").css({ "padding": "0px" });
 		} else {
-			$("#primaryClassFeat").css({ "padding": "", "max-width": "" });
-			$("#secondaryClassFeat").css({ "padding": "", "max-width": "" });
+			$("#primaryClassFeat").css({ "padding": "0 10px 0 0", "max-width": "" });
+			$("#secondaryClassFeat").css({ "padding": "0 0 0 10px", "max-width": "" });
 		}
 	}
 }
