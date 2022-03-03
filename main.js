@@ -227,7 +227,9 @@ function updateActionSkills() {
 		actionSkillNames[index] = $(element).text();
 	});
 	$(".actionSkill > img").each(function(index, element) {
-		$(element).after('<div class="label">' + actionSkillNames[index] + '</div>');
+		if ($(".actionSkill:eq(" + index + ") > .label").length === 0) {
+			$(element).after('<div class="label">' + actionSkillNames[index] + '</div>');
+		}
 	});
 }
 
