@@ -222,6 +222,13 @@ function updateActionSkills() {
 			$(this).addClass(p < m ? "partial" : "full");
 		}
 	});
+	let actionSkillNames = [];
+	$(".actionSkill > .description > h2").each(function(index, element) {
+		actionSkillNames[index] = $(element).text();
+	});
+	$(".actionSkill > img").each(function(index, element) {
+		$(element).after('<div class="label">' + actionSkillNames[index] + '</div>');
+	});
 }
 
 function updatePassiveSkills(treeHandle) {
@@ -277,14 +284,14 @@ function updateStats() {
 			descriptions += '<div class="skillText">';
 			let description = $(this).children(".description").html().replace("<h2>", "<strong>").replace("</h2>", " " + p + ':</strong><div class="descriptionText">').split(["<br><br>", "<br>"]);
 			
-			description.forEach(function(item, index) {
-				if (item.length > 0) {
-					if (item[item.length-1] === ".") {
-						item += " ";
+			description.forEach(function(element, index) {
+				if (element.length > 0) {
+					if (element[element.length-1] === ".") {
+						element += " ";
 					} else {
-						item += ". ";
+						element += ". ";
 					}
-					descriptions += item;
+					descriptions += element;
 				}
 			});
 			descriptions += "</div></div>";
@@ -355,5 +362,5 @@ $(document).ready(function () {
 	loadFromHash(0);
 	$("#primaryClassSelector").trigger("change");
 	$("#secondaryClassSelector").trigger("change");
-	setTimeout(function() { finishedLoading = true; }, 1000);
+	setTimeout(function() { finishedLoading = true; }, 2500);
 });
