@@ -99,7 +99,7 @@ em {
 #errorMessage {
 	margin: auto;
 	padding: 8pt;
-	border: 1pt solid #fff;
+	border: 1px solid #fff;
 	transform: translateY(50%);
 }
 
@@ -247,7 +247,7 @@ em {
 	width: 225pt;
 	z-index: 21;
 	background-color: rgba(0, 0, 0, 0.75);
-	border: 1pt solid #fff;
+	border: 1px solid #fff;
 	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 	color: #fff;
 	padding: 0 0.25em 0.5em;
