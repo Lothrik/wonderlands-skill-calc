@@ -19,11 +19,6 @@ body {
 	text-align: center;
 }
 
-::-moz-selection {
-	color: #fff;
-	background: #fbb406;
-}
-
 ::selection {
 	color: #fff;
 	background: #fbb406;
@@ -236,10 +231,6 @@ em {
 
 .totalPoints {
 	text-align: right;
-}
-
-.push1 {
-	margin-left: 58px;
 }
 
 .partial .perLevel, .full .perLevel, .hidden {
@@ -459,21 +450,6 @@ em {
 
 .red .className {
 	color: #a93640;
-}
-
-.biglink {
-	display: inline-block;
-	color: inherit;
-	padding: 1em;
-	margin: 10px;
-	background: rgba(0, 0, 0, 0.5);
-	border: 2px solid #fff;
-	text-decoration: none;
-}
-
-.biglink:hover {
-	background: #000;
-	text-decoration: underline;
 }
 
 .unavailable {
