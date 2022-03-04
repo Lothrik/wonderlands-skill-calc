@@ -64,15 +64,11 @@ function setClass(event) {
 		classColor = "red";
 	}
 	if (this.id == "primaryClassSelector") {
-		$("#primaryActionSkills").load("classes/" + className + ".html .actionSkill", updateClassSelection);
-		$("#primaryClassFeat").load("classes/" + className + ".html .classFeat", updateClassSelection);
-		$("#primaryTree").load("classes/" + className +".html .skillTree", updateClassSelection);
+		rebuildHTML(className, ["#primaryActionSkills", "#primaryClassFeat", "#primaryTree"]);
 		$("#primaryTree").removeClass("red green blue").addClass(classColor);
 		$("#primaryClassName").text(classNameFull);
 	} else {
-		$("#secondaryActionSkills").load("classes/" + className + ".html .actionSkill", updateClassSelection);
-		$("#secondaryClassFeat").load("classes/" + className + ".html .classFeat", updateClassSelection);
-		$("#secondaryTree").load("classes/" + className + ".html .skillTree", updateClassSelection);
+		rebuildHTML(className, ["#secondaryActionSkills", "#secondaryClassFeat", "#secondaryTree"]);
 		$("#secondaryTree").removeClass("red green blue").addClass(classColor);
 		$("#secondaryClassName").text(classNameFull);
 	}
@@ -97,6 +93,21 @@ function setClass(event) {
 			$("#secondaryClassFeat").css({ "padding": "0 0 0 10px", "max-width": "" });
 		}
 	}
+}
+
+function rebuildHTML(className, targetElements) {
+	$.get("classes/" + className + ".html", function(data) {
+		$.each(["actionSkill", "classFeat", "skillTree"], function(index, key) {
+			let constructedHTML = "";
+			$(data).each(function(_, htmlFragment) {
+				if ($(htmlFragment).attr("class") == key) {
+					constructedHTML += $(htmlFragment)[0].outerHTML;
+				}
+			});
+			$(targetElements[index]).html(constructedHTML);
+		});
+		updateClassSelection();
+	}, "html");
 }
 
 function updateClassSelection() {
