@@ -67,14 +67,14 @@ function updateFeatTable() {
 		$("#featSummaryHeader").text("List of Feats");
 		$("#summarySpacer").removeClass("hidden");
 		if ($("#primaryClassSelector").val() == "none") {
-			$("#primaryClassFeat").css({ "padding": "0px" });
-			$("#secondaryClassFeat").css({ "padding": "0px", "max-width": "850px" });
+			$("#primaryClassFeat").css({ "padding": "0pt" });
+			$("#secondaryClassFeat").css({ "padding": "0pt", "max-width": "600pt" });
 		} else if ($("#secondaryClassSelector").val() == "none") {
-			$("#primaryClassFeat").css({ "padding": "0px", "max-width": "850px" });
-			$("#secondaryClassFeat").css({ "padding": "0px" });
+			$("#primaryClassFeat").css({ "padding": "0pt", "max-width": "600pt" });
+			$("#secondaryClassFeat").css({ "padding": "0pt" });
 		} else {
-			$("#primaryClassFeat").css({ "padding": "0 10px 0 0", "max-width": "" });
-			$("#secondaryClassFeat").css({ "padding": "0 0 0 10px", "max-width": "" });
+			$("#primaryClassFeat").css({ "padding": "0 8pt 0 0", "max-width": "" });
+			$("#secondaryClassFeat").css({ "padding": "0 0 0 8pt", "max-width": "" });
 		}
 	}
 }
