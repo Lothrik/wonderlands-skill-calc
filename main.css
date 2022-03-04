@@ -1,23 +1,21 @@
 html, body {
-	min-height: 100vh;
-	min-width: 856px;
-	margin: 0;
-	padding: 0;
-}
-
-html {
-	overflow-y: scroll;
+	height: 100vh;
+	min-width: 440px;
+	display: flex;
+	flex-direction: column;
 }
 
 body {
-	display: flex;
-	flex-direction: column;
 	background: #333 url("images/background.jpg") no-repeat fixed center center;
 	background-size: cover;
 	color: #fff;
 	font: 15pt/17pt Homenaje, Impact, sans-serif;
 	cursor: default;
 	text-align: center;
+}
+
+body > * {
+	flex-shrink: 0;
 }
 
 ::selection {
@@ -42,26 +40,13 @@ em {
 	margin-bottom: 8pt;
 }
 
-#header * {
-	position: relative;
-	z-index: 11;
-}
-
 #topLinks {
-	text-align: center;
-	line-height: 1.2em;
-	font-size: 50%;
-	z-index: 20;
+	padding: 4pt;
+	font-size: 60%;
 }
 
 #permaLink {
 	color: #fff;
-	padding: 0.5em 0;
-	-moz-user-select: text;
-	-webkit-user-select: text;
-	-ms-user-select: text;
-	-o-user-select: text;
-	user-select: text;
 }
 
 #resetLink {
@@ -72,7 +57,7 @@ em {
 	color: #0f0;
 }
 
-#header, #summary, #errorMessage {
+#header, #summaryContainer, #errorMessage {
 	background-color: rgba(0, 0, 0, 0.5);
 	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
@@ -98,15 +83,14 @@ em {
 }
 
 #errorMessage {
-	margin: auto;
+	display: inline-block;
 	padding: 8pt;
 	border: 1px solid #fff;
 	transform: translateY(50%);
 }
 
 #actionSkills {
-	margin: auto;
-	min-height: 92px;
+	font-size: 0; /* inline-block spacing hack */
 	-moz-user-select: none;
 	-webkit-user-select: none;
 	-ms-user-select: none;
@@ -114,44 +98,51 @@ em {
 	user-select: none;
 }
 
+#actionSkills > * {
+	font: 15pt/17pt Homenaje, Impact, sans-serif;
+}
+
 #primaryActionSkills, #secondaryActionSkills {
-	float: left;
+	display: inline-block;
 }
 
 .actionSkill {
 	display: inline-block;
 	position: relative;
 	cursor: pointer;
+	margin: 0 2pt 0;
 }
 
 #skillTrees {
-	margin: auto;
-	min-height: 416px;
+	font-size: 0; /* inline-block spacing hack */
 	-moz-user-select: none;
 	-webkit-user-select: none;
 	-ms-user-select: none;
 	-o-user-select: none;
 	user-select: none;
+	flex-grow: 9999;
 }
 
 #primaryTree, #secondaryTree {
-	float: left;
+	font: 15pt/17pt Homenaje, Impact, sans-serif;
+	display: inline-block;
+	margin: 0 2pt 0 2pt;
 }
 
-#primaryTree .skillTree, #secondaryTree .skillTree {
-	width: 247px;
+.skillTree {
+	width: 207px;
+	height: 396px;
 }
 
 .skills {
 	width: 174px;
-	margin: 0 auto;
-	text-align: center;
-	padding-top: 20px;
+	display: inline-block;
+	margin-top: 20px;
 }
 
 .bgLayer {
 	position: absolute;
-	width: 247px;
+	width: 207px;
 	height: 396px;
 }
 
@@ -233,11 +224,11 @@ em {
 }
 
 .partial .perLevel, .full .perLevel, .hidden {
-	display: none;
+	display: none!important;
 }
 
 .disabled {
-	visibility: hidden;
+	visibility: hidden!important;
 	pointer-events: none;
 }
 
@@ -303,19 +294,24 @@ em {
 	border-bottom: 1px solid #fff;
 }
 
-#summary {
-	display: flex;
+#classSelectors {
+	margin: 8pt;
+}
+
+#summaryContainer {
 	flex-grow: 1;
-	flex-direction: column;
-	position: relative;
-	margin: 10px 0 0;
-	padding: 8px 0;
+	margin-top: auto;
+	padding: 8pt 8pt 0;
+}
+
+#summaryContainer * {
+	margin: auto;
 	line-height: 1.1;
-	z-index: 10;
+	max-width: 640pt;
 }
 
 #primaryClassFeat, #secondaryClassFeat {
-	max-width: 292pt;
+	max-width: calc(50% - 8pt);
 	float: left;
 	border-top: 1px solid #fff;
 	text-align: justify;
@@ -326,21 +322,17 @@ em {
 }
 
 #summarySpacer {
+	clear: both;
 	height: 15pt;
 }
 
-#featSummaryContainer, #skillSummaryContainer {
-	max-width: 640pt;
-	margin: 0 auto;
-}
-
-#skillSummaryContainer .skillText {
+#summaryContainer .skillText {
 	clear: both;
 	border-top: 1px solid #fff;
 	text-align: left;
 }
 
-#skillSummaryContainer strong {
+#summaryContainer strong {
 	display: block;
 	font-weight: normal;
 	font-size: 120%;
@@ -350,20 +342,20 @@ em {
 	text-align: right;
 }
 
-#skillSummaryContainer div.descriptionText {
+#summaryContainer div.descriptionText {
 	margin: 3pt 0 3pt 160pt;
 	text-align: justify;
 }
 
-#skillSummaryContainer .perLevel {
+#summaryContainer .perLevel {
 	display: none;
 }
 
 #footer {
-	font-size: 10pt;
+	font-size: 62%;
 	text-transform: uppercase;
 	padding-top: 12pt;
-	margin-top: auto;
+	margin-bottom: 4pt;
 	color: rgba(255, 255, 255, 0.5);
 }
 
@@ -407,27 +399,27 @@ em {
     }
 }
 
-.description .gold, #summary .gold {
+.description .gold, #summaryContainer .gold {
 	color: gold;
 }
 
-.description .purple, #summary .purple {
+.description .purple, #summaryContainer .purple {
 	color: #8b008b;
 }
 
-.description .blue, #summary .blue {
+.description .blue, #summaryContainer .blue {
 	color: #08f;
 }
 
-.description .red, #summary .red {
+.description .red, #summaryContainer .red {
 	color: red;
 }
 
-.description .orange, #summary .orange, .partial, .partial .points {
+.description .orange, #summaryContainer .orange, .partial, .partial .points {
 	color: #f80;
 }
 
-.description .green, #summary .green, .full, .full .points {
+.description .green, #summaryContainer .green, .full, .full .points {
 	color: #0d0;
 }
 
@@ -468,13 +460,19 @@ em {
 }
 
 .stamp {
+	color: orangered;
+	font-size: 80%;
 	width: 0;
 	height: 0;
 	overflow: visible;
-	color: orangered;
-	font-size: 80%;
 	display: inline-block;
 	position: absolute;
-	transform: rotate(10deg);
-	margin: 0.6em 0 0 0.2em;
+	transform: rotate(12deg);
+	margin: 0.2em 0 0 0.2em;
+}
+
+@media (max-width: 700px) {
+	.stamp {
+		display: none;
+	}
 }
