@@ -323,6 +323,10 @@ em {
 	text-align: justify;
 }
 
+.classFeat {
+	padding-top: 4px;
+}
+
 #summarySpacer {
 	height: 20px;
 }
@@ -344,14 +348,13 @@ em {
 	font-size: 120%;
 	float: left;
 	clear: left;
-	width: 220px;
-	margin-right: -220px;
+	width: 200px;
 	text-align: right;
 }
 
 #skillSummaryContainer div.descriptionText {
-	margin: 4px 0 4px 230px;
-	padding: 0;
+	margin: 4px 0 4px 210px;
+	text-align: justify;
 }
 
 #skillSummaryContainer .perLevel {
