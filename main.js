@@ -177,7 +177,7 @@ function updatePoints(skillHandle, change) {
 			if (change == 1) {
 				if ($(this).is(skillHandle)) {
 					$(this).attr("data-points", 1);
-				} else {	
+				} else {
 					$(this).attr("data-points", 0);
 				}
 			} else if ($(this).is(skillHandle)) {
@@ -239,7 +239,7 @@ function updateActionSkills() {
 	});
 	$(".actionSkill > img").each(function(index, element) {
 		if ($(".actionSkill:eq(" + index + ") > .label").length === 0) {
-			$(element).after('<div class="label">' + actionSkillNames[index] + '</div>');
+			$(element).after('<div class="label">' + actionSkillNames[index] + "</div>");
 		}
 	});
 }
@@ -277,6 +277,8 @@ function updatePassiveSkills(treeHandle) {
 					$(this).text((sum > 0 ? plus : (sum == 0 ? "" : "-")) + sum + ($(this).attr("data-pct") ? "%" : ""));
 				}
 			});
+			let skillName = $(this).find(".description h2").text();
+			$(this).children(".points").after('<div class="label">' + skillName.split(" ").map((n) => n[0]).join("") + "</div>");
 		});
 		$(this).attr("data-total", tierTotal);
 	});
@@ -296,7 +298,6 @@ function updateStats() {
 		if (p > 0) {
 			descriptions += '<div class="skillText">';
 			let description = $(this).children(".description").html().replace("<h2>", "<strong>").replace("</h2>", " " + p + ':</strong><div class="descriptionText">').split(["<br><br>", "<br>"]);
-			
 			description.forEach(function(element, index) {
 				if (element.length > 0) {
 					if (element[element.length-1] === ".") {
