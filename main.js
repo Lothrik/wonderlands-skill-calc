@@ -277,8 +277,10 @@ function updatePassiveSkills(treeHandle) {
 					$(this).text((sum > 0 ? plus : (sum == 0 ? "" : "-")) + sum + ($(this).attr("data-pct") ? "%" : ""));
 				}
 			});
-			let skillName = $(this).find(".description h2").text();
-			$(this).children(".points").after('<div class="label">' + skillName.split(" ").map((n) => n[0]).join("") + "</div>");
+			if ($(this).find(".label").length === 0) {
+				let skillName = $(this).find(".description h2").text();
+				$(this).children(".points").after('<div class="label">' + skillName.split(" ").map((n) => n[0]).join("") + "</div>");
+			}
 		});
 		$(this).attr("data-total", tierTotal);
 	});
