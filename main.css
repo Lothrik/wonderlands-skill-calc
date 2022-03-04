@@ -362,6 +362,7 @@ em {
 #footer {
 	font-size: 10pt;
 	text-transform: uppercase;
+	padding-top: 12pt;
 	margin-top: auto;
 	color: rgba(255, 255, 255, 0.5);
 }
