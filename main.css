@@ -75,6 +75,7 @@ em {
 #header h1 {
 	color: #ffde09;
 	font-size: 140%;
+	margin: 0 auto;
 }
 
 #header h1 em {
@@ -326,7 +327,7 @@ em {
 	height: 20px;
 }
 
-#featSummaryHeader, #featSummaryContainer, #skillSummaryContainer {
+#featSummaryContainer, #skillSummaryContainer {
 	max-width: 850px;
 	margin: 0 auto;
 }
