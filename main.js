@@ -1,3 +1,22 @@
+// splitMulti allows String.prototype.split to process multiple delimiters at once
+function splitMulti(str, tokens) {
+	var tempChar = tokens[0];
+	for(var i = 1; i < tokens.length; i++){
+		str = str.split(tokens[i]).join(tempChar);
+	}
+	str = str.split(tempChar);
+	return str;
+}
+var splitOrig = String.prototype.split;
+String.prototype.split = function() {
+	if(arguments[0].length > 0) {
+		if(Object.prototype.toString.call(arguments[0]) == "[object Array]") {
+			return splitMulti(this, arguments[0]);
+		}
+	}
+	return splitOrig.apply(this, arguments);
+};
+
 // event handlers
 var mousedownBegin;
 var lastTouched;
