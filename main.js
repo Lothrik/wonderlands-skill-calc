@@ -1,3 +1,4 @@
+// add BidirectionalMap functionality to String.prototype.split via splitMulti
 class BidirectionalMap {
 	fwdMap = {}
 	revMap = {}
@@ -22,7 +23,25 @@ class BidirectionalMap {
 		this.revMap[pair[1]] = pair[0]
 	}
 }
+function splitMulti(str, tokens) {
+	var tempChar = tokens[0];
+	for(var i = 1; i < tokens.length; i++){
+		str = str.split(tokens[i]).join(tempChar);
+	}
+	str = str.split(tempChar);
+	return str;
+}
+var splitOrig = String.prototype.split;
+String.prototype.split = function() {
+	if(arguments[0].length > 0) {
+		if(Object.prototype.toString.call(arguments[0]) == "[object Array]") {
+			return splitMulti(this, arguments[0]);
+		}
+	}
+	return splitOrig.apply(this, arguments);
+};
 
+// event handlers
 const playerClasses = new BidirectionalMap({
 	none: 0,
 	brrzerker: 1,
@@ -32,27 +51,10 @@ const playerClasses = new BidirectionalMap({
 	sporewarden: 5,
 	stabbomancer: 6,
 });
-
-function splitMulti(str, tokens) {
-	var tempChar = tokens[0];
-	for(var i = 1; i < tokens.length; i++){
-		str = str.split(tokens[i]).join(tempChar);
-	}
-	str = str.split(tempChar);
-	return str;
-}
-
-var splitOrig = String.prototype.split;
-String.prototype.split = function (){
-	if(arguments[0].length > 0){
-		if(Object.prototype.toString.call(arguments[0]) == "[object Array]") {
-			return splitMulti(this, arguments[0]);
-		}
-	}
-	return splitOrig.apply(this, arguments);
-};
-
-function setClass(event) {
+var mousedownBegin;
+var lastTouched;
+var touchTimer;
+function handleClassSelection(event) {
 	let className = playerClasses.get(this.selectedIndex);
 	let classNameFull = this.options[this.selectedIndex].text;
 	let classColor = "";
@@ -94,7 +96,6 @@ function setClass(event) {
 		}
 	}
 }
-
 function rebuildHTML(className, targetElements) {
 	$.get("classes/" + className + ".html", function(data) {
 		$.each(["actionSkill", "classFeat", "skillTree"], function(index, key) {
@@ -106,33 +107,21 @@ function rebuildHTML(className, targetElements) {
 			});
 			$(targetElements[index]).html(constructedHTML);
 		});
-		updateClassSelection();
+		$(".skill, .actionSkill, .skillTree").off();
+		$(".skill, .actionSkill").mousedown(handleMouseDown);
+		$(".skill, .actionSkill").mouseup(handleMouseUp);
+		$(".skillTree, .actionSkill").bind("contextmenu", function() { return false; });
+		if (!finishedLoading) {
+			loadFromHash(1);
+		}
+		updateActionSkills();
+		$(".skills").each(function(index) {
+			updatePassiveSkills($(this));
+		});
+		updateStats();
+		saveToHash(finishedLoading ? 2 : 0);
 	}, "html");
 }
-
-function updateClassSelection() {
-	$(".skill, .actionSkill, .skillTree").off();
-	$(".skill, .actionSkill").mousedown(handleMouseDown);
-	$(".skill, .actionSkill").mouseup(handleMouseUp);
-	$(".skillTree, .actionSkill").bind("contextmenu", function() { return false; });
-	if (!finishedLoading) {
-		loadFromHash(1);
-	}
-	updateActionSkills();
-	$(".skills").each(function(index) {
-		updatePassiveSkills($(this));
-	});
-	updateStats();
-	saveToHash(finishedLoading ? 2 : 0);
-}
-
-var mousedownBegin;
-var lastTouched;
-var touchTimer;
-
-var primaryClassEventListener = $("#primaryClassSelector").on("change", setClass);
-var secondaryClassEventListener = $("#secondaryClassSelector").on("change", setClass);
-
 function handleMouseDown(event) {
 	switch (event.which) {
 		case 1: // left mouse button
@@ -144,7 +133,6 @@ function handleMouseDown(event) {
 	}
 	event.preventDefault();
 }
-
 function handleMouseUp(event) {
 	switch (event.which) {
 		case 1: // left mouse button
@@ -157,7 +145,6 @@ function handleMouseUp(event) {
 	}
 	event.preventDefault();
 }
-
 function checkLongTouch(fromTimer) {
 	if (lastTouched !== null) {
 		if (fromTimer === true) {
@@ -171,6 +158,7 @@ function checkLongTouch(fromTimer) {
 	}
 }
 
+// core skill calculator functions
 function updatePoints(skillHandle, change) {
 	if (skillHandle[0].classList.contains("actionSkill")) {
 		$(".actionSkill").each(function () {
@@ -222,7 +210,6 @@ function updatePoints(skillHandle, change) {
 	updateStats();
 	saveToHash(1);
 }
-
 function updateActionSkills() {
 	$(".actionSkill").each(function () {
 		let p = parseInt($(this).attr("data-points"));
@@ -243,7 +230,6 @@ function updateActionSkills() {
 		}
 	});
 }
-
 function updatePassiveSkills(treeHandle) {
 	let totalPoints = 0;
 	$(treeHandle).find(".tier").each(function() {
@@ -287,7 +273,6 @@ function updatePassiveSkills(treeHandle) {
 	$(treeHandle).find(".totalPoints").text(totalPoints);
 	$(treeHandle).parent().children(".color").height(Math.min(80 + totalPoints * 59.0 / 5 + (totalPoints > 25 ? 21 : 0), 396));
 }
-
 function updateStats() {
 	let total = 0;
 	$(".totalPoints").each(function() {
@@ -317,12 +302,12 @@ function updateStats() {
 	$("#skillSummaryContainer").html(descriptions);
 }
 
+// url hash functions
 function saveToHash(mode) {
 	let url = window.location.href.split("#")[0] + "#" + constructHash(mode);
 	$("a.permalink").attr("href", url);
 	window.location.replace(url);
 }
-
 function loadFromHash(mode) {
 	if (window.location.hash != "") {
 		let curHash = decompressHash();
@@ -352,7 +337,6 @@ function loadFromHash(mode) {
 		}
 	}
 }
-
 function constructHash(mode) {
 	let curHash = decompressHash();
 	let newHash;
@@ -381,7 +365,6 @@ function constructHash(mode) {
 	}
 	return compressHash(newHash);
 }
-
 function compressHash(rawHash) {
 	console.log("compressing " + rawHash);
 	if (LZString) {
@@ -392,7 +375,6 @@ function compressHash(rawHash) {
 	}
 	return rawHash;
 }
-
 function decompressHash() {
 	let rawHash = window.location.hash.replace("#", "");
 	console.log("decompressing " + rawHash);
@@ -405,10 +387,12 @@ function decompressHash() {
 	return rawHash;
 }
 
+// finalize the page once DOM has loaded
 var finishedLoading = false;
-
 $(document).ready(function () {
 	loadFromHash(0);
+	$("#primaryClassSelector").on("change", handleClassSelection);
+	$("#secondaryClassSelector").on("change", handleClassSelection);
 	$("#primaryClassSelector").trigger("change");
 	$("#secondaryClassSelector").trigger("change");
 	setTimeout(function() {
