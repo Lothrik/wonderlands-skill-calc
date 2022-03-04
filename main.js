@@ -1,80 +1,43 @@
-// add BidirectionalMap functionality to String.prototype.split via splitMulti
-class BidirectionalMap {
-	fwdMap = {}
-	revMap = {}
-
-	constructor(map) {
-		this.fwdMap = { ...map }
-		this.revMap = Object.keys(map).reduce(
-				(acc, cur) => ({
-					...acc,
-					[map[cur]]: cur,
-				}),
-				{}
-		)
-	}
-
-	get(key) {
-		return this.fwdMap[key] || this.revMap[key]
-	}
-
-	add(pair) {
-		this.fwdMap[pair[0]] = pair[1]
-		this.revMap[pair[1]] = pair[0]
-	}
-}
-function splitMulti(str, tokens) {
-	var tempChar = tokens[0];
-	for(var i = 1; i < tokens.length; i++){
-		str = str.split(tokens[i]).join(tempChar);
-	}
-	str = str.split(tempChar);
-	return str;
-}
-var splitOrig = String.prototype.split;
-String.prototype.split = function() {
-	if(arguments[0].length > 0) {
-		if(Object.prototype.toString.call(arguments[0]) == "[object Array]") {
-			return splitMulti(this, arguments[0]);
-		}
-	}
-	return splitOrig.apply(this, arguments);
-};
-
 // event handlers
-const playerClasses = new BidirectionalMap({
-	none: 0,
-	brrzerker: 1,
-	clawbringer: 2,
-	graveborn: 3,
-	spellshot: 4,
-	sporewarden: 5,
-	stabbomancer: 6,
-});
 var mousedownBegin;
 var lastTouched;
 var touchTimer;
 function handleClassSelection(event) {
-	let className = playerClasses.get(this.selectedIndex);
-	let classNameFull = this.options[this.selectedIndex].text;
-	let classColor = "";
-	if (className == "sporewarden" || className == "clawbringer") {
-		classColor = "green";
-	} else if(className == "brrzerker" || className == "spellshot") {
-		classColor = "blue";
-	} else if(className == "stabbomancer" || className == "graveborn") {
-		classColor = "red";
-	}
 	if (this.id == "primaryClassSelector") {
-		rebuildHTML(className, ["#primaryActionSkills", "#primaryClassFeat", "#primaryTree"]);
-		$("#primaryTree").removeClass("red green blue").addClass(classColor);
-		$("#primaryClassName").text(classNameFull);
+		rebuildHTML($(this).val(), ["#primaryActionSkills", "#primaryClassFeat", "#primaryTree"]);
 	} else {
-		rebuildHTML(className, ["#secondaryActionSkills", "#secondaryClassFeat", "#secondaryTree"]);
-		$("#secondaryTree").removeClass("red green blue").addClass(classColor);
-		$("#secondaryClassName").text(classNameFull);
+		rebuildHTML($(this).val(), ["#secondaryActionSkills", "#secondaryClassFeat", "#secondaryTree"]);
 	}
-	if ($("#primaryClassName").text() == "None" && $("#secondaryClassName").text() == "None") {
+}
+function updateTreeBackground() {
+	$.each([$("#primaryClassSelector option:selected"), $("#secondaryClassSelector option:selected")], function (index, classSelector) {
+		let treeBackground = "";
+		switch (classSelector.val()) {
+			default:
+			case "sporewarden":
+			case "clawbringer":
+				treeBackground = "green";
+				break;
+			case "brrzerker":
+			case "spellshot":
+				treeBackground = "blue";
+				break;
+			case "stabbomancer":
+			case "graveborn":
+				treeBackground = "red";
+				break;
+		}
+		if (index === 0) {
+			$("#primaryTree").removeClass("red green blue").addClass(treeBackground);
+			$("#primaryClassName").text(classSelector.text());
+		} else {
+			$("#secondaryTree").removeClass("red green blue").addClass(treeBackground);
+			$("#secondaryClassName").text(classSelector.text());
+		}
+	});
+}
+function updateFeatTable() {
+	if ($("#primaryClassSelector").val() == "none" && $("#secondaryClassSelector").val() == "none") {
 		$("#errorMessage").text("No class selected.").removeClass("hidden");
 		$("#featSummaryHeader").text("");
 		$("#primaryClassFeat").html("");
@@ -84,10 +47,10 @@ function handleClassSelection(event) {
 		$("#errorMessage").addClass("hidden");
 		$("#featSummaryHeader").text("List of Feats");
 		$("#summarySpacer").removeClass("hidden");
-		if ($("#primaryClassName").text() == "None") {
+		if ($("#primaryClassSelector").val() == "none") {
 			$("#primaryClassFeat").css({ "padding": "0px" });
 			$("#secondaryClassFeat").css({ "padding": "0px", "max-width": "850px" });
-		} else if ($("#secondaryClassName").text() == "None") {
+		} else if ($("#secondaryClassSelector").val() == "none") {
 			$("#primaryClassFeat").css({ "padding": "0px", "max-width": "850px" });
 			$("#secondaryClassFeat").css({ "padding": "0px" });
 		} else {
@@ -120,7 +83,42 @@ function rebuildHTML(className, targetElements) {
 		});
 		updateStats();
 		saveToHash(finishedLoading ? 2 : 0);
+		updateTreeBackground();
+		updateFeatTable();
 	}, "html");
+}
+function restoreHTML() {
+	let targetArray = [["#primaryActionSkills", "#primaryClassFeat", "#primaryTree"], ["#secondaryActionSkills", "#secondaryClassFeat", "#secondaryTree"]];
+	$.each([$("#primaryClassSelector").val(), $("#secondaryClassSelector").val()], function (targetIdx, className) {
+		$.get("classes/" + className + ".html", function(data) {
+			$.each(["actionSkill", "classFeat", "skillTree"], function(index, key) {
+				let constructedHTML = "";
+				$(data).each(function(_, htmlFragment) {
+					if ($(htmlFragment).attr("class") == key) {
+						constructedHTML += $(htmlFragment)[0].outerHTML;
+					}
+				});
+				$(targetArray[targetIdx][index]).html(constructedHTML);
+			});
+			$(".skill, .actionSkill, .skillTree").off();
+			$(".skill, .actionSkill").mousedown(handleMouseDown);
+			$(".skill, .actionSkill").mouseup(handleMouseUp);
+			$(".skillTree, .actionSkill").bind("contextmenu", function() { return false; });
+			loadFromHash(2);
+			updateActionSkills();
+			$(".skills").each(function(index) {
+				updatePassiveSkills($(this));
+			});
+			updateStats();
+			updateTreeBackground();
+			updateFeatTable();
+		}, "html");
+	});
+}
+function handleKeyDown(event) {
+      if (event.keyCode == 90 && event.ctrlKey) {
+		  loadPreviousHashFromUndo();
+	  }
 }
 function handleMouseDown(event) {
 	switch (event.which) {
@@ -303,13 +301,16 @@ function updateStats() {
 }
 
 // url hash functions
+var hashUndoHistory = [];
 function saveToHash(mode) {
-	let url = window.location.href.split("#")[0] + "#" + constructHash(mode);
-	$("a.permalink").attr("href", url);
-	window.location.replace(url);
+	let newHash = constructHash(mode);
+	let newURL = window.location.href.split("#")[0] + "#" + newHash;
+	$("#permaLink").attr("href", newURL);
+	window.location.replace(newURL);
+	addHashToUndo(newHash);
 }
 function loadFromHash(mode) {
-	if (window.location.hash != "") {
+	if (window.location.hash.length > 0) {
 		let curHash = decompressHash();
 		// classes have 2 slots: [0, 1]
 		if (mode == 0 || mode == 2) {
@@ -365,8 +366,26 @@ function constructHash(mode) {
 	}
 	return compressHash(newHash);
 }
+function addHashToUndo(oldHash) {
+	if (hashUndoHistory[hashUndoHistory.length - 1] !== oldHash) {
+		if (hashUndoHistory.push(oldHash) > 50) {
+			hashUndoHistory.shift();
+		}
+	}
+}
+function loadPreviousHashFromUndo() {
+	hashUndoHistory.pop();
+	if (hashUndoHistory.length > 0) {
+		let newHash = hashUndoHistory[hashUndoHistory.length - 1];
+		let newURL = window.location.href.split("#")[0] + "#" + newHash;
+		$("#permaLink").attr("href", newURL);
+		window.location.replace(newURL);
+		loadFromHash(2);
+		restoreHTML();
+	}
+	return false;
+}
 function compressHash(rawHash) {
-	console.log("compressing " + rawHash);
 	if (LZString) {
 		let compressedHash = LZString.compressToEncodedURIComponent(rawHash);
 		if (compressedHash) {
@@ -377,7 +396,6 @@ function compressHash(rawHash) {
 }
 function decompressHash() {
 	let rawHash = window.location.hash.replace("#", "");
-	console.log("decompressing " + rawHash);
 	if (LZString) {
 		let decompressedHash = LZString.decompressFromEncodedURIComponent(rawHash);
 		if (decompressedHash) {
@@ -391,6 +409,7 @@ function decompressHash() {
 var finishedLoading = false;
 $(document).ready(function () {
 	loadFromHash(0);
+	$(document).on("keydown", handleKeyDown);
 	$("#primaryClassSelector").on("change", handleClassSelection);
 	$("#secondaryClassSelector").on("change", handleClassSelection);
 	$("#primaryClassSelector").trigger("change");

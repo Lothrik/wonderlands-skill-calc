@@ -11,7 +11,7 @@
 </head>
 <body>
 	<div id="header">
-		<div class="links"><a onclick="location.href=location.href.split('#')[0]" href="#" class="reset">reset</a> | <a href="#" class="permalink">Permalink to this build</a></div>
+		<div id="topLinks"><a onclick="location.href=location.href.split('#')[0]" href="#" id="resetLink">Reset</a> | <a onclick="return loadPreviousHashFromUndo()" href="#" id="undoLink">Undo (Ctrl+Z)</a> | <a href="#" id="permaLink">Permalink to this build</a></div>
 		<h1 id="toolName">Wonderlands skill calculator<div class="stamp">&nbsp;(WIP)</div></h1>
 		<h2 id="characterName" class="disabled" contentEditable="true">Character Name</h2>
 		<h3>Level <span id="charLevel">1</span> <span id="primaryClassName">None</span> / <span id="secondaryClassName">None</span></h3>

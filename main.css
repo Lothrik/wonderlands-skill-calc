@@ -46,14 +46,14 @@ em {
 	z-index: 11;
 }
 
-#header .links {
+#topLinks {
 	text-align: center;
 	line-height: 1.2em;
 	font-size: 50%;
 	z-index: 20;
 }
 
-#header .permalink {
+#permaLink {
 	color: #fff;
 	padding: 0.5em 0;
 	-moz-user-select: text;
@@ -63,8 +63,12 @@ em {
 	user-select: text;
 }
 
-#header .reset {
+#resetLink {
 	color: red;
+}
+
+#undoLink {
+	color: #0f0;
 }
 
 #header, #summary, #errorMessage {
@@ -378,7 +382,7 @@ em {
 }
 
 /* The only thing this is used for is Elemental Damage, which is actually gold in-game.. I think this is better though. */
-.description .rainbow, #summary .rainbow {
+.rainbow {
     background: linear-gradient(
         90deg,
         rgb(255, 0, 0) 0%,
@@ -422,7 +426,7 @@ em {
 }
 
 .description .red, #summary .red {
-	color: #f00;
+	color: red;
 }
 
 .description .orange, #summary .orange, .partial, .partial .points {
