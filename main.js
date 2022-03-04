@@ -64,14 +64,14 @@ function setClass(event) {
 		classColor = "red";
 	}
 	if (this.id == "primaryClassSelector") {
-		$("#primaryActionSkills").load("classes/" + className + ".html .actionSkill");
-		$("#primaryClassFeat").load("classes/" + className + ".html .classFeat");
+		$("#primaryActionSkills").load("classes/" + className + ".html .actionSkill", updateClassSelection);
+		$("#primaryClassFeat").load("classes/" + className + ".html .classFeat", updateClassSelection);
 		$("#primaryTree").load("classes/" + className +".html .skillTree", updateClassSelection);
 		$("#primaryTree").removeClass("red green blue").addClass(classColor);
 		$("#primaryClassName").text(classNameFull);
 	} else {
-		$("#secondaryActionSkills").load("classes/" + className + ".html .actionSkill");
-		$("#secondaryClassFeat").load("classes/" + className + ".html .classFeat");
+		$("#secondaryActionSkills").load("classes/" + className + ".html .actionSkill", updateClassSelection);
+		$("#secondaryClassFeat").load("classes/" + className + ".html .classFeat", updateClassSelection);
 		$("#secondaryTree").load("classes/" + className + ".html .skillTree", updateClassSelection);
 		$("#secondaryTree").removeClass("red green blue").addClass(classColor);
 		$("#secondaryClassName").text(classNameFull);
@@ -403,6 +403,5 @@ $(document).ready(function () {
 	}, 100);
 	setTimeout(function() {
 		finishedLoading = true;
-		updateActionSkills();
-	}, 1500);
+	}, 2500);
 });
