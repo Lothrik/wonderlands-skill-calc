@@ -116,9 +116,9 @@ function restoreHTML() {
 	});
 }
 function handleKeyDown(event) {
-      if (event.keyCode == 90 && event.ctrlKey) {
-		  loadPreviousHashFromUndo();
-	  }
+	if (event.keyCode == 90 && event.ctrlKey) {
+		loadPreviousHashFromUndo();
+	}
 }
 function handleMouseDown(event) {
 	switch (event.which) {
@@ -368,7 +368,7 @@ function constructHash(mode) {
 }
 function addHashToUndo(oldHash) {
 	if (hashUndoHistory[hashUndoHistory.length - 1] !== oldHash) {
-		if (hashUndoHistory.push(oldHash) > 50) {
+		if (hashUndoHistory.push(oldHash) > 100) {
 			hashUndoHistory.shift();
 		}
 	}
