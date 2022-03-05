@@ -31,7 +31,7 @@ function handleClassSelection(event) {
 function handleSwitchButton(event) {
 	switch ($(this).text()) {
 		default:
-		case "Switch to Hero Points":
+		case "Switch to Hero Stats":
 			$("#actionSkills").addClass("hidden");
 			$("#skillTrees").addClass("hidden");
 			$("#heroPoints").removeClass("hidden");
@@ -41,7 +41,7 @@ function handleSwitchButton(event) {
 			$("#heroPoints").addClass("hidden");
 			$("#actionSkills").removeClass("hidden");
 			$("#skillTrees").removeClass("hidden");
-			$(this).text("Switch to Hero Points");
+			$(this).text("Switch to Hero Stats");
 			break;
 	}
 }
