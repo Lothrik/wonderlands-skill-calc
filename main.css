@@ -359,7 +359,7 @@ em {
 	margin: 8pt;
 }
 
-#classSelectors option, #classSelectors select, #switchButton {
+option, select, button {
 	border: 1px solid #fff;
 	background-color: #000;
 	color: #fff;
