@@ -102,11 +102,6 @@ em {
 	font-size: 80%;
 }
 
-#characterName {
-	max-width: 300pt;
-	margin: 0 auto;
-}
-
 #alternateContainer {
 	position: relative;
 }
