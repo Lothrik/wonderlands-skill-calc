@@ -21,13 +21,33 @@ String.prototype.split = function() {
 var mousedownBegin;
 var lastTouched;
 var touchTimer;
-function handleClassSelection(event) {
-	if (this.id == "primaryClassSelector") {
-		rebuildHTML($(this).val(), ["#primaryActionSkills", "#primaryClassFeat", "#primaryTree"]);
-	} else {
-		rebuildHTML($(this).val(), ["#secondaryActionSkills", "#secondaryClassFeat", "#secondaryTree"]);
+var backstoryModifiers = {
+	nerd: {
+		strength: -4,
+		dexterity: -2,
+		intelligence: 2,
+		wisdom: 4,
+		constitution: 0,
+		attunement: 0
+	},
+	ratpack: {
+		strength: 0,
+		dexterity: -2,
+		intelligence: 2,
+		wisdom: 0,
+		constitution: -2,
+		attunement: 5
+	},
+	none: {
+		strength: 0,
+		dexterity: 0,
+		intelligence: 0,
+		wisdom: 0,
+		constitution: 0,
+		attunement: 0
 	}
-}
+};
+const heroStatRegex = /[-\+]+([^%]+)%/;
 function handleSwitchButton(event) {
 	switch ($(this).text()) {
 		default:
@@ -45,31 +65,54 @@ function handleSwitchButton(event) {
 			break;
 	}
 }
+function formatHeroStat(statValue) {
+	if (statValue >= 10) {
+		return "+" + (statValue - 10).toFixed(1) + "%";
+	} else {
+		return "-" + (10 - statValue).toFixed(1) + "%";
+	}
+}
 function handleHeroStatSlider(event) {
 	let slider = $(this);
-	let val = slider.val();
-	switch (slider.attr("id")) {
+	let statName = slider.attr("id").slice(0, -6);
+	let statValue = Number(slider.val()) + backstoryModifiers[$("#backstorySelector").val() || "none"][statName];
+	switch (statName) {
 		default:
-		case "strengthSlider":
-			$("#strengthNumber").text(val);
+		case "strength":
+			$("#strengthNumber").text(statValue);
+			$("#strengthText").text($("#strengthText").text().replace(heroStatRegex, formatHeroStat(statValue)));
 			break;
-		case "dexteritySlider":
-			$("#dexterityNumber").text(val);
+		case "dexterity":
+			$("#dexterityNumber").text(statValue);
+			$("#dexterityText").text($("#dexterityText").text().replace(heroStatRegex, formatHeroStat(statValue)));
 			break;
-		case "intelligenceSlider":
-			$("#intelligenceNumber").text(val);
+		case "intelligence":
+			$("#intelligenceNumber").text(statValue);
+			$("#intelligenceText").text($("#intelligenceText").text().replace(heroStatRegex, formatHeroStat(statValue)));
 			break;
-		case "wisdomSlider":
-			$("#wisdomNumber").text(val);
+		case "wisdom":
+			$("#wisdomNumber").text(statValue);
+			$("#wisdomText").text($("#wisdomText").text().replace(heroStatRegex, formatHeroStat(statValue)));
 			break;
-		case "constitutionSlider":
-			$("#constitutionNumber").text(val);
+		case "constitution":
+			$("#constitutionNumber").text(statValue);
+			$("#constitutionText").text($("#constitutionText").text().replace(heroStatRegex, formatHeroStat(statValue)));
 			break;
-		case "attunementSlider":
-			$("#attunementNumber").text(val);
+		case "attunement":
+			$("#attunementNumber").text(statValue);
+			$("#attunementText").text($("#attunementText").text().replace(heroStatRegex, formatHeroStat(statValue)));
 			break;
 	}
-	console.log(event);
+}
+function handleBackstorySelection(event) {
+	$(".heroStatSlider").trigger("change");
+}
+function handleClassSelection(event) {
+	if (this.id == "primaryClassSelector") {
+		rebuildHTML($(this).val(), ["#primaryActionSkills", "#primaryClassFeat", "#primaryTree"]);
+	} else {
+		rebuildHTML($(this).val(), ["#secondaryActionSkills", "#secondaryClassFeat", "#secondaryTree"]);
+	}
 }
 function updateTreeBackground() {
 	$.each([$("#primaryClassSelector option:selected"), $("#secondaryClassSelector option:selected")], function (index, classSelector) {
@@ -470,6 +513,7 @@ $(document).ready(function () {
 	$(document).on("keydown", handleKeyDown);
 	$("#switchButton").on("click", handleSwitchButton);
 	$(".heroStatSlider").on("change", handleHeroStatSlider);
+	$("#backstorySelector").on("change", handleBackstorySelection);
 	$("#primaryClassSelector").on("change", handleClassSelection);
 	$("#secondaryClassSelector").on("change", handleClassSelection);
 	$("#primaryClassSelector").trigger("change");

@@ -120,15 +120,11 @@ em {
 	min-width: 200pt;
 }
 
-.heroStatLabel, .heroStatText {
+.heroStatLabel {
 	float: left;
 }
 
-.heroStatSlider, .heroStatNumber {
-	float: right;
-}
-
-.heroStatText {
+.heroStatSlider, .heroStatNumber, .heroStatText {
 	float: right;
 }
 
