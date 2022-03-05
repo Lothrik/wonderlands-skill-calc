@@ -86,7 +86,7 @@ function handleHeroStatSlider(event, ignoreEvent) {
 		if (allocatedHeroPoints > charLevel + 10) {
 			let newValue = Math.max(sliderValue + charLevel - allocatedHeroPoints, 10);
 			slider.val(newValue);
-			if (allocatedHeroPoints - sliderValue + newValue <= charLevel) {
+			if (allocatedHeroPoints - sliderValue + newValue <= charLevel + 10) {
 				slider.trigger("change");
 			}
 			return false;
