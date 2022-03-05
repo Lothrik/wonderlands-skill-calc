@@ -34,11 +34,11 @@ function handleSwitchButton(event) {
 		case "Switch to Hero Stats":
 			$("#actionSkills").addClass("hidden");
 			$("#skillTrees").addClass("hidden");
-			$("#heroPoints").removeClass("hidden");
+			$("#heroStats").removeClass("hidden");
 			$(this).text("Switch to Skill Trees");
 			break;
 		case "Switch to Skill Trees":
-			$("#heroPoints").addClass("hidden");
+			$("#heroStats").addClass("hidden");
 			$("#actionSkills").removeClass("hidden");
 			$("#skillTrees").removeClass("hidden");
 			$(this).text("Switch to Hero Stats");
