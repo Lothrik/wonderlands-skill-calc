@@ -45,6 +45,32 @@ function handleSwitchButton(event) {
 			break;
 	}
 }
+function handleHeroStatSlider(event) {
+	let slider = $(this);
+	let val = slider.val();
+	switch (slider.attr("id")) {
+		default:
+		case "strengthSlider":
+			$("#strengthNumber").text(val);
+			break;
+		case "dexteritySlider":
+			$("#dexterityNumber").text(val);
+			break;
+		case "intelligenceSlider":
+			$("#intelligenceNumber").text(val);
+			break;
+		case "wisdomSlider":
+			$("#wisdomNumber").text(val);
+			break;
+		case "constitutionSlider":
+			$("#constitutionNumber").text(val);
+			break;
+		case "attunementSlider":
+			$("#attunementNumber").text(val);
+			break;
+	}
+	console.log(event);
+}
 function updateTreeBackground() {
 	$.each([$("#primaryClassSelector option:selected"), $("#secondaryClassSelector option:selected")], function (index, classSelector) {
 		let treeBackground = "";
@@ -370,9 +396,6 @@ function loadFromHash(mode) {
 					skill.setAttribute("data-points", Math.min(curHash.charAt(i + 6), parseInt(skill.getAttribute("data-max"))));
 				}
 			}
-			if (curHash.substr(48, 19).length > 0) {
-				$("#characterName").text(curHash.substr(48, 19));
-			}
 		}
 	}
 }
@@ -394,9 +417,6 @@ function constructHash(mode) {
 		for (let i = 0; i < 42; i++) {
 			let skill = i < 21 ? $("#primaryTree .skill")[i] : $("#secondaryTree .skill")[i - 21];
 			newHash += skill ? skill.getAttribute("data-points") : "0";
-		}
-		if ($("#characterName").text() !== "Character Name") {
-			newHash += $("#characterName").text().substr(0, 19);
 		}
 	}
 	if ((newHash.length) < 3) {
@@ -449,14 +469,11 @@ $(document).ready(function () {
 	loadFromHash(0);
 	$(document).on("keydown", handleKeyDown);
 	$("#switchButton").on("click", handleSwitchButton);
+	$(".heroStatSlider").on("change", handleHeroStatSlider);
 	$("#primaryClassSelector").on("change", handleClassSelection);
 	$("#secondaryClassSelector").on("change", handleClassSelection);
 	$("#primaryClassSelector").trigger("change");
 	$("#secondaryClassSelector").trigger("change");
-	setTimeout(function() {
-		$("#characterName").removeClass("disabled");
-		$("#characterName").on("input", function() { saveToHash(2); });
-	}, 100);
 	setTimeout(function() {
 		finishedLoading = true;
 	}, 2500);

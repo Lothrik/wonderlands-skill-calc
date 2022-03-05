@@ -18,20 +18,42 @@
 	<div id="header">
 		<div id="topLinks"><a onclick="location.href=location.href.split('#')[0]" href="#" id="resetLink">Reset</a> | <a onclick="return loadPreviousHashFromUndo()" href="#" id="undoLink">Undo (Ctrl+Z)</a> | <a href="#" id="permaLink">Permalink to this build</a></div>
 		<h1 id="toolName">Wonderlands skill calculator<div class="stamp">&nbsp;(WIP)</div></h1>
-		<h2 id="characterName" class="disabled" contentEditable="true">Character Name</h2>
 		<h3>Level <span id="charLevel">1</span> <span id="primaryClassName">None</span> / <span id="secondaryClassName">None</span></h3>
 	</div>
 	<div id="alternateContainer">
 		<div id="errorMessage">You need to enable Javascript.</div>
 		<div id="heroStats" class="hidden">
-			Every Hero Point allocated (minus the base 10) grants:<br>
-			Strength: +1.0% Critical Hit Damage<br>
-			Dexterity: +1.0% Critical Hit Chance<br>
-			Intelligence:  +1.0% Spell Cooldown Rate<br>
-			Wisdom: +1.0% Status Effect Damage<br>
-			Constitution: +1.0% Maximum Health/Ward<br>
-			Attunement: +1.0% Action Skill Cooldown Rate<br><br>
-			Coming soon: Buttons and maybe sliders to assign Hero Points!
+			<span class="heroStatLabel">Strength:</span>
+			<input class="heroStatSlider" type="range" min="10" max="30" value="10" id="strengthSlider">
+			<span class="heroStatNumber" id="strengthNumber">10 </span><br>
+			<span class="heroStatText" id="strengthText">(+0.0% Critical Hit Damage)</span><br>
+
+			<span class="heroStatLabel">Dexterity:</span>
+			<input class="heroStatSlider" type="range" min="10" max="30" value="10" id="dexteritySlider">
+			<span class="heroStatNumber" id="dexterityNumber">10</span><br>
+			<span class="heroStatText" id="dexterityText">(+0.0% Critical Hit Chance)</span><br>
+
+			<span class="heroStatLabel">Intelligence:</span>
+			<input class="heroStatSlider" type="range" min="10" max="30" value="10" id="intelligenceSlider">
+			<span class="heroStatNumber" id="intelligenceNumber">10</span><br>
+			<span class="heroStatText" id="intelligenceText">(+0.0% Spell Cooldown Rate)</span><br>
+
+			<span class="heroStatLabel">Wisdom:</span>
+			<input class="heroStatSlider" type="range" min="10" max="30" value="10" id="wisdomSlider">
+			<span class="heroStatNumber" id="wisdomNumber">10</span><br>
+			<span class="heroStatText" id="wisdomText">(+0.0% Status Effect Damage)</span><br>
+
+			<span class="heroStatLabel">Constitution:</span>
+			<input class="heroStatSlider" type="range" min="10" max="30" value="10" id="constitutionSlider">
+			<span class="heroStatNumber" id="constitutionNumber">10</span><br>
+			<span class="heroStatText" id="constitutionText">(+0.0% Maximum Health/Ward)</span><br>
+
+			<span class="heroStatLabel">Attunement:</span>
+			<input class="heroStatSlider" type="range" min="10" max="30" value="10" id="attunementSlider">
+			<span class="heroStatNumber" id="attunementNumber">10</span><br>
+			<span class="heroStatText" id="attunementText">(+0.0% Action Skill Cooldown Rate)</span><br><br>
+
+			Hero Stats are NOT saved to your build yet!
 		</div>
 	</div>
 	<div id="actionSkills">

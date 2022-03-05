@@ -121,6 +121,43 @@ em {
 	border: 1px solid #fff;
 }
 
+#heroStats {
+	min-width: 200pt;
+}
+
+.heroStatLabel, .heroStatText {
+	float: left;
+}
+
+.heroStatSlider, .heroStatNumber {
+	float: right;
+}
+
+.heroStatText {
+	float: right;
+}
+
+.heroStatSlider {
+	appearance: none;
+	height: 4pt;
+	background: rgba(0, 0, 0, 0.75);
+	border-radius: 2pt;
+	margin-top: 6pt;
+}
+
+.heroStatSlider::-webkit-slider-thumb {
+	appearance: none;
+	width: 8pt;
+	height: 8pt;
+	background-color: #fff;
+	cursor: pointer;
+	border-radius: 50%;
+}
+
+.heroStatNumber {
+	margin-right: 4pt;
+}
+
 #actionSkills {
 	font-size: 0; /* inline-block spacing hack */
 	-moz-user-select: none;
