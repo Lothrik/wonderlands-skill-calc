@@ -65,11 +65,11 @@ function handleSwitchButton(event) {
 			break;
 	}
 }
-function formatHeroStat(statValue) {
+function formatHeroStat(statValue, statMultiplier) {
 	if (statValue >= 10) {
-		return "+" + (statValue - 10).toFixed(1) + "%";
+		return "+" + ((statValue - 10) * statMultiplier).toFixed(1) + "%";
 	} else {
-		return "-" + (10 - statValue).toFixed(1) + "%";
+		return "-" + ((10 - statValue) * statMultiplier).toFixed(1) + "%";
 	}
 }
 function handleHeroStatSlider(event) {
@@ -87,27 +87,27 @@ function handleHeroStatSlider(event) {
 		default:
 		case "strength":
 			$("#strengthNumber").text(statValue);
-			$("#strengthText").text($("#strengthText").text().replace(heroStatRegex, formatHeroStat(statValue * 2)));
+			$("#strengthText").text($("#strengthText").text().replace(heroStatRegex, formatHeroStat(statValue, 2)));
 			break;
 		case "dexterity":
 			$("#dexterityNumber").text(statValue);
-			$("#dexterityText").text($("#dexterityText").text().replace(heroStatRegex, formatHeroStat(statValue * 2)));
+			$("#dexterityText").text($("#dexterityText").text().replace(heroStatRegex, formatHeroStat(statValue, 2)));
 			break;
 		case "intelligence":
 			$("#intelligenceNumber").text(statValue);
-			$("#intelligenceText").text($("#intelligenceText").text().replace(heroStatRegex, formatHeroStat(statValue)));
+			$("#intelligenceText").text($("#intelligenceText").text().replace(heroStatRegex, formatHeroStat(statValue, 1)));
 			break;
 		case "wisdom":
 			$("#wisdomNumber").text(statValue);
-			$("#wisdomText").text($("#wisdomText").text().replace(heroStatRegex, formatHeroStat(statValue * 2)));
+			$("#wisdomText").text($("#wisdomText").text().replace(heroStatRegex, formatHeroStat(statValue, 2)));
 			break;
 		case "constitution":
 			$("#constitutionNumber").text(statValue);
-			$("#constitutionText").text($("#constitutionText").text().replace(heroStatRegex, formatHeroStat(statValue * 2.5)));
+			$("#constitutionText").text($("#constitutionText").text().replace(heroStatRegex, formatHeroStat(statValue, 2.5)));
 			break;
 		case "attunement":
 			$("#attunementNumber").text(statValue);
-			$("#attunementText").text($("#attunementText").text().replace(heroStatRegex, formatHeroStat(statValue)));
+			$("#attunementText").text($("#attunementText").text().replace(heroStatRegex, formatHeroStat(statValue, 1)));
 			break;
 	}
 }
