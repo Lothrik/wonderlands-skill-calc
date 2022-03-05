@@ -82,7 +82,7 @@ em {
 	color: #0f0;
 }
 
-#header, #summaryContainer, #errorMessage {
+#header, #summaryContainer, #alternateContainer > * {
 	background-color: rgba(0, 0, 0, 0.5);
 	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
@@ -107,11 +107,18 @@ em {
 	margin: 0 auto;
 }
 
-#errorMessage {
-	display: inline-block;
+#alternateContainer {
+	position: relative;
+}
+
+#alternateContainer > * {
+	max-height: 340pt;
+	overflow: hidden;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
 	padding: 8pt;
 	border: 1px solid #fff;
-	transform: translateY(50%);
 }
 
 #actionSkills {
@@ -248,11 +255,12 @@ em {
 	text-align: right;
 }
 
-.partial .perLevel, .full .perLevel, .hidden {
+.partial .perLevel, .full .perLevel, .disabled, .disabled * {
 	display: none!important;
+	pointer-events: none;
 }
 
-.disabled {
+.hidden, .hidden * {
 	visibility: hidden!important;
 	pointer-events: none;
 }
@@ -323,10 +331,19 @@ em {
 	margin: 8pt;
 }
 
-#classSelectors option, #classSelectors select {
+#classSelectors option, #classSelectors select, #switchButton {
 	border: 1px solid #fff;
 	background-color: #000;
 	color: #fff;
+}
+
+#switchButton {
+	border-radius: 3px;
+	margin: 0 auto 8pt auto;
+}
+
+#switchButton:active {
+	background-color: #333;
 }
 
 #summaryContainer {

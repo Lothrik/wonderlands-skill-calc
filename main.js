@@ -28,6 +28,23 @@ function handleClassSelection(event) {
 		rebuildHTML($(this).val(), ["#secondaryActionSkills", "#secondaryClassFeat", "#secondaryTree"]);
 	}
 }
+function handleSwitchButton(event) {
+	switch ($(this).text()) {
+		default:
+		case "Switch to Hero Points":
+			$("#actionSkills").addClass("hidden");
+			$("#skillTrees").addClass("hidden");
+			$("#heroPoints").removeClass("hidden");
+			$(this).text("Switch to Skill Trees");
+			break;
+		case "Switch to Skill Trees":
+			$("#heroPoints").addClass("hidden");
+			$("#actionSkills").removeClass("hidden");
+			$("#skillTrees").removeClass("hidden");
+			$(this).text("Switch to Hero Points");
+			break;
+	}
+}
 function updateTreeBackground() {
 	$.each([$("#primaryClassSelector option:selected"), $("#secondaryClassSelector option:selected")], function (index, classSelector) {
 		let treeBackground = "";
@@ -57,21 +74,23 @@ function updateTreeBackground() {
 }
 function updateFeatTable() {
 	if ($("#primaryClassSelector").val() == "none" && $("#secondaryClassSelector").val() == "none") {
-		$("#errorMessage").text("No class selected.").removeClass("hidden");
+		$("#errorMessage").text("No class selected.").removeClass("disabled");
+		$("#heroPoints").addClass("disabled");
 		$("#featSummaryHeader").text("");
-		$("#primaryClassFeat").html("");
-		$("#secondaryClassFeat").html("");
-		$("#summarySpacer").addClass("hidden");
+		$("#primaryClassFeat").html("").css({ "padding": "0", "width": "0" });
+		$("#secondaryClassFeat").html("").css({ "padding": "0", "width": "0" });
+		$("#summarySpacer").addClass("disabled");
 	} else {
-		$("#errorMessage").addClass("hidden");
+		$("#errorMessage").addClass("disabled");
+		$("#heroPoints").removeClass("disabled");
 		$("#featSummaryHeader").text("List of Feats");
-		$("#summarySpacer").removeClass("hidden");
+		$("#summarySpacer").removeClass("disabled");
 		if ($("#primaryClassSelector").val() == "none") {
-			$("#primaryClassFeat").css({ "padding": "0pt", "width": "0" });
-			$("#secondaryClassFeat").css({ "padding": "0pt", "width": "100%" });
+			$("#primaryClassFeat").css({ "padding": "0", "width": "0" });
+			$("#secondaryClassFeat").css({ "padding": "0", "width": "100%" });
 		} else if ($("#secondaryClassSelector").val() == "none") {
-			$("#primaryClassFeat").css({ "padding": "0pt", "width": "100%" });
-			$("#secondaryClassFeat").css({ "padding": "0pt", "width": "0" });
+			$("#primaryClassFeat").css({ "padding": "0", "width": "100%" });
+			$("#secondaryClassFeat").css({ "padding": "0", "width": "0" });
 		} else {
 			$("#primaryClassFeat").css({ "padding": "0 8pt 0 0", "width": "calc(50% - 8pt)" });
 			$("#secondaryClassFeat").css({ "padding": "0 0 0 8pt", "width": "calc(50% - 8pt)" });
@@ -429,6 +448,7 @@ var finishedLoading = false;
 $(document).ready(function () {
 	loadFromHash(0);
 	$(document).on("keydown", handleKeyDown);
+	$("#switchButton").on("click", handleSwitchButton);
 	$("#primaryClassSelector").on("change", handleClassSelection);
 	$("#secondaryClassSelector").on("change", handleClassSelection);
 	$("#primaryClassSelector").trigger("change");

@@ -21,8 +21,20 @@
 		<h2 id="characterName" class="disabled" contentEditable="true">Character Name</h2>
 		<h3>Level <span id="charLevel">1</span> <span id="primaryClassName">None</span> / <span id="secondaryClassName">None</span></h3>
 	</div>
-	<div id="actionSkills">
+	<div id="alternateContainer">
 		<div id="errorMessage">You need to enable Javascript.</div>
+		<div id="heroPoints" class="hidden">
+			Every Hero Point allocated (minus the base 10) grants:<br>
+			Strength: +1.0% Critical Hit Damage<br>
+			Dexterity: +1.0% Critical Hit Chance<br>
+			Intelligence:  +1.0% Spell Cooldown Rate<br>
+			Wisdom: +1.0% Status Effect Damage<br>
+			Constitution: +1.0% Maximum Health/Ward<br>
+			Attunement: +1.0% Action Skill Cooldown Rate<br><br>
+			Coming soon: Buttons and maybe sliders to assign Hero Points!
+		</div>
+	</div>
+	<div id="actionSkills">
 		<div id="primaryActionSkills"></div>
 		<div id="secondaryActionSkills"></div>
 	</div>
@@ -50,13 +62,14 @@
 			<option value="stabbomancer">Stabbomancer</option>
 		</select>
 	</div>
+	<button id="switchButton" type="button">Switch to Hero Points</button>
 	<div id="summaryContainer">
 		<h2 id="featSummaryHeader"></h2>
 		<div id="featSummaryContainer">
 			<div id="primaryClassFeat"></div>
 			<div id="secondaryClassFeat"></div>
 		</div>
-		<div id="summarySpacer" class="hidden"></div>
+		<div id="summarySpacer" class="disabled"></div>
 		<h2 id="skillSummaryHeader"></h2>
 		<div id="skillSummaryContainer"></div>
 		<div id="footer">Art &copy; 2012 <a href="https://gearboxsoftware.com/">Gearbox Studios</a>. <a href="https://google.com/webfonts">Fonts</a> by Google. Forked from <a href="https://github.com/seigler/bl2skills.com">this project</a>. <a href="https://github.com/lothrik/wonderlands-skill-calc">Source Code</a>.</div>
