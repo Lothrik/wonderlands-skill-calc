@@ -85,7 +85,7 @@ em {
 #errorMessage {
 	display: inline-block;
 	padding: 8pt;
-	border: 1px solid #fff;
+	border: 1px solid #fff!important;
 	transform: translateY(50%);
 }
 
@@ -239,7 +239,7 @@ em {
 	width: 225pt;
 	z-index: 21;
 	background-color: rgba(0, 0, 0, 0.75);
-	border: 1px solid #fff;
+	border: 1px solid #fff!important;
 	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 	color: #fff;
 	padding: 0 0.25em 0.5em;
@@ -291,11 +291,16 @@ em {
 	padding: 0.15em 0;
 	margin-bottom: 0.15em;
 	font-size: 125%;
-	border-bottom: 1px solid #fff;
+	border-bottom: 1px solid #fff!important;
 }
 
 #classSelectors {
 	margin: 8pt;
+}
+
+#classSelectors option, #classSelectors select {
+	background-color: #000;
+	color: #fff;
 }
 
 #summaryContainer {
@@ -313,7 +318,7 @@ em {
 #primaryClassFeat, #secondaryClassFeat {
 	max-width: calc(50% - 8pt);
 	float: left;
-	border-top: 1px solid #fff;
+	border-top: 1px solid #fff!important;
 	text-align: justify;
 }
 
@@ -328,7 +333,7 @@ em {
 
 #summaryContainer .skillText {
 	clear: both;
-	border-top: 1px solid #fff;
+	border-top: 1px solid #fff!important;
 	text-align: left;
 }
 
