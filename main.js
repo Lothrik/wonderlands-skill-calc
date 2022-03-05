@@ -87,11 +87,11 @@ function handleHeroStatSlider(event) {
 		default:
 		case "strength":
 			$("#strengthNumber").text(statValue);
-			$("#strengthText").text($("#strengthText").text().replace(heroStatRegex, formatHeroStat(statValue)));
+			$("#strengthText").text($("#strengthText").text().replace(heroStatRegex, formatHeroStat(statValue * 2)));
 			break;
 		case "dexterity":
 			$("#dexterityNumber").text(statValue);
-			$("#dexterityText").text($("#dexterityText").text().replace(heroStatRegex, formatHeroStat(statValue)));
+			$("#dexterityText").text($("#dexterityText").text().replace(heroStatRegex, formatHeroStat(statValue * 2)));
 			break;
 		case "intelligence":
 			$("#intelligenceNumber").text(statValue);
@@ -99,11 +99,11 @@ function handleHeroStatSlider(event) {
 			break;
 		case "wisdom":
 			$("#wisdomNumber").text(statValue);
-			$("#wisdomText").text($("#wisdomText").text().replace(heroStatRegex, formatHeroStat(statValue)));
+			$("#wisdomText").text($("#wisdomText").text().replace(heroStatRegex, formatHeroStat(statValue * 2)));
 			break;
 		case "constitution":
 			$("#constitutionNumber").text(statValue);
-			$("#constitutionText").text($("#constitutionText").text().replace(heroStatRegex, formatHeroStat(statValue)));
+			$("#constitutionText").text($("#constitutionText").text().replace(heroStatRegex, formatHeroStat(statValue * 2.5)));
 			break;
 		case "attunement":
 			$("#attunementNumber").text(statValue);
