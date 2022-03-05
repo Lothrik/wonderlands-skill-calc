@@ -20,7 +20,7 @@
 		<h1 id="toolName">Wonderlands skill calculator<div class="stamp">&nbsp;(WIP)</div></h1>
 		<h3>Level <span id="charLevel">1</span> <span id="primaryClassName">None</span> / <span id="secondaryClassName">None</span></h3>
 	</div>
-	<div id="alternateContainer">
+	<div id="overlayContainer">
 		<div id="errorMessage">You need to enable Javascript.</div>
 		<div id="heroStats" class="hidden">
 			<span class="heroStatLabel">Strength:</span>
@@ -51,15 +51,14 @@
 			<span class="heroStatLabel">Attunement:</span>
 			<input class="heroStatSlider" type="range" min="10" max="30" value="10" id="attunementSlider">
 			<span class="heroStatNumber" id="attunementNumber">10</span><br>
-			<span class="heroStatText" id="attunementText">(+0.0% Action Skill Cooldown Rate)</span><br><br>
+			<span class="heroStatText" id="attunementText">(+0.0% Action Skill Cooldown Rate)</span><br>
 
-			Backstory:<select id="backstorySelector">
+			<span>Backstory:</span>
+			<select id="backstorySelector">
 				<option value="none">None</option>
 				<option value="nerd">Nerd</option>
 				<option value="ratpack">Ratpack</option>
-			</select><br><br>
-
-			Hero Stats are NOT saved to your build yet!
+			</select>
 		</div>
 	</div>
 	<div id="actionSkills">

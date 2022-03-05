@@ -74,52 +74,67 @@ function formatHeroStat(statValue, statMultiplier) {
 		return "-" + ((10 - statValue) * statMultiplier).toFixed(1) + "%";
 	}
 }
-function handleHeroStatSlider(event) {
+function handleHeroStatSlider(event, ignoreEvent) {
 	let slider = $(this);
 	let sliderValue = Number(slider.val());
 	let statName = slider.attr("id").slice(0, -6);
 	let statValue = sliderValue + backstoryModifiers[$("#backstorySelector").val() || "none"][statName];
-	let allocatedHeroPoints = Number($("#strengthSlider").val()) + Number(   $("#dexteritySlider").val()) + Number($("#intelligenceSlider").val()) +
-							  Number(  $("#wisdomSlider").val()) + Number($("#constitutionSlider").val()) + Number(  $("#attunementSlider").val()) - 60;
-	let charLevel = Number($("#charLevel").text());
-	if (allocatedHeroPoints > charLevel) {
-		let newValue = Math.max(sliderValue + charLevel - allocatedHeroPoints, 10);
-		slider.val(newValue);
-		if (allocatedHeroPoints - sliderValue + newValue <= charLevel) {
-			slider.trigger("change");
+	if (!ignoreEvent) {
+		let allocatedHeroPoints = Number($("#strengthSlider").val()) + Number(   $("#dexteritySlider").val()) + Number($("#intelligenceSlider").val()) +
+								  Number(  $("#wisdomSlider").val()) + Number($("#constitutionSlider").val()) + Number(  $("#attunementSlider").val()) - 60;
+		let charLevel = Number($("#charLevel").text());
+		if (allocatedHeroPoints > charLevel) {
+			let newValue = Math.max(sliderValue + charLevel - allocatedHeroPoints, 10);
+			slider.val(newValue);
+			if (allocatedHeroPoints - sliderValue + newValue <= charLevel) {
+				slider.trigger("change");
+			}
+			return false;
 		}
-		return false;
 	}
+	let valueChanged = false;
 	switch (statName) {
 		default:
 		case "strength":
+			valueChanged = $("#strengthNumber").text() != statValue;
 			$("#strengthNumber").text(statValue);
 			$("#strengthText").text($("#strengthText").text().replace(heroStatRegex, formatHeroStat(statValue, 2)));
 			break;
 		case "dexterity":
+			valueChanged = $("#dexterityNumber").text() != statValue;
 			$("#dexterityNumber").text(statValue);
 			$("#dexterityText").text($("#dexterityText").text().replace(heroStatRegex, formatHeroStat(statValue, 2)));
 			break;
 		case "intelligence":
+			valueChanged = $("#intelligenceNumber").text() != statValue;
 			$("#intelligenceNumber").text(statValue);
 			$("#intelligenceText").text($("#intelligenceText").text().replace(heroStatRegex, formatHeroStat(statValue, 1)));
 			break;
 		case "wisdom":
+			valueChanged = $("#wisdomNumber").text() != statValue;
 			$("#wisdomNumber").text(statValue);
 			$("#wisdomText").text($("#wisdomText").text().replace(heroStatRegex, formatHeroStat(statValue, 2)));
 			break;
 		case "constitution":
+			valueChanged = $("#constitutionNumber").text() != statValue;
 			$("#constitutionNumber").text(statValue);
 			$("#constitutionText").text($("#constitutionText").text().replace(heroStatRegex, formatHeroStat(statValue, 2.5)));
 			break;
 		case "attunement":
+			valueChanged = $("#attunementNumber").text() != statValue;
 			$("#attunementNumber").text(statValue);
 			$("#attunementText").text($("#attunementText").text().replace(heroStatRegex, formatHeroStat(statValue, 1)));
 			break;
 	}
+	if (!ignoreEvent && valueChanged) {
+		saveToHash(1);
+	}
 }
-function handleBackstorySelection(event) {
-	$(".heroStatSlider").trigger("change");
+function handleBackstorySelection(event, ignoreEvent) {
+	$(".heroStatSlider").trigger("change", ignoreEvent);
+	if (!ignoreEvent) {
+		saveToHash(1);
+	}
 }
 function handleClassSelection(event) {
 	if (this.id == "primaryClassSelector") {
@@ -344,7 +359,7 @@ function updateActionSkills() {
 		actionSkillNames[index] = $(element).text();
 	});
 	$(".actionSkill > img").each(function(index, element) {
-		if ($(".actionSkill:eq(" + index + ") > .label").length == 0) {
+		if ($(".actionSkill").eq(index).find(".label").length == 0) {
 			$(element).after('<div class="label">' + actionSkillNames[index] + "</div>");
 		}
 	});
@@ -378,7 +393,7 @@ function updatePassiveSkills(treeHandle) {
 					if ($(this).attr("data-fixed")) {
 						sum = sum.toFixed(1);
 					}
-					let plus = ($(this).attr("data-base").substring(0, 1) == "+" ? "+" : "");
+					let plus = ($(this).attr("data-base").slice(0, 1) == "+" ? "+" : "");
 					$(this).text((sum > 0 ? plus : (sum == 0 ? "" : "-")) + sum + ($(this).attr("data-pct") ? "%" : ""));
 				}
 			});
@@ -446,13 +461,19 @@ function loadFromHash(mode) {
 					actionSkill.setAttribute("data-points", Math.min(curHash.charAt(i + 2), Number(actionSkill.getAttribute("data-max"))));
 				}
 			}
-			// passive skills have 42 slots: [6 ... 48]
+			// passive skills have 42 slots: [6 ... 47]
 			for (let i = 0; i < 42; i++) {
 				let skill = i < 21 ? $("#primaryTree .skill")[i] : $("#secondaryTree .skill")[i - 21];
 				if (skill) {
 					skill.setAttribute("data-points", Math.min(curHash.charAt(i + 6), Number(skill.getAttribute("data-max"))));
 				}
 			}
+			// hero stats have 6 double-width slots: [48 ... 59]
+			for (let i = 0; i < 6; i++) {
+				$(".heroStatSlider").eq(i).val(curHash.slice(48 + i * 2, 50 + i * 2));
+			}
+			// hero backstory has 1 slot [60]
+			$("#backstorySelector").prop("selectedIndex", Math.min(curHash.charAt(60), $("#backstorySelector option").length - 1)).trigger("change", true);
 		}
 	}
 }
@@ -460,12 +481,12 @@ function constructHash(mode) {
 	let curHash = decompressHash();
 	let newHash;
 	if (mode == 1) {
-		newHash = curHash.substr(0, 2) || "00";
+		newHash = curHash.slice(0, 2) || "00";
 	} else {
 		newHash = $("#primaryClassSelector").prop("selectedIndex").toString() + $("#secondaryClassSelector").prop("selectedIndex").toString();
 	}
 	if (mode == 0) {
-		newHash += curHash.substr(2);
+		newHash += curHash.slice(2);
 	} else {
 		for (let i = 0; i < 4; i++) {
 			let actionSkill = i < 2 ? $("#primaryActionSkills .actionSkill")[i] : $("#secondaryActionSkills .actionSkill")[i - 2];
@@ -475,6 +496,10 @@ function constructHash(mode) {
 			let skill = i < 21 ? $("#primaryTree .skill")[i] : $("#secondaryTree .skill")[i - 21];
 			newHash += skill ? skill.getAttribute("data-points") : "0";
 		}
+		for (let i = 0; i < 6; i++) {
+			newHash += ("00" + $(".heroStatSlider")[i].value).slice(-2);
+		}
+		newHash += $("#backstorySelector option:selected")[0].index;
 	}
 	if ((newHash.length) < 3) {
 		return "";

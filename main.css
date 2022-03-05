@@ -82,7 +82,7 @@ em {
 	color: #0f0;
 }
 
-#header, #summaryContainer, #alternateContainer > * {
+#header, #summaryContainer, #overlayContainer > * {
 	background-color: rgba(0, 0, 0, 0.5);
 	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
@@ -102,11 +102,11 @@ em {
 	font-size: 80%;
 }
 
-#alternateContainer {
+#overlayContainer {
 	position: relative;
 }
 
-#alternateContainer > * {
+#overlayContainer > * {
 	max-height: 340pt;
 	overflow: hidden;
 	position: absolute;
@@ -150,7 +150,7 @@ em {
 }
 
 #backstorySelector {
-	margin-left: 4pt;
+	margin: 4pt 4pt 0;
 }	
 
 #actionSkills {
@@ -370,7 +370,6 @@ option, select, button {
 }
 
 #switchButton {
-	border-radius: 3px;
 	margin: 0 auto 8pt auto;
 }
 
