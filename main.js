@@ -52,10 +52,12 @@ function handleSwitchButton(event) {
 	switch ($(this).text()) {
 		default:
 		case "Switch to Hero Stats":
-			$("#actionSkills").addClass("hidden");
-			$("#skillTrees").addClass("hidden");
-			$("#heroStats").removeClass("hidden");
-			$(this).text("Switch to Skill Trees");
+			if ($("#primaryClassSelector").val() != "none" || $("#secondaryClassSelector").val() != "none") {
+				$("#actionSkills").addClass("hidden");
+				$("#skillTrees").addClass("hidden");
+				$("#heroStats").removeClass("hidden");
+				$(this).text("Switch to Skill Trees");
+			}
 			break;
 		case "Switch to Skill Trees":
 			$("#heroStats").addClass("hidden");
@@ -79,8 +81,9 @@ function handleHeroStatSlider(event) {
 	let statValue = sliderValue + backstoryModifiers[$("#backstorySelector").val() || "none"][statName];
 	let allocatedHeroPoints = Number($("#strengthSlider").val()) + Number(   $("#dexteritySlider").val()) + Number($("#intelligenceSlider").val()) +
 							  Number(  $("#wisdomSlider").val()) + Number($("#constitutionSlider").val()) + Number(  $("#attunementSlider").val()) - 60;
-	if (allocatedHeroPoints > Number($("#charLevel").text())) {
-		slider.val(sliderValue + 40 - allocatedHeroPoints).trigger("change");
+	let charLevel = Number($("#charLevel").text());
+	if (allocatedHeroPoints > charLevel) {
+		slider.val(Math.max(sliderValue + charLevel - allocatedHeroPoints, 10)).trigger("change");
 		return false;
 	}
 	switch (statName) {
@@ -139,7 +142,7 @@ function updateTreeBackground() {
 				treeBackground = "red";
 				break;
 		}
-		if (index === 0) {
+		if (index == 0) {
 			$("#primaryTree").removeClass("red green blue").addClass(treeBackground);
 			$("#primaryClassName").text(classSelector.text());
 		} else {
@@ -258,8 +261,8 @@ function handleMouseUp(event) {
 	event.preventDefault();
 }
 function checkLongTouch(fromTimer) {
-	if (lastTouched !== null) {
-		if (fromTimer === true) {
+	if (lastTouched != null) {
+		if (fromTimer == true) {
 			for (let i = 0; i < 4; i++) {
 				updatePoints(lastTouched, -1);
 			}
@@ -337,7 +340,7 @@ function updateActionSkills() {
 		actionSkillNames[index] = $(element).text();
 	});
 	$(".actionSkill > img").each(function(index, element) {
-		if ($(".actionSkill:eq(" + index + ") > .label").length === 0) {
+		if ($(".actionSkill:eq(" + index + ") > .label").length == 0) {
 			$(element).after('<div class="label">' + actionSkillNames[index] + "</div>");
 		}
 	});
@@ -371,11 +374,11 @@ function updatePassiveSkills(treeHandle) {
 					if ($(this).attr("data-fixed")) {
 						sum = sum.toFixed(1);
 					}
-					let plus = ($(this).attr("data-base").substring(0, 1) === "+" ? "+" : "");
+					let plus = ($(this).attr("data-base").substring(0, 1) == "+" ? "+" : "");
 					$(this).text((sum > 0 ? plus : (sum == 0 ? "" : "-")) + sum + ($(this).attr("data-pct") ? "%" : ""));
 				}
 			});
-			if ($(this).find(".label").length === 0) {
+			if ($(this).find(".label").length == 0) {
 				let skillName = $(this).find(".description h2").text();
 				$(this).children(".points").after('<div class="label">' + skillName.split(" ").map((n) => n[0]).join("") + "</div>");
 			}
@@ -399,7 +402,7 @@ function updateStats() {
 			let description = $(this).children(".description").html().replace("<h2>", "<strong>").replace("</h2>", " " + p + ':</strong><div class="descriptionText">').split(["<br><br>", "<br>"]);
 			description.forEach(function(element, index) {
 				if (element.length > 0) {
-					if (element[element.length-1] === ".") {
+					if (element[element.length-1] == ".") {
 						element += " ";
 					} else {
 						element += ". ";
@@ -475,7 +478,7 @@ function constructHash(mode) {
 	return compressHash(newHash);
 }
 function addHashToUndo(oldHash) {
-	if (hashUndoHistory[hashUndoHistory.length - 1] !== oldHash) {
+	if (hashUndoHistory[hashUndoHistory.length - 1] != oldHash) {
 		if (hashUndoHistory.push(oldHash) > 100) {
 			hashUndoHistory.shift();
 		}

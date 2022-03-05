@@ -149,6 +149,10 @@ em {
 	margin-right: 4pt;
 }
 
+#backstorySelector {
+	margin-left: 4pt;
+}	
+
 #actionSkills {
 	font-size: 0; /* inline-block spacing hack */
 	-moz-user-select: none;
