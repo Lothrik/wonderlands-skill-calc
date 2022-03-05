@@ -316,7 +316,6 @@ em {
 }
 
 #primaryClassFeat, #secondaryClassFeat {
-	max-width: calc(50% - 8pt);
 	float: left;
 	border-top: 1px solid #fff;
 	text-align: justify;
