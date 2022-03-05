@@ -83,7 +83,11 @@ function handleHeroStatSlider(event) {
 							  Number(  $("#wisdomSlider").val()) + Number($("#constitutionSlider").val()) + Number(  $("#attunementSlider").val()) - 60;
 	let charLevel = Number($("#charLevel").text());
 	if (allocatedHeroPoints > charLevel) {
-		slider.val(Math.max(sliderValue + charLevel - allocatedHeroPoints, 10)).trigger("change");
+		let newValue = Math.max(sliderValue + charLevel - allocatedHeroPoints, 10);
+		slider.val(newValue);
+		if (allocatedHeroPoints - sliderValue + newValue <= charLevel) {
+			slider.trigger("change");
+		}
 		return false;
 	}
 	switch (statName) {
