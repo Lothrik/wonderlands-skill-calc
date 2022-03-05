@@ -74,8 +74,15 @@ function formatHeroStat(statValue) {
 }
 function handleHeroStatSlider(event) {
 	let slider = $(this);
+	let sliderValue = Number(slider.val());
 	let statName = slider.attr("id").slice(0, -6);
-	let statValue = Number(slider.val()) + backstoryModifiers[$("#backstorySelector").val() || "none"][statName];
+	let statValue = sliderValue + backstoryModifiers[$("#backstorySelector").val() || "none"][statName];
+	let allocatedHeroPoints = Number($("#strengthSlider").val()) + Number(   $("#dexteritySlider").val()) + Number($("#intelligenceSlider").val()) +
+							  Number(  $("#wisdomSlider").val()) + Number($("#constitutionSlider").val()) + Number(  $("#attunementSlider").val()) - 60;
+	if (allocatedHeroPoints > Number($("#charLevel").text())) {
+		slider.val(sliderValue + 40 - allocatedHeroPoints).trigger("change");
+		return false;
+	}
 	switch (statName) {
 		default:
 		case "strength":
@@ -280,13 +287,13 @@ function updatePoints(skillHandle, change) {
 		updateActionSkills();
 	} else {
 		let tree = skillHandle.parent().parent();
-		let thisLevel = parseInt(skillHandle.parent().attr("data-level"));
-		let invested = parseInt(skillHandle.parent().attr("data-invested"));
-		let tierTotal = parseInt(skillHandle.parent().attr("data-total"));
-		let treeTotal = parseInt(tree.find(".totalPoints").text());
-		let points = parseInt(skillHandle.attr("data-points"));
-		let max = parseInt(skillHandle.attr("data-max"));
-		let charLevel = parseInt($("#charLevel").text());
+		let thisLevel = Number(skillHandle.parent().attr("data-level"));
+		let invested = Number(skillHandle.parent().attr("data-invested"));
+		let tierTotal = Number(skillHandle.parent().attr("data-total"));
+		let treeTotal = Number(tree.find(".totalPoints").text());
+		let points = Number(skillHandle.attr("data-points"));
+		let max = Number(skillHandle.attr("data-max"));
+		let charLevel = Number($("#charLevel").text());
 		if (change > 0) {
 			if (points < max && treeTotal >= 5 * thisLevel && charLevel < 40) {
 				++points;
@@ -295,9 +302,9 @@ function updatePoints(skillHandle, change) {
 			if (points > 0) {
 				let ok = true;
 				tree.children(".tier").each(function(index) {
-					let level = parseInt($(this).attr("data-level"));
-					let total = parseInt($(this).attr("data-total")) - (level == thisLevel ? 1 : 0);
-					let invested = parseInt($(this).attr("data-invested")) - (level > thisLevel ? 1 : 0);
+					let level = Number($(this).attr("data-level"));
+					let total = Number($(this).attr("data-total")) - (level == thisLevel ? 1 : 0);
+					let invested = Number($(this).attr("data-invested")) - (level > thisLevel ? 1 : 0);
 					ok &= (
 						(level == thisLevel && total == 0 && treeTotal >= invested + total) ||
 						(level != thisLevel && total == 0) ||
@@ -317,8 +324,8 @@ function updatePoints(skillHandle, change) {
 }
 function updateActionSkills() {
 	$(".actionSkill").each(function () {
-		let p = parseInt($(this).attr("data-points"));
-		let m = parseInt($(this).attr("data-max"));
+		let p = Number($(this).attr("data-points"));
+		let m = Number($(this).attr("data-max"));
 		$(this).children(".points").text(p + "/" + m);
 		$(this).removeClass("partial full");
 		if (p != 0) {
@@ -339,11 +346,11 @@ function updatePassiveSkills(treeHandle) {
 	let totalPoints = 0;
 	$(treeHandle).find(".tier").each(function() {
 		$(this).attr("data-invested", totalPoints); // the PREVIOUS tier running total
-		let tierLevel = parseInt($(this).attr("data-level"));
+		let tierLevel = Number($(this).attr("data-level"));
 		let tierTotal = 0;
 		$(this).children(".skill:not(.disabled)").each(function() {
-			let p = parseInt($(this).attr("data-points"));
-			let m = parseInt($(this).attr("data-max"));
+			let p = Number($(this).attr("data-points"));
+			let m = Number($(this).attr("data-max"));
 			totalPoints += p;
 			tierTotal += p;
 			$(this).children(".points").text(p + "/" + m);
@@ -381,12 +388,12 @@ function updatePassiveSkills(treeHandle) {
 function updateStats() {
 	let total = 0;
 	$(".totalPoints").each(function() {
-		total += parseInt($(this).text());
+		total += Number($(this).text());
 	});
 	$("#charLevel").text(total);
 	let descriptions = "";
 	$(".skill").each(function() {
-		let p = parseInt($(this).attr("data-points"));
+		let p = Number($(this).attr("data-points"));
 		if (p > 0) {
 			descriptions += '<div class="skillText">';
 			let description = $(this).children(".description").html().replace("<h2>", "<strong>").replace("</h2>", " " + p + ':</strong><div class="descriptionText">').split(["<br><br>", "<br>"]);
@@ -429,14 +436,14 @@ function loadFromHash(mode) {
 			for (let i = 0; i < 4; i++) {
 				let actionSkill = i < 2 ? $("#primaryActionSkills .actionSkill")[i] : $("#secondaryActionSkills .actionSkill")[i - 2];
 				if (actionSkill) {
-					actionSkill.setAttribute("data-points", Math.min(curHash.charAt(i + 2), parseInt(actionSkill.getAttribute("data-max"))));
+					actionSkill.setAttribute("data-points", Math.min(curHash.charAt(i + 2), Number(actionSkill.getAttribute("data-max"))));
 				}
 			}
 			// passive skills have 42 slots: [6 ... 48]
 			for (let i = 0; i < 42; i++) {
 				let skill = i < 21 ? $("#primaryTree .skill")[i] : $("#secondaryTree .skill")[i - 21];
 				if (skill) {
-					skill.setAttribute("data-points", Math.min(curHash.charAt(i + 6), parseInt(skill.getAttribute("data-max"))));
+					skill.setAttribute("data-points", Math.min(curHash.charAt(i + 6), Number(skill.getAttribute("data-max"))));
 				}
 			}
 		}
