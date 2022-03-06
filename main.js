@@ -74,24 +74,26 @@ function formatHeroStat(statValue, statMultiplier) {
 		return "-" + ((10 - statValue) * statMultiplier).toFixed(1) + "%";
 	}
 }
+function getAllocatedMaxHeroPoints() {
+	let allocatedHeroPoints = Number($("#strengthSlider").val()) + Number(   $("#dexteritySlider").val()) + Number($("#intelligenceSlider").val()) +
+							  Number(  $("#wisdomSlider").val()) + Number($("#constitutionSlider").val()) + Number(  $("#attunementSlider").val()) - 60;
+	let maxHeroPoints = Number($("#charLevel").text()) + 10;
+	return [allocatedHeroPoints, maxHeroPoints];
+}
 function handleHeroStatSlider(event, ignoreEvent) {
-	let slider = $(this);
-	let sliderValue = Number(slider.val());
-	let statName = slider.attr("id").slice(0, -6);
-	let statValue = sliderValue + backstoryModifiers[$("#backstorySelector").val() || "none"][statName];
+	let sliderValue = Number(this.value);
 	if (!ignoreEvent) {
-		let allocatedHeroPoints = Number($("#strengthSlider").val()) + Number(   $("#dexteritySlider").val()) + Number($("#intelligenceSlider").val()) +
-								  Number(  $("#wisdomSlider").val()) + Number($("#constitutionSlider").val()) + Number(  $("#attunementSlider").val()) - 60;
-		let maxHeroPoints = Number($("#charLevel").text()) + 10;
+		let [allocatedHeroPoints, maxHeroPoints] = getAllocatedMaxHeroPoints();
 		if (allocatedHeroPoints > maxHeroPoints) {
 			let newValue = Math.max(sliderValue + maxHeroPoints - allocatedHeroPoints, 10);
-			slider.val(newValue);
-			if (allocatedHeroPoints - sliderValue + newValue <= maxHeroPoints) {
-				slider.trigger("change");
+			if (sliderValue != newValue) {
+				$(this).val(newValue).trigger("change", allocatedHeroPoints - sliderValue + newValue > maxHeroPoints);
 			}
 			return false;
 		}
 	}
+	let statName = this.id.slice(0, -6);
+	let statValue = sliderValue + backstoryModifiers[$("#backstorySelector").val()][statName];
 	let valueChanged = false;
 	switch (statName) {
 		default:
@@ -218,6 +220,9 @@ function rebuildHTML(className, targetElements) {
 			updatePassiveSkills($(this));
 		});
 		updateStats();
+		if (finishedLoading) {
+			updateHeroStats();
+		}
 		saveToHash(finishedLoading ? 2 : 0);
 		updateTreeBackground();
 		updateFeatTable();
@@ -246,6 +251,7 @@ function restoreHTML() {
 				updatePassiveSkills($(this));
 			});
 			updateStats();
+			updateHeroStats();
 			updateTreeBackground();
 			updateFeatTable();
 		}, "html");
@@ -342,6 +348,7 @@ function updatePoints(skillHandle, change) {
 		updatePassiveSkills(tree);
 	}
 	updateStats();
+	updateHeroStats();
 	saveToHash(1);
 }
 function updateActionSkills() {
@@ -434,6 +441,22 @@ function updateStats() {
 	});
 	$("#skillSummaryHeader").text(total > 0 ? "List of Skills" : "");
 	$("#skillSummaryContainer").html(descriptions);
+}
+function updateHeroStats() {
+	$(".heroStatSlider").sort(function (a, b) {
+		let valueA = Number(a.value) + backstoryModifiers[$("#backstorySelector").val()][a.id.slice(0, -6)];
+		let valueB = Number(b.value) + backstoryModifiers[$("#backstorySelector").val()][b.id.slice(0, -6)];
+		return valueA < valueB ? -1 : valueA > valueB ? 1 : 0;
+	}).each(function (index, slider) {
+		let sliderValue = Number(slider.value);
+		let [allocatedHeroPoints, maxHeroPoints] = getAllocatedMaxHeroPoints();
+		if (allocatedHeroPoints > maxHeroPoints) {
+			let newValue = Math.max(sliderValue + maxHeroPoints - allocatedHeroPoints, 10);
+			if (sliderValue != newValue) {
+				$(slider).val(newValue).trigger("change", allocatedHeroPoints - sliderValue + newValue > maxHeroPoints);
+			}
+		}
+	});
 }
 
 // url hash functions

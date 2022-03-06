@@ -117,14 +117,14 @@ em {
 }
 
 #heroStats {
-	min-width: 200pt;
+	min-width: 272pt;
 }
 
-.heroStatLabel {
+.heroStatLabel, #backstoryLabel {
 	float: left;
 }
 
-.heroStatSlider, .heroStatNumber, .heroStatText {
+.heroStatSlider, .heroStatNumber, .heroStatText, #backstorySelector {
 	float: right;
 }
 
@@ -149,9 +149,9 @@ em {
 	margin-right: 4pt;
 }
 
-#backstorySelector {
-	margin: 4pt 4pt 0;
-}	
+#backstoryLabel, #backstorySelector {
+	margin-top: 4pt;
+}
 
 #actionSkills {
 	font-size: 0; /* inline-block spacing hack */
