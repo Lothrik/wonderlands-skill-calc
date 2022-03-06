@@ -306,14 +306,15 @@ em {
 	display: none;
 	position: absolute;
 	top: 0;
-	width: 225pt;
-	z-index: 21;
+	width: 300pt;
+	z-index: 1;
 	background-color: rgba(0, 0, 0, 0.75);
 	border: 1px solid #fff;
 	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 	color: #fff;
 	padding: 0 0.25em 0.5em;
-	text-align: center;
+	text-align: justify;
+	text-align-last: center;
 }
 
 .label {
@@ -355,6 +356,16 @@ em {
 .tier[data-level='5'] .description {
 	top: auto;
 	bottom: 0;
+}
+
+@media (max-width: 915pt) {
+	.description {
+		position: fixed;
+		top: auto!important;
+		bottom: 8pt!important;
+		left: 50%!important;
+		transform: translateX(-50%);
+	}
 }
 
 .description h2 {
@@ -425,7 +436,7 @@ option, select, button {
 	text-align: right;
 }
 
-#summaryContainer div.descriptionText {
+#summaryContainer .descriptionText {
 	margin: 3pt 0 3pt 160pt;
 	text-align: justify;
 }
