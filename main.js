@@ -459,6 +459,8 @@ function updateHeroStats() {
 			}
 		}
 	});
+	let [allocatedHeroPoints, maxHeroPoints] = getAllocatedMaxHeroPoints();
+	$("#heroPointsText").text(allocatedHeroPoints + "/" + maxHeroPoints);
 }
 
 // url hash functions
