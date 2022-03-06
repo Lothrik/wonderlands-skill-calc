@@ -48,7 +48,17 @@ var backstoryModifiers = {
 	}
 };
 const heroStatRegex = /[-\+]+([^%]+)%/;
-function handleSwitchButton(event) {
+function handleSwapTreeButton(event) {
+	let curHash = constructHash(2);
+	let newHash = compressHash(curHash.charAt(1) + curHash.charAt(0) + curHash.charAt(4) + curHash.charAt(5) + curHash.charAt(2) + curHash.charAt(3) + curHash.slice(27, 48) + curHash.slice(6, 27) + curHash.slice(48));
+	let newURL = window.location.href.split("#")[0] + "#" + newHash;
+	$("#permaLink").attr("href", newURL);
+	window.location.replace(newURL);
+	addHashToUndo(compressHash(curHash));
+	loadFromHash(2);
+	restoreHTML();
+}
+function handleSwitchDisplayButton(event) {
 	switch ($(this).text()) {
 		default:
 		case "Switch to Hero Stats":
@@ -132,20 +142,38 @@ function handleHeroStatSlider(event, ignoreEvent) {
 		let [allocatedHeroPoints, maxHeroPoints] = getAllocatedMaxHeroPoints();
 		$("#heroPointsText").text(allocatedHeroPoints + "/" + maxHeroPoints);
 		if (!ignoreEvent) {
-			saveToHash(1);
+			saveToHash(2);
 		}
 	}
 }
 function handleBackstorySelection(event, ignoreEvent) {
 	$(".heroStatSlider").trigger("change", ignoreEvent);
 	if (!ignoreEvent) {
-		saveToHash(1);
+		saveToHash(2);
 	}
 }
 function handleClassSelection(event) {
 	if (this.id == "primaryClassSelector") {
+		$("#primaryTree .tier").each(function(index, key) {
+			$(this).attr("data-invested", "0").attr("data-total", "0");
+		});
+		$("#primaryTree .skill").each(function(index, key) {
+			$(this).attr("data-points", "0");
+		});
+		if (finishedLoading) {
+			saveToHash(2);
+		}
 		rebuildHTML($(this).val(), ["#primaryActionSkills", "#primaryClassFeat", "#primaryTree"]);
 	} else {
+		$("#secondaryTree .tier").each(function(index, key) {
+			$(this).attr("data-invested", "0").attr("data-total", "0");
+		});
+		$("#secondaryTree .skill").each(function(index, key) {
+			$(this).attr("data-points", "0");
+		});
+		if (finishedLoading) {
+			saveToHash(2);
+		}
 		rebuildHTML($(this).val(), ["#secondaryActionSkills", "#secondaryClassFeat", "#secondaryTree"]);
 	}
 }
@@ -212,25 +240,11 @@ function rebuildHTML(className, targetElements) {
 			});
 			$(targetElements[index]).html(constructedHTML);
 		});
-		$(".skill, .actionSkill, .skillTree").off();
-		$(".skill, .actionSkill").mousedown(handleMouseDown);
-		$(".skill, .actionSkill").mouseup(handleMouseUp);
-		$(".skillTree, .actionSkill").bind("contextmenu", function() { return false; });
-		if (!finishedLoading) {
-			loadFromHash(1);
-		}
-		updateActionSkills();
-		$(".skills").each(function(index) {
-			updatePassiveSkills($(this));
-		});
-		updateStats();
-		updateHeroStats();
-		saveToHash(finishedLoading ? 2 : 0);
-		updateTreeBackground();
-		updateFeatTable();
+		finishHTML();
 	}, "html");
 }
 function restoreHTML() {
+	let classesLoaded = 0;
 	let targetArray = [["#primaryActionSkills", "#primaryClassFeat", "#primaryTree"], ["#secondaryActionSkills", "#secondaryClassFeat", "#secondaryTree"]];
 	$.each([$("#primaryClassSelector").val(), $("#secondaryClassSelector").val()], function (targetIdx, className) {
 		$.get("classes/" + className + ".html", function(data) {
@@ -243,21 +257,27 @@ function restoreHTML() {
 				});
 				$(targetArray[targetIdx][index]).html(constructedHTML);
 			});
-			$(".skill, .actionSkill, .skillTree").off();
-			$(".skill, .actionSkill").mousedown(handleMouseDown);
-			$(".skill, .actionSkill").mouseup(handleMouseUp);
-			$(".skillTree, .actionSkill").bind("contextmenu", function() { return false; });
-			loadFromHash(2);
-			updateActionSkills();
-			$(".skills").each(function(index) {
-				updatePassiveSkills($(this));
-			});
-			updateStats();
-			updateHeroStats();
-			updateTreeBackground();
-			updateFeatTable();
+			classesLoaded += 1;
+			if (classesLoaded == 2) {
+				finishHTML();
+			}
 		}, "html");
 	});
+}
+function finishHTML() {
+	$(".skill, .actionSkill, .skillTree").off();
+	$(".skill, .actionSkill").mousedown(handleMouseDown);
+	$(".skill, .actionSkill").mouseup(handleMouseUp);
+	$(".skillTree, .actionSkill").bind("contextmenu", function() { return false; });
+	loadFromHash(2);
+	updateActionSkills();
+	$(".skills").each(function(index) {
+		updatePassiveSkills($(this));
+	});
+	updateStats();
+	updateHeroStats();
+	updateTreeBackground();
+	updateFeatTable();
 }
 function handleKeyDown(event) {
 	if (event.keyCode == 90 && event.ctrlKey) {
@@ -455,7 +475,7 @@ function updateHeroStats() {
 		if (allocatedHeroPoints > maxHeroPoints) {
 			let newValue = Math.max(sliderValue + maxHeroPoints - allocatedHeroPoints, 10);
 			if (sliderValue != newValue) {
-				$(slider).val(newValue).trigger("change", allocatedHeroPoints - sliderValue + newValue > maxHeroPoints || !finishedLoading);
+				$(slider).val(newValue).trigger("change", true);
 			}
 		}
 	});
@@ -466,7 +486,7 @@ function updateHeroStats() {
 // url hash functions
 var hashUndoHistory = [];
 function saveToHash(mode) {
-	let newHash = constructHash(mode);
+	let newHash = compressHash(constructHash(mode));
 	let newURL = window.location.href.split("#")[0] + "#" + newHash;
 	$("#permaLink").attr("href", newURL);
 	window.location.replace(newURL);
@@ -517,11 +537,11 @@ function constructHash(mode) {
 	} else {
 		for (let i = 0; i < 4; i++) {
 			let actionSkill = i < 2 ? $("#primaryActionSkills .actionSkill")[i] : $("#secondaryActionSkills .actionSkill")[i - 2];
-			newHash += actionSkill ? actionSkill.getAttribute("data-points") : "0";
+			newHash += typeof(actionSkill) === "undefined" ? "0" : actionSkill.getAttribute("data-points");
 		}
 		for (let i = 0; i < 42; i++) {
 			let skill = i < 21 ? $("#primaryTree .skill")[i] : $("#secondaryTree .skill")[i - 21];
-			newHash += skill ? skill.getAttribute("data-points") : "0";
+			newHash += typeof(skill) === "undefined" ? "0" : skill.getAttribute("data-points");
 		}
 		for (let i = 0; i < 6; i++) {
 			newHash += ("00" + $(".heroStatSlider")[i].value).slice(-2);
@@ -531,24 +551,22 @@ function constructHash(mode) {
 	if ((newHash.length) < 3) {
 		return "";
 	}
-	return compressHash(newHash);
+	return newHash;
 }
-function addHashToUndo(oldHash) {
-	if (hashUndoHistory[hashUndoHistory.length - 1] != oldHash) {
-		if (hashUndoHistory.push(oldHash) > 100) {
-			hashUndoHistory.shift();
-		}
+function addHashToUndo(curHash) {
+	if (hashUndoHistory[hashUndoHistory.length - 1] != curHash && hashUndoHistory.push(curHash) > 100) {
+		hashUndoHistory.shift();
 	}
 }
 function loadPreviousHashFromUndo() {
-	hashUndoHistory.pop();
-	if (hashUndoHistory.length > 0) {
-		let newHash = hashUndoHistory[hashUndoHistory.length - 1];
+	if (hashUndoHistory.length > 1) {
+		let newHash = hashUndoHistory[hashUndoHistory.length - 2];
 		let newURL = window.location.href.split("#")[0] + "#" + newHash;
 		$("#permaLink").attr("href", newURL);
 		window.location.replace(newURL);
 		loadFromHash(2);
 		restoreHTML();
+		hashUndoHistory.pop();
 	}
 	return false;
 }
@@ -575,9 +593,10 @@ function decompressHash() {
 // finalize the page once DOM has loaded
 var finishedLoading = false;
 $(document).ready(function () {
-	loadFromHash(0);
+	loadFromHash(2);
 	$(document).on("keydown", handleKeyDown);
-	$("#switchButton").on("click", handleSwitchButton);
+	$("#swapTreeButton").on("click", handleSwapTreeButton);
+	$("#switchDisplayButton").on("click", handleSwitchDisplayButton);
 	$(".heroStatSlider").on("change", handleHeroStatSlider);
 	$("#backstorySelector").on("change", handleBackstorySelection);
 	$("#primaryClassSelector").on("change", handleClassSelection);
@@ -585,6 +604,7 @@ $(document).ready(function () {
 	$("#primaryClassSelector").trigger("change");
 	$("#secondaryClassSelector").trigger("change");
 	setTimeout(function() {
+		saveToHash(2);
 		finishedLoading = true;
-	}, 2500);
+	}, 1500);
 });

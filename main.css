@@ -385,17 +385,18 @@ em {
 }
 
 option, select, button {
+	height: 20pt;
 	border: 1px solid #fff;
 	background-color: #000;
 	color: #fff;
 }
 
-#switchButton {
-	margin: 0 auto 8pt auto;
+button:active {
+	background-color: #333;
 }
 
-#switchButton:active {
-	background-color: #333;
+#switchDisplayButton {
+	margin: 0 auto 8pt auto;
 }
 
 #summaryContainer {
