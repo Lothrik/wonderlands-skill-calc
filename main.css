@@ -124,7 +124,7 @@ em {
 	float: left;
 }
 
-.heroStatSlider, .heroStatNumber, .heroStatText, #backstorySelector {
+.heroStatSlider, .heroStatNumber, .heroStatText, #heroPointsText, #backstorySelector {
 	float: right;
 }
 

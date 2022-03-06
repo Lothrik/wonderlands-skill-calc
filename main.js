@@ -128,8 +128,12 @@ function handleHeroStatSlider(event, ignoreEvent) {
 			$("#attunementText").text($("#attunementText").text().replace(heroStatRegex, formatHeroStat(statValue, 1)));
 			break;
 	}
-	if (!ignoreEvent && valueChanged) {
-		saveToHash(1);
+	if (valueChanged) {
+		let [allocatedHeroPoints, maxHeroPoints] = getAllocatedMaxHeroPoints();
+		$("#heroPointsText").text(allocatedHeroPoints + "/" + maxHeroPoints);
+		if (!ignoreEvent) {
+			saveToHash(1);
+		}
 	}
 }
 function handleBackstorySelection(event, ignoreEvent) {
@@ -220,9 +224,7 @@ function rebuildHTML(className, targetElements) {
 			updatePassiveSkills($(this));
 		});
 		updateStats();
-		if (finishedLoading) {
-			updateHeroStats();
-		}
+		updateHeroStats();
 		saveToHash(finishedLoading ? 2 : 0);
 		updateTreeBackground();
 		updateFeatTable();
@@ -453,7 +455,7 @@ function updateHeroStats() {
 		if (allocatedHeroPoints > maxHeroPoints) {
 			let newValue = Math.max(sliderValue + maxHeroPoints - allocatedHeroPoints, 10);
 			if (sliderValue != newValue) {
-				$(slider).val(newValue).trigger("change", allocatedHeroPoints - sliderValue + newValue > maxHeroPoints);
+				$(slider).val(newValue).trigger("change", allocatedHeroPoints - sliderValue + newValue > maxHeroPoints || !finishedLoading);
 			}
 		}
 	});
