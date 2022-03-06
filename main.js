@@ -559,8 +559,8 @@ function addHashToUndo(curHash) {
 	}
 }
 function loadPreviousHashFromUndo() {
-	if (hashUndoHistory.length > 1) {
-		let newHash = hashUndoHistory[hashUndoHistory.length - 2];
+	if (hashUndoHistory.length > 0) {
+		let newHash = hashUndoHistory[Math.max(0, hashUndoHistory.length - 2)];
 		let newURL = window.location.href.split("#")[0] + "#" + newHash;
 		$("#permaLink").attr("href", newURL);
 		window.location.replace(newURL);
