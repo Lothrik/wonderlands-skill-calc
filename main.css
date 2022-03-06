@@ -150,8 +150,12 @@ em {
 	margin-right: 4pt;
 }
 
-#heroPointsLabel, #heroPointsText, #backstoryLabel, #backstorySelector {
+#heroPointsLabel, #heroPointsText {
 	margin-top: 4pt;
+}
+
+#backstoryLabel, #backstorySelector {
+	margin-top: 8pt;
 }
 
 #actionSkills {
