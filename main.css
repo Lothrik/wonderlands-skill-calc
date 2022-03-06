@@ -286,6 +286,10 @@ em {
 
 .className {
 	text-align: left;
+	max-width: 145px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 .totalPoints {
@@ -318,6 +322,7 @@ em {
 }
 
 .label {
+	width: 90%;
 	color: #fff;
 	position: absolute;
 	top: 50%;
