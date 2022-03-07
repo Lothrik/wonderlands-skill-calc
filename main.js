@@ -77,6 +77,52 @@ function handleSwitchViewButton(event) {
 			break;
 	}
 }
+function handleScreenshotButton(event) {
+	const screenshotTarget = document.body;
+	$("#topLinks, .description, #classSelectors, #extraButtons, #footer").addClass("disabled");
+	$("#toolName, #summaryContainer").css({ "margin-top": "8pt" });
+	$("#skillSummaryContainer").css({ "padding-bottom": "8pt" });
+	$("#primaryActionSkills").css({ "width": "100%" });
+	$("#skillTrees").css({ "flex-grow": "0", "margin-bottom": "280pt" });
+	$("#heroStats").css({ "margin-top": "430pt" });
+	$("option").each(function() { $(this).html("&nbsp;" + $(this).html()); });
+	$("html, body").css({ "width": "auto", "height": "auto" });
+	$("#actionSkills").removeClass("hidden");
+	$("#skillTrees").removeClass("hidden");
+	$("#heroStats").removeClass("hidden");
+	html2canvas(screenshotTarget, {
+		windowWidth: Math.min(550, window.innerWidth),
+		windowHeight: $("body")[0].scrollHeight
+	}).then((canvas) => {
+		let newImage = new Image();
+		newImage.src = canvas.toDataURL("image/png");
+		let newWindow = window.open("");
+		newWindow.document.write(newImage.outerHTML);
+		switch ($("#switchViewButton").text()) {
+			default:
+			case "View Hero Stats":
+				$("#heroStats").addClass("hidden");
+				$("#actionSkills").removeClass("hidden");
+				$("#skillTrees").removeClass("hidden");
+				break;
+			case "View Skill Trees":
+				if ($("#primaryClassSelector").val() != "none" || $("#secondaryClassSelector").val() != "none") {
+					$("#actionSkills").addClass("hidden");
+					$("#skillTrees").addClass("hidden");
+					$("#heroStats").removeClass("hidden");
+				}
+				break;
+		}
+		$("html, body").removeAttr("style");
+		$("option").each(function() { $(this).html($(this).html().replace("&nbsp;", "")); });
+		$("#heroStats").removeAttr("style");
+		$("#skillTrees").removeAttr("style");
+		$("#primaryActionSkills").removeAttr("style");
+		$("#skillSummaryContainer").removeAttr("style");
+		$("#toolName, #summaryContainer").removeAttr("style");
+		$("#topLinks, .description, #classSelectors, #extraButtons, #footer").removeClass("disabled");
+	});
+}
 function formatHeroStat(statValue, statMultiplier) {
 	if (statValue >= 10) {
 		return "+" + ((statValue - 10) * statMultiplier).toFixed(1) + "%";
@@ -574,7 +620,7 @@ function loadPreviousHashFromUndo() {
 	}
 	return false;
 }
-function resetEverything() {
+function handleResetButton() {
 	addHashToUndo(window.location.hash.replace("#", ""));
 	window.location.hash = "";
 	$("#permaLink").attr("href", "#");
@@ -608,10 +654,11 @@ var finishedLoading = false;
 $(document).ready(function () {
 	loadFromHash(2);
 	$(document).on("keydown", handleKeyDown);
-	$("#resetLink, #resetButton").on("click", resetEverything);
-	$("#undoLink, #undoButton").on("click", loadPreviousHashFromUndo);
 	$("#swapTreeButton").on("click", handleSwapTreeButton);
+	$("#resetLink, #resetButton").on("click", handleResetButton);
 	$("#switchViewButton").on("click", handleSwitchViewButton);
+	$("#screenshotButton").on("click", handleScreenshotButton);
+	$("#undoLink, #undoButton").on("click", loadPreviousHashFromUndo);
 	$(".heroStatSlider").on("change", handleHeroStatSlider);
 	$("#backstorySelector").on("change", handleBackstorySelection);
 	$("#primaryClassSelector").on("change", handleClassSelection);

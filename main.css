@@ -108,7 +108,6 @@ em {
 
 #overlayContainer > * {
 	max-height: 340pt;
-	overflow: hidden;
 	position: absolute;
 	left: 50%;
 	transform: translateX(-50%);
@@ -117,7 +116,7 @@ em {
 }
 
 #heroStats {
-	min-width: 272pt;
+	min-width: 275pt;
 }
 
 .heroStatLabel, #heroPointsLabel, #backstoryLabel {
@@ -384,7 +383,7 @@ em {
 	margin: 8pt;
 }
 
-option, select, button {
+select, option, button {
 	height: 20pt;
 	border: 1px solid #fff;
 	background-color: #000;
