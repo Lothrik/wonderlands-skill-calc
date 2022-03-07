@@ -31,12 +31,18 @@ html, body {
 }
 
 body {
-	background: #333 url("images/background.jpg") no-repeat fixed center center;
-	background-size: cover;
+	background: #0c0032 url("images/background.avif") no-repeat;
+	background-size: 100.885% auto;
 	color: #fff;
 	font: 15pt/17pt Homenaje, Impact, sans-serif;
 	cursor: default;
 	text-align: center;
+}
+
+@media (max-width: 1920px) {
+	body {
+		background-size: auto;
+	}
 }
 
 body > * {
@@ -61,44 +67,22 @@ em {
 	font-size: 24pt;
 	text-transform: uppercase;
 	line-height: 1;
-	padding-bottom: 8pt;
+	padding: 8pt 0;
 	margin-bottom: 8pt;
 }
 
-#topLinks {
-	padding: 4pt;
-	font-size: 60%;
-}
-
-#permaLink {
-	color: #fff;
-}
-
-#resetLink {
-	color: red;
-}
-
-#undoLink {
-	color: #0f0;
-}
-
 #header, #summaryContainer, #overlayContainer > * {
-	background-color: rgba(0, 0, 0, 0.5);
+	background-color: rgba(0, 0, 0, 0.25);
 	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
 #header h1 {
-	color: #ffde09;
+	text-shadow: 2px 2px 8px rgb(255 1 255 / 70%);
 	font-size: 140%;
 	margin: 0 auto;
 }
 
 #header h2 {
-	color: #fbb406;
-	font-size: 150%;
-}
-
-#header h3 {
 	font-size: 80%;
 }
 
@@ -131,7 +115,7 @@ em {
 .heroStatSlider {
 	appearance: none;
 	height: 4pt;
-	background: rgba(0, 0, 0, 0.75);
+	background: rgba(255, 255, 255, 0.15);
 	border-radius: 2pt;
 	margin-top: 6pt;
 }
@@ -311,7 +295,7 @@ em {
 	top: 0;
 	width: 300pt;
 	z-index: 1;
-	background-color: rgba(0, 0, 0, 0.75);
+	background-color: rgba(0, 0, 0, 0.65);
 	border: 1px solid #fff;
 	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 	color: #fff;
@@ -570,7 +554,6 @@ button:active {
 }
 
 .stamp {
-	color: orangered;
 	font-size: 80%;
 	width: 0;
 	height: 0;

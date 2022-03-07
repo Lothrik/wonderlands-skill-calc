@@ -52,7 +52,6 @@ function handleSwapTreeButton(event) {
 	let decompressedHash = decompressHash(window.location.hash.replace("#", ""));
 	let newHash = compressHash(decompressedHash.charAt(1) + decompressedHash.charAt(0) + decompressedHash.charAt(4) + decompressedHash.charAt(5) + decompressedHash.charAt(2) + decompressedHash.charAt(3) + decompressedHash.slice(27, 48) + decompressedHash.slice(6, 27) + decompressedHash.slice(48));
 	let newURL = window.location.href.split("#")[0] + "#" + newHash;
-	$("#permaLink").attr("href", newURL);
 	window.location.replace(newURL);
 	loadFromHash(2);
 	restoreHTML();
@@ -79,8 +78,8 @@ function handleSwitchViewButton(event) {
 }
 function handleScreenshotButton(event) {
 	const screenshotTarget = document.body;
-	$("#topLinks, .description, #classSelectors, #extraButtons, #footer").addClass("disabled");
-	$("#toolName, #summaryContainer").css({ "margin-top": "8pt" });
+	$(".description, #classSelectors, #extraButtons, #footer").addClass("disabled");
+	$("#summaryContainer").css({ "margin-top": "8pt" });
 	$("#skillSummaryContainer").css({ "padding-bottom": "8pt" });
 	$("#primaryActionSkills").css({ "width": "100%" });
 	$("#skillTrees").css({ "flex-grow": "0", "margin-bottom": "280pt" });
@@ -119,8 +118,8 @@ function handleScreenshotButton(event) {
 		$("#skillTrees").removeAttr("style");
 		$("#primaryActionSkills").removeAttr("style");
 		$("#skillSummaryContainer").removeAttr("style");
-		$("#toolName, #summaryContainer").removeAttr("style");
-		$("#topLinks, .description, #classSelectors, #extraButtons, #footer").removeClass("disabled");
+		$("#summaryContainer").removeAttr("style");
+		$(".description, #classSelectors, #extraButtons, #footer").removeClass("disabled");
 	});
 }
 function formatHeroStat(statValue, statMultiplier) {
@@ -540,7 +539,6 @@ var hashUndoHistory = [];
 function saveToHash(mode) {
 	let newHash = compressHash(constructHash(mode));
 	let newURL = window.location.href.split("#")[0] + "#" + newHash;
-	$("#permaLink").attr("href", newURL);
 	window.location.replace(newURL);
 	addHashToUndo(newHash);
 }
@@ -612,7 +610,6 @@ function loadPreviousHashFromUndo() {
 	if (hashUndoHistory.length > 1) {
 		let newHash = hashUndoHistory[hashUndoHistory.length - 2];
 		let newURL = window.location.href.split("#")[0] + "#" + newHash;
-		$("#permaLink").attr("href", newURL);
 		window.location.replace(newURL);
 		loadFromHash(2);
 		restoreHTML();
@@ -623,7 +620,6 @@ function loadPreviousHashFromUndo() {
 function handleResetButton() {
 	addHashToUndo(window.location.hash.replace("#", ""));
 	window.location.hash = "";
-	$("#permaLink").attr("href", "#");
 	loadFromHash(2);
 	restoreHTML();
 	addHashToUndo("");
@@ -655,10 +651,10 @@ $(document).ready(function () {
 	loadFromHash(2);
 	$(document).on("keydown", handleKeyDown);
 	$("#swapTreeButton").on("click", handleSwapTreeButton);
-	$("#resetLink, #resetButton").on("click", handleResetButton);
+	$("#resetButton").on("click", handleResetButton);
 	$("#switchViewButton").on("click", handleSwitchViewButton);
 	$("#screenshotButton").on("click", handleScreenshotButton);
-	$("#undoLink, #undoButton").on("click", loadPreviousHashFromUndo);
+	$("#undoButton").on("click", loadPreviousHashFromUndo);
 	$(".heroStatSlider").on("change", handleHeroStatSlider);
 	$("#backstorySelector").on("change", handleBackstorySelection);
 	$("#primaryClassSelector").on("change", handleClassSelection);
