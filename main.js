@@ -154,6 +154,9 @@ function handleBackstorySelection(event, ignoreEvent) {
 }
 function handleClassSelection(event) {
 	if (this.id == "primaryClassSelector") {
+		$("#primaryActionSkills .actionSkill").each(function(index, key) {
+			$(this).attr("data-points", "0");
+		});
 		$("#primaryTree .tier").each(function(index, key) {
 			$(this).attr("data-invested", "0").attr("data-total", "0");
 		});
@@ -165,6 +168,9 @@ function handleClassSelection(event) {
 		}
 		rebuildHTML($(this).val(), ["#primaryActionSkills", "#primaryClassFeat", "#primaryTree"]);
 	} else {
+		$("#secondaryActionSkills .actionSkill").each(function(index, key) {
+			$(this).attr("data-points", "0");
+		});
 		$("#secondaryTree .tier").each(function(index, key) {
 			$(this).attr("data-invested", "0").attr("data-total", "0");
 		});
