@@ -395,8 +395,19 @@ button:active {
 	background-color: #333;
 }
 
-#switchDisplayButton {
-	margin: 0 auto 8pt auto;
+#extraButtons {
+	font-size: 0; /* inline-block spacing hack */
+	margin-bottom: 8pt;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
+
+#extraButtons > * {
+	font: 15pt/17pt Homenaje, Impact, sans-serif;
+	margin: 0 1pt 0;
 }
 
 #summaryContainer {

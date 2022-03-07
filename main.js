@@ -49,31 +49,31 @@ var backstoryModifiers = {
 };
 const heroStatRegex = /[-\+]+([^%]+)%/;
 function handleSwapTreeButton(event) {
-	let curHash = constructHash(2);
-	let newHash = compressHash(curHash.charAt(1) + curHash.charAt(0) + curHash.charAt(4) + curHash.charAt(5) + curHash.charAt(2) + curHash.charAt(3) + curHash.slice(27, 48) + curHash.slice(6, 27) + curHash.slice(48));
+	let decompressedHash = decompressHash(window.location.hash.replace("#", ""));
+	let newHash = compressHash(decompressedHash.charAt(1) + decompressedHash.charAt(0) + decompressedHash.charAt(4) + decompressedHash.charAt(5) + decompressedHash.charAt(2) + decompressedHash.charAt(3) + decompressedHash.slice(27, 48) + decompressedHash.slice(6, 27) + decompressedHash.slice(48));
 	let newURL = window.location.href.split("#")[0] + "#" + newHash;
 	$("#permaLink").attr("href", newURL);
 	window.location.replace(newURL);
-	addHashToUndo(compressHash(curHash));
 	loadFromHash(2);
 	restoreHTML();
+	addHashToUndo(newHash);
 }
-function handleSwitchDisplayButton(event) {
+function handleSwitchViewButton(event) {
 	switch ($(this).text()) {
 		default:
-		case "Switch to Hero Stats":
+		case "View Hero Stats":
 			if ($("#primaryClassSelector").val() != "none" || $("#secondaryClassSelector").val() != "none") {
 				$("#actionSkills").addClass("hidden");
 				$("#skillTrees").addClass("hidden");
 				$("#heroStats").removeClass("hidden");
-				$(this).text("Switch to Skill Trees");
+				$(this).text("View Skill Trees");
 			}
 			break;
-		case "Switch to Skill Trees":
+		case "View Skill Trees":
 			$("#heroStats").addClass("hidden");
 			$("#actionSkills").removeClass("hidden");
 			$("#skillTrees").removeClass("hidden");
-			$(this).text("Switch to Hero Stats");
+			$(this).text("View Hero Stats");
 			break;
 	}
 }
@@ -493,35 +493,33 @@ function saveToHash(mode) {
 	addHashToUndo(newHash);
 }
 function loadFromHash(mode) {
-	if (window.location.hash.length > 0) {
-		let curHash = decompressHash();
-		// classes have 2 slots: [0, 1]
-		if (mode == 0 || mode == 2) {
-			$("#primaryClassSelector").prop("selectedIndex", Math.min(curHash.charAt(0), $("#primaryClassSelector option").length - 1));
-			$("#secondaryClassSelector").prop("selectedIndex", Math.min(curHash.charAt(1), $("#secondaryClassSelector option").length - 1));
+	let curHash = decompressHash();
+	// classes have 2 slots: [0, 1]
+	if (mode == 0 || mode == 2) {
+		$("#primaryClassSelector").prop("selectedIndex", Math.min(curHash.charAt(0), $("#primaryClassSelector option").length - 1));
+		$("#secondaryClassSelector").prop("selectedIndex", Math.min(curHash.charAt(1), $("#secondaryClassSelector option").length - 1));
+	}
+	if (mode == 1 || mode == 2) {
+		// action skills have 4 slots: [2, 3, 4, 5]
+		for (let i = 0; i < 4; i++) {
+			let actionSkill = i < 2 ? $("#primaryActionSkills .actionSkill")[i] : $("#secondaryActionSkills .actionSkill")[i - 2];
+			if (actionSkill) {
+				actionSkill.setAttribute("data-points", Math.min(curHash.charAt(i + 2), Number(actionSkill.getAttribute("data-max"))));
+			}
 		}
-		if (mode == 1 || mode == 2) {
-			// action skills have 4 slots: [2, 3, 4, 5]
-			for (let i = 0; i < 4; i++) {
-				let actionSkill = i < 2 ? $("#primaryActionSkills .actionSkill")[i] : $("#secondaryActionSkills .actionSkill")[i - 2];
-				if (actionSkill) {
-					actionSkill.setAttribute("data-points", Math.min(curHash.charAt(i + 2), Number(actionSkill.getAttribute("data-max"))));
-				}
+		// passive skills have 42 slots: [6 ... 47]
+		for (let i = 0; i < 42; i++) {
+			let skill = i < 21 ? $("#primaryTree .skill")[i] : $("#secondaryTree .skill")[i - 21];
+			if (skill) {
+				skill.setAttribute("data-points", Math.min(curHash.charAt(i + 6), Number(skill.getAttribute("data-max"))));
 			}
-			// passive skills have 42 slots: [6 ... 47]
-			for (let i = 0; i < 42; i++) {
-				let skill = i < 21 ? $("#primaryTree .skill")[i] : $("#secondaryTree .skill")[i - 21];
-				if (skill) {
-					skill.setAttribute("data-points", Math.min(curHash.charAt(i + 6), Number(skill.getAttribute("data-max"))));
-				}
-			}
-			// hero stats have 6 double-width slots: [48 ... 59]
-			for (let i = 0; i < 6; i++) {
-				$(".heroStatSlider").eq(i).val(curHash.slice(48 + i * 2, 50 + i * 2));
-			}
-			// hero backstory has 1 slot [60]
-			$("#backstorySelector").prop("selectedIndex", Math.min(curHash.charAt(60), $("#backstorySelector option").length - 1)).trigger("change", true);
 		}
+		// hero stats have 6 double-width slots: [48 ... 59]
+		for (let i = 0; i < 6; i++) {
+			$(".heroStatSlider").eq(i).val(curHash.slice(48 + i * 2, 50 + i * 2));
+		}
+		// hero backstory has 1 slot [60]
+		$("#backstorySelector").prop("selectedIndex", Math.min(curHash.charAt(60), $("#backstorySelector option").length - 1)).trigger("change", true);
 	}
 }
 function constructHash(mode) {
@@ -559,8 +557,8 @@ function addHashToUndo(curHash) {
 	}
 }
 function loadPreviousHashFromUndo() {
-	if (hashUndoHistory.length > 0) {
-		let newHash = hashUndoHistory[Math.max(0, hashUndoHistory.length - 2)];
+	if (hashUndoHistory.length > 1) {
+		let newHash = hashUndoHistory[hashUndoHistory.length - 2];
 		let newURL = window.location.href.split("#")[0] + "#" + newHash;
 		$("#permaLink").attr("href", newURL);
 		window.location.replace(newURL);
@@ -568,6 +566,15 @@ function loadPreviousHashFromUndo() {
 		restoreHTML();
 		hashUndoHistory.pop();
 	}
+	return false;
+}
+function resetEverything() {
+	addHashToUndo(window.location.hash.replace("#", ""));
+	window.location.hash = "";
+	$("#permaLink").attr("href", "#");
+	loadFromHash(2);
+	restoreHTML();
+	addHashToUndo("");
 	return false;
 }
 function compressHash(rawHash) {
@@ -595,8 +602,10 @@ var finishedLoading = false;
 $(document).ready(function () {
 	loadFromHash(2);
 	$(document).on("keydown", handleKeyDown);
+	$("#resetLink, #resetButton").on("click", resetEverything);
+	$("#undoLink, #undoButton").on("click", loadPreviousHashFromUndo);
 	$("#swapTreeButton").on("click", handleSwapTreeButton);
-	$("#switchDisplayButton").on("click", handleSwitchDisplayButton);
+	$("#switchViewButton").on("click", handleSwitchViewButton);
 	$(".heroStatSlider").on("change", handleHeroStatSlider);
 	$("#backstorySelector").on("change", handleBackstorySelection);
 	$("#primaryClassSelector").on("change", handleClassSelection);

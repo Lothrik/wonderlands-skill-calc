@@ -16,7 +16,7 @@
 </head>
 <body>
 	<div id="header">
-		<div id="topLinks"><a onclick="location.href=location.href.split('#')[0]" href="#" id="resetLink">Reset</a> | <a onclick="return loadPreviousHashFromUndo()" href="#" id="undoLink">Undo (Ctrl+Z)</a> | <a href="#" id="permaLink">Permalink to this build</a></div>
+		<div id="topLinks"><a href="#" id="resetLink">Reset</a> | <a href="#" id="undoLink">Undo (Ctrl+Z)</a> | <a href="#" id="permaLink">Permalink to this build</a></div>
 		<h1 id="toolName">Wonderlands skill calculator<div class="stamp">&nbsp;(WIP)</div></h1>
 		<h3>Level <span id="charLevel">1</span> <span id="primaryClassName">None</span> / <span id="secondaryClassName">None</span></h3>
 	</div>
@@ -82,7 +82,7 @@
 			<option value="sporewarden">Spore Warden</option>
 			<option value="stabbomancer">Stabbomancer</option>
 		</select>
-		<button id="swapTreeButton" type="button">&laquo; Swap &raquo;</button>
+		<button id="swapTreeButton" type="button">Swap</button>
 		<select id="secondaryClassSelector">
 			<option value="none">None</option>
 			<option value="brrzerker">Brr-zerker</option>
@@ -93,7 +93,11 @@
 			<option value="stabbomancer">Stabbomancer</option>
 		</select>
 	</div>
-	<button id="switchDisplayButton" type="button">Switch to Hero Stats</button>
+	<div id="extraButtons">
+	<button id="resetButton" type="button">Reset</option>
+	<button id="switchViewButton" type="button">View Hero Stats</button>
+	<button id="undoButton" type="button">Undo</button>
+	</div>
 	<div id="summaryContainer">
 		<h2 id="featSummaryHeader"></h2>
 		<div id="featSummaryContainer">
