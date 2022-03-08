@@ -299,6 +299,10 @@ em {
 	left: 50%;
 	transform: translate(-50%, -50%);
 	color: #fff;
+	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.actionSkill .label {
 	text-shadow: 2px 2px 8px rgb(255 1 255 / 70%);
 }
 
@@ -470,7 +474,7 @@ button:active {
 	-webkit-text-fill-color: transparent;
 	animation: rainbow_animation 4s linear 0s infinite forwards;
 	background-size: 200% 100%;
-	text-shadow: none;
+	text-shadow: none!important;
 }
 
 @keyframes rainbow_animation {
@@ -498,12 +502,12 @@ button:active {
 	color: red;
 }
 
-.description .orange, #summaryContainer .orange, .partial, .partial .points {
+.description .orange, #summaryContainer .orange, .partial, .partial .label, .partial .points {
 	color: #f80;
 }
 
-.description .green, #summaryContainer .green, .full, .full .points {
-	color: #0d0;
+.description .green, #summaryContainer .green, .full, .full .label, .full .points {
+	color: #0f0;
 }
 
 .skill:hover .description {

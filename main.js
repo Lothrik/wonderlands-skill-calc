@@ -199,34 +199,34 @@ function handleBackstorySelection(event, ignoreEvent) {
 		saveToHash(2);
 	}
 }
-function handleClassSelection(event) {
+function handleClassSelection(event, ignoreEvent) {
 	if (this.id == "primaryClassSelector") {
 		$("#primaryClassName").text($("#primaryClassSelector option:selected").text());
-		$("#primaryActionSkills .actionSkill").each(function(index, key) {
-			$(this).attr("data-points", "0");
-		});
-		$("#primaryTree .tier").each(function(index, key) {
-			$(this).attr("data-invested", "0").attr("data-total", "0");
-		});
-		$("#primaryTree .skill").each(function(index, key) {
-			$(this).attr("data-points", "0");
-		});
-		if (finishedLoading) {
+		if (!ignoreEvent) {
+			$("#primaryActionSkills .actionSkill").each(function(index, key) {
+				$(this).attr("data-points", "0");
+			});
+			$("#primaryTree .tier").each(function(index, key) {
+				$(this).attr("data-invested", "0").attr("data-total", "0");
+			});
+			$("#primaryTree .skill").each(function(index, key) {
+				$(this).attr("data-points", "0");
+			});
 			saveToHash(2);
 		}
 		rebuildHTML($(this).val(), ["#primaryActionSkills", "#primaryClassFeat", "#primaryTree"]);
 	} else {
 		$("#secondaryClassName").text($("#secondaryClassSelector option:selected").text());
-		$("#secondaryActionSkills .actionSkill").each(function(index, key) {
-			$(this).attr("data-points", "0");
-		});
-		$("#secondaryTree .tier").each(function(index, key) {
-			$(this).attr("data-invested", "0").attr("data-total", "0");
-		});
-		$("#secondaryTree .skill").each(function(index, key) {
-			$(this).attr("data-points", "0");
-		});
-		if (finishedLoading) {
+		if (!ignoreEvent) {
+			$("#secondaryActionSkills .actionSkill").each(function(index, key) {
+				$(this).attr("data-points", "0");
+			});
+			$("#secondaryTree .tier").each(function(index, key) {
+				$(this).attr("data-invested", "0").attr("data-total", "0");
+			});
+			$("#secondaryTree .skill").each(function(index, key) {
+				$(this).attr("data-points", "0");
+			});
 			saveToHash(2);
 		}
 		rebuildHTML($(this).val(), ["#secondaryActionSkills", "#secondaryClassFeat", "#secondaryTree"]);
@@ -258,38 +258,37 @@ function updateFeatTable() {
 	}
 }
 function rebuildHTML(className, targetElements) {
-	$.get("classes/" + className + ".html", function(data) {
-		$.each(["actionSkill", "classFeat", "skillTree"], function(index, key) {
+	let getResult = $.get("classes/" + className + ".html");
+	$.when(getResult).then(function(classData) {
+		$.each(["actionSkill", "classFeat", "skillTree"], function(classIndex, classKey) {
 			let constructedHTML = "";
-			$(data).each(function(_, htmlFragment) {
-				if ($(htmlFragment).attr("class") == key) {
+			$(classData).each(function(_, htmlFragment) {
+				if ($(htmlFragment).attr("class") == classKey) {
 					constructedHTML += $(htmlFragment)[0].outerHTML;
 				}
 			});
-			$(targetElements[index]).html(constructedHTML);
+			$(targetElements[classIndex]).html(constructedHTML);
 		});
 		finishHTML();
-	}, "html");
+	});
 }
 function restoreHTML() {
-	let classesLoaded = 0;
 	let targetArray = [["#primaryActionSkills", "#primaryClassFeat", "#primaryTree"], ["#secondaryActionSkills", "#secondaryClassFeat", "#secondaryTree"]];
-	$.each([$("#primaryClassSelector").val(), $("#secondaryClassSelector").val()], function (targetIdx, className) {
-		$.get("classes/" + className + ".html", function(data) {
-			$.each(["actionSkill", "classFeat", "skillTree"], function(index, key) {
+	let className = [$("#primaryClassSelector").val(), $("#secondaryClassSelector").val()];
+	let getResult = [$.get("classes/" + className[0] + ".html"), $.get("classes/" + className[1] + ".html")];
+	$.when(getResult[0], getResult[1]).then(function(primaryClass, secondaryClass) {
+		$([primaryClass, secondaryClass]).each(function(classIndex) {
+			$.each(["actionSkill", "classFeat", "skillTree"], function(_, classKey) {
 				let constructedHTML = "";
-				$(data).each(function(_, htmlFragment) {
-					if ($(htmlFragment).attr("class") == key) {
+				$(this).each(function(_, htmlFragment) {
+					if ($(htmlFragment).attr("class") == classKey) {
 						constructedHTML += $(htmlFragment)[0].outerHTML;
 					}
 				});
-				$(targetArray[targetIdx][index]).html(constructedHTML);
+				$(targetArray[classIndex][primaryClassName]).html(constructedHTML);
 			});
-			classesLoaded += 1;
-			if (classesLoaded == 2) {
-				finishHTML();
-			}
-		}, "html");
+		});
+		finishHTML();
 	});
 }
 function finishHTML() {
@@ -350,7 +349,7 @@ function checkLongTouch(fromTimer) {
 // core skill calculator functions
 function updatePoints(skillHandle, change) {
 	if (skillHandle[0].classList.contains("actionSkill")) {
-		$(".actionSkill").each(function () {
+		$(".actionSkill").each(function() {
 			if (change == 1) {
 				if ($(this).is(skillHandle)) {
 					$(this).attr("data-points", 1);
@@ -401,13 +400,16 @@ function updatePoints(skillHandle, change) {
 	saveToHash(1);
 }
 function updateActionSkills() {
-	$(".actionSkill").each(function () {
+	$(".actionSkill").each(function() {
 		let p = Number($(this).attr("data-points"));
 		let m = Number($(this).attr("data-max"));
 		$(this).children(".points").text(p + "/" + m);
-		$(this).removeClass("partial full");
-		if (p != 0) {
-			$(this).addClass(p < m ? "partial" : "full");
+		if (p == 0) {
+			$(this).children(".points").removeClass("full");
+			$(this).children(".label").removeClass("rainbow");
+		} else {
+			$(this).children(".points").addClass("full");
+			$(this).children(".label").addClass("rainbow");
 		}
 	});
 	let actionSkillNames = [];
@@ -622,9 +624,7 @@ function decompressHash() {
 }
 
 // finalize the page once DOM has loaded
-var finishedLoading = false;
-$(document).ready(function () {
-	loadFromHash(2);
+$(document).ready(function() {
 	$(document).on("keydown", handleKeyDown);
 	$("#swapTreeButton").on("click", handleSwapTreeButton);
 	$("#resetButton").on("click", handleResetButton);
@@ -635,10 +635,7 @@ $(document).ready(function () {
 	$("#backstorySelector").on("change", handleBackstorySelection);
 	$("#primaryClassSelector").on("change", handleClassSelection);
 	$("#secondaryClassSelector").on("change", handleClassSelection);
-	$("#primaryClassSelector").trigger("change");
-	$("#secondaryClassSelector").trigger("change");
-	setTimeout(function() {
-		saveToHash(2);
-		finishedLoading = true;
-	}, 1500);
+	loadFromHash(2);
+	$("#primaryClassSelector").trigger("change", true);
+	$("#secondaryClassSelector").trigger("change", true);
 });
