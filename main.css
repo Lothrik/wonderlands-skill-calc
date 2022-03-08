@@ -69,6 +69,7 @@ em {
 	line-height: 1;
 	padding: 10px 0;
 	margin-bottom: 10px;
+	border-bottom: 2px solid #f0f;
 }
 
 #header, #summaryContainer, #overlayContainer > * {
@@ -389,6 +390,7 @@ button:active {
 	flex-grow: 1;
 	margin-top: auto;
 	padding: 10px 10px 0;
+	border-top: 2px solid #f0f;
 }
 
 #summaryContainer * {
