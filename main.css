@@ -231,6 +231,7 @@ em {
 	right: 3px;
 	background: url("images/points.png") transparent;
 	color: #fff;
+	text-shadow: 2px 2px 8px rgb(255 1 255 / 70%);
 }
 
 .actionSkill .points {
@@ -298,11 +299,15 @@ em {
 	left: 50%;
 	transform: translate(-50%, -50%);
 	color: #fff;
+}
+
+.actionSkill .label {
 	text-shadow: 2px 2px 8px rgb(255 1 255 / 70%);
 }
 
 .skill .label {
 	font-size: 75%;
+	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
 #primaryTree .description {
