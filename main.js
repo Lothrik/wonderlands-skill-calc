@@ -126,9 +126,9 @@ function handleScreenshotButton(event) {
 }
 function formatHeroStat(statValue, statMultiplier) {
 	if (statValue >= 10) {
-		return "+" + ((statValue - 10) * statMultiplier).toFixed(1) + "%";
+		return "+" + ((statValue - 10) * statMultiplier).toFixed(2).replace(/0{0,1}$/, "") + "%";
 	} else {
-		return "-" + ((10 - statValue) * statMultiplier).toFixed(1) + "%";
+		return "-" + ((10 - statValue) * statMultiplier).toFixed(2).replace(/0{0,1}$/, "") + "%";
 	}
 }
 function getAllocatedMaxHeroPoints() {
@@ -157,7 +157,7 @@ function handleHeroStatSlider(event, ignoreEvent) {
 		case "strength":
 			valueChanged = $("#strengthNumber").text() != statValue;
 			$("#strengthNumber").text(statValue);
-			$("#strengthText").text($("#strengthText").text().replace(heroStatRegex, formatHeroStat(statValue, 2)));
+			$("#strengthText").text($("#strengthText").text().replace(heroStatRegex, formatHeroStat(statValue, 1.25)));
 			break;
 		case "dexterity":
 			valueChanged = $("#dexterityNumber").text() != statValue;
