@@ -204,8 +204,8 @@ function handleBackstorySelection(event, ignoreEvent) {
 	}
 }
 function handleClassSelection(event, ignoreEvent) {
-	$("#swapTreeButton, #resetButton, #switchViewButton").attr("disabled", $("#primaryClassSelector").val() == "none" && $("#secondaryClassSelector").val() == "none");
-	$("#screenshotButton").attr("disabled", $("#primaryClassSelector").val() == "none" || $("#secondaryClassSelector").val() == "none");
+	$("#swapTreeButton, #resetButton, #switchViewButton").prop("disabled", $("#primaryClassSelector").val() == "none" && $("#secondaryClassSelector").val() == "none");
+	$("#screenshotButton").prop("disabled", $("#primaryClassSelector").val() == "none" || $("#secondaryClassSelector").val() == "none");
 	if (this.id == "primaryClassSelector") {
 		$("#primaryClassName").text($("#primaryClassSelector option:selected").text());
 		if (!ignoreEvent) {
