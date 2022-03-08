@@ -231,7 +231,7 @@ em {
 	right: 3px;
 	background: url("images/points.png") transparent;
 	color: #fff;
-	text-shadow: 2px 2px 8px rgb(255 1 255 / 70%);
+	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
 .actionSkill .points {
