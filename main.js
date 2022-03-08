@@ -86,6 +86,8 @@ function handleScreenshotButton(event) {
 	$("#heroStats").css({ "margin-top": "565px" });
 	$("option").each(function() { $(this).html("&nbsp;" + $(this).html()); });
 	$("html, body").css({ "width": "auto", "height": "auto" });
+	$(".descriptionText .rainbow").removeClass("rainbow").addClass("rainbow-disabled gold");
+	$(".label.rainbow").removeClass("rainbow").addClass("rainbow-disabled full");
 	$("#actionSkills").removeClass("hidden");
 	$("#skillTrees").removeClass("hidden");
 	$("#heroStats").removeClass("hidden");
@@ -114,6 +116,8 @@ function handleScreenshotButton(event) {
 				}
 				break;
 		}
+		$(".label.rainbow-disabled").removeClass("rainbow-disabled full").addClass("rainbow");
+		$(".descriptionText .rainbow-disabled").removeClass("rainbow-disabled gold").addClass("rainbow");
 		$("html, body").removeAttr("style");
 		$("option").each(function() { $(this).html($(this).html().replace("&nbsp;", "")); });
 		$("#heroStats").removeAttr("style");
