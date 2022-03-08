@@ -516,11 +516,11 @@ button:active {
 }
 
 .skill.partial img {
-	background: rgba(255, 0, 255, 0.1);
+	background: rgba(255, 0, 255, 0.08);
 }
 
 .skill.full img {
-	background: rgba(255, 0, 255, 0.15);
+	background: rgba(255, 0, 255, 0.16);
 }
 
 .skill:hover .description {
