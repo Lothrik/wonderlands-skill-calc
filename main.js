@@ -201,6 +201,7 @@ function handleBackstorySelection(event, ignoreEvent) {
 }
 function handleClassSelection(event) {
 	if (this.id == "primaryClassSelector") {
+		$("#primaryClassName").text($("#primaryClassSelector option:selected").text());
 		$("#primaryActionSkills .actionSkill").each(function(index, key) {
 			$(this).attr("data-points", "0");
 		});
@@ -215,6 +216,7 @@ function handleClassSelection(event) {
 		}
 		rebuildHTML($(this).val(), ["#primaryActionSkills", "#primaryClassFeat", "#primaryTree"]);
 	} else {
+		$("#secondaryClassName").text($("#secondaryClassSelector option:selected").text());
 		$("#secondaryActionSkills .actionSkill").each(function(index, key) {
 			$(this).attr("data-points", "0");
 		});
