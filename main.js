@@ -403,10 +403,10 @@ function updateActionSkills() {
 		let m = Number($(this).attr("data-max"));
 		$(this).children(".points").text(p + "/" + m);
 		if (p == 0) {
-			$(this).children(".points").removeClass("full");
+			$(this).removeClass("full");
 			$(this).children(".label").removeClass("rainbow");
 		} else {
-			$(this).children(".points").addClass("full");
+			$(this).addClass("full");
 			$(this).children(".label").addClass("rainbow");
 		}
 	});
@@ -428,7 +428,7 @@ function updatePassiveSkills(treeHandle) {
 			if (p != 0) {
 				$(this).addClass(p < m ? "partial" : "full");
 			}
-			$(this).children("em").each(function() {
+			$(this).find("em").each(function() {
 				$(this).removeClass("partial full");
 				if (p != 0) {
 					$(this).addClass(p < m ? "partial" : "full");

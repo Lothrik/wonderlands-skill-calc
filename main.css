@@ -491,32 +491,36 @@ button:active {
 	color: gold;
 }
 
-.description .purple, #summaryContainer .purple {
-	color: #8b008b;
-}
-
 .description .blue, #summaryContainer .blue {
 	color: #08f;
+}
+
+.description .pink, #summaryContainer .pink {
+	color: #f0f;
+}
+
+.description .purple, #summaryContainer .purple {
+	color: #8b008b;
 }
 
 .description .red, #summaryContainer .red {
 	color: red;
 }
 
-.description .orange, #summaryContainer .orange, .partial, .partial .points {
+.description .orange, #summaryContainer .orange, .partial .points {
 	color: #f80;
 }
 
-.description .green, #summaryContainer .green, .full, .full .points {
+.description .green, #summaryContainer .green, .full .points {
 	color: #0f0;
 }
 
 .skill.partial img {
-	background: rgba(255, 136, 0, 0.12);
+	background: rgba(255, 0, 255, 0.1);
 }
 
 .skill.full img {
-	background: rgba(0, 255, 0, 0.16);
+	background: rgba(255, 0, 255, 0.15);
 }
 
 .skill:hover .description {
