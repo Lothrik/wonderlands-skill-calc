@@ -258,38 +258,21 @@ function updateFeatTable() {
 	}
 }
 function rebuildHTML(className, targetElements) {
-	let getResult = $.get("classes/" + className + ".html");
-	$.when(getResult).then(function(classData) {
-		$.each(["actionSkill", "classFeat", "skillTree"], function(classIndex, classKey) {
-			let constructedHTML = "";
-			$(classData).each(function(_, htmlFragment) {
-				if ($(htmlFragment).attr("class") == classKey) {
-					constructedHTML += $(htmlFragment)[0].outerHTML;
-				}
-			});
-			$(targetElements[classIndex]).html(constructedHTML);
+	$.when($.get("classes/" + className + ".html")).then(function(classData) {
+		$.each([".actionSkill", ".classFeat", ".skillTree"], function(classIndex, classKey) {
+			$(targetElements[classIndex]).html($(classData).filter(classKey));
 		});
-		finishHTML();
-	});
+	}).then(finishHTML);
 }
 function restoreHTML() {
 	let targetArray = [["#primaryActionSkills", "#primaryClassFeat", "#primaryTree"], ["#secondaryActionSkills", "#secondaryClassFeat", "#secondaryTree"]];
 	let className = [$("#primaryClassSelector").val(), $("#secondaryClassSelector").val()];
-	let getResult = [$.get("classes/" + className[0] + ".html"), $.get("classes/" + className[1] + ".html")];
-	$.when(getResult[0], getResult[1]).then(function(primaryClass, secondaryClass) {
-		$([primaryClass, secondaryClass]).each(function(classIndex) {
-			$.each(["actionSkill", "classFeat", "skillTree"], function(_, classKey) {
-				let constructedHTML = "";
-				$(this).each(function(_, htmlFragment) {
-					if ($(htmlFragment).attr("class") == classKey) {
-						constructedHTML += $(htmlFragment)[0].outerHTML;
-					}
-				});
-				$(targetArray[classIndex][primaryClassName]).html(constructedHTML);
-			});
+	$.when($.get("classes/" + className[0] + ".html"), $.get("classes/" + className[1] + ".html")).then(function(primaryData, secondaryData) {
+		$.each([".actionSkill", ".classFeat", ".skillTree"], function(classIndex, classKey) {
+			$(targetArray[0][classIndex]).html($(primaryData[0]).filter(classKey));
+			$(targetArray[1][classIndex]).html($(secondaryData[0]).filter(classKey));
 		});
-		finishHTML();
-	});
+	}).then(finishHTML);
 }
 function finishHTML() {
 	$(".skill, .actionSkill, .skillTree").off();
