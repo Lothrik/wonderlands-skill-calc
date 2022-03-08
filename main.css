@@ -438,11 +438,11 @@ button:active {
 	text-transform: uppercase;
 	padding-top: 15px;
 	margin-bottom: 5px;
-	color: rgba(255, 255, 255, 0.5);
+	color: #fff;
 }
 
 #footer a {
-	color: rgba(255, 255, 255, 0.5);
+	color: #fff;
 }
 
 #footer a:hover {
