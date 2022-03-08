@@ -90,6 +90,8 @@ function handleScreenshotButton(event) {
 	$("#skillTrees").removeClass("hidden");
 	$("#heroStats").removeClass("hidden");
 	html2canvas(screenshotTarget, {
+		scrollX: 0,
+		scrollY: 0,
 		windowWidth: Math.min(550, window.innerWidth),
 		windowHeight: $("body")[0].scrollHeight
 	}).then((canvas) => {
