@@ -514,7 +514,7 @@ button:active {
 }
 
 .skill.full img {
-	background: rgba(0, 255, 0, 0.18);
+	background: rgba(0, 255, 0, 0.16);
 }
 
 .skill:hover .description {
