@@ -230,33 +230,6 @@ function handleClassSelection(event) {
 		rebuildHTML($(this).val(), ["#secondaryActionSkills", "#secondaryClassFeat", "#secondaryTree"]);
 	}
 }
-function updateTreeBackground() {
-	$.each([$("#primaryClassSelector option:selected"), $("#secondaryClassSelector option:selected")], function (index, classSelector) {
-		let treeBackground = "";
-		switch (classSelector.val()) {
-			default:
-			case "sporewarden":
-			case "clawbringer":
-				treeBackground = "green";
-				break;
-			case "brrzerker":
-			case "spellshot":
-				treeBackground = "blue";
-				break;
-			case "stabbomancer":
-			case "graveborn":
-				treeBackground = "red";
-				break;
-		}
-		if (index == 0) {
-			$("#primaryTree").removeClass("red green blue").addClass(treeBackground);
-			$("#primaryClassName").text(classSelector.text());
-		} else {
-			$("#secondaryTree").removeClass("red green blue").addClass(treeBackground);
-			$("#secondaryClassName").text(classSelector.text());
-		}
-	});
-}
 function updateFeatTable() {
 	if ($("#primaryClassSelector").val() == "none" && $("#secondaryClassSelector").val() == "none") {
 		$("#errorMessage").text("No class selected.").removeClass("disabled");
@@ -329,7 +302,6 @@ function finishHTML() {
 	});
 	updateStats();
 	updateHeroStats();
-	updateTreeBackground();
 	updateFeatTable();
 }
 function handleKeyDown(event) {
@@ -393,7 +365,7 @@ function updatePoints(skillHandle, change) {
 		let thisLevel = Number(skillHandle.parent().attr("data-level"));
 		let invested = Number(skillHandle.parent().attr("data-invested"));
 		let tierTotal = Number(skillHandle.parent().attr("data-total"));
-		let treeTotal = Number(tree.find(".totalPoints").text());
+		let treeTotal = Number(tree.parent().find(".totalPoints").text());
 		let points = Number(skillHandle.attr("data-points"));
 		let max = Number(skillHandle.attr("data-max"));
 		let charLevel = Number($("#charLevel").text());
@@ -486,7 +458,7 @@ function updatePassiveSkills(treeHandle) {
 		});
 		$(this).attr("data-total", tierTotal);
 	});
-	$(treeHandle).find(".totalPoints").text(totalPoints);
+	$(treeHandle).parent().find(".totalPoints").text(totalPoints);
 	$(treeHandle).parent().children(".color").height(Math.min(80 + totalPoints * 59.0 / 5 + (totalPoints > 25 ? 21 : 0), 396));
 }
 function updateStats() {

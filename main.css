@@ -64,11 +64,11 @@ em {
 }
 
 #header {
-	font-size: 24pt;
+	font-size: 32px;
 	text-transform: uppercase;
 	line-height: 1;
-	padding: 8pt 0;
-	margin-bottom: 8pt;
+	padding: 10px 0;
+	margin-bottom: 10px;
 }
 
 #header, #summaryContainer, #overlayContainer > * {
@@ -91,21 +91,21 @@ em {
 }
 
 #overlayContainer > * {
-	max-height: 340pt;
+	max-height: 459px;
 	position: absolute;
 	left: 50%;
 	transform: translateX(-50%);
-	padding: 8pt;
+	padding: 10px;
 	border: 1px solid #fff;
 }
 
 #heroStats {
-	min-width: 275pt;
+	width: 380px;
 }
 
 .heroStatLabel, #heroPointsLabel, #backstoryLabel {
 	float: left;
-	clear: right;
+	clear: both;
 }
 
 .heroStatSlider, .heroStatNumber, .heroStatText, #heroPointsText, #backstorySelector {
@@ -114,35 +114,40 @@ em {
 
 .heroStatSlider {
 	appearance: none;
-	height: 4pt;
+	height: 5px;
 	background: rgba(255, 255, 255, 0.15);
-	border-radius: 2pt;
-	margin-top: 6pt;
+	border-radius: 2.5px;
+	margin-top: 8px;
 }
 
 .heroStatSlider::-webkit-slider-thumb {
 	appearance: none;
-	width: 8pt;
-	height: 8pt;
+	width: 10px;
+	height: 10px;
 	background-color: #fff;
 	cursor: pointer;
 	border-radius: 50%;
 }
 
 .heroStatNumber {
-	margin-right: 4pt;
+	margin-right: 5px;
+}
+
+.heroStatText {
+	clear: right;
 }
 
 #heroPointsLabel, #heroPointsText {
-	margin-top: 4pt;
+	margin-top: 5px;
 }
 
 #backstoryLabel, #backstorySelector {
-	margin-top: 8pt;
+	margin-top: 10px;
 }
 
 #actionSkills {
 	font-size: 0; /* inline-block spacing hack */
+	margin-bottom: -5px;
 	-moz-user-select: none;
 	-webkit-user-select: none;
 	-ms-user-select: none;
@@ -162,23 +167,23 @@ em {
 	display: inline-block;
 	position: relative;
 	cursor: pointer;
-	margin: 0 2pt 0;
+	margin: 0 2.5px 0;
 }
 
 #skillTrees {
 	font-size: 0; /* inline-block spacing hack */
+	flex-grow: 9999;
 	-moz-user-select: none;
 	-webkit-user-select: none;
 	-ms-user-select: none;
 	-o-user-select: none;
 	user-select: none;
-	flex-grow: 9999;
 }
 
 #primaryTree, #secondaryTree {
 	font: 15pt/17pt Homenaje, Impact, sans-serif;
 	display: inline-block;
-	margin: 0 2pt 0 2pt;
+	margin: 0 2.5px 0;
 }
 
 .skillTree {
@@ -195,31 +200,15 @@ em {
 .bgLayer {
 	position: absolute;
 	width: 207px;
-	height: 396px;
+	height: 397px;
 }
 
-.green .gray {
-	background: url("images/skill_bg_green_gray.png") transparent;
+#skillTrees .gray {
+	background: url("images/skill_bg.png") transparent;
 }
 
-.blue .gray {
-	background: url("images/skill_bg_blue_gray.png") transparent;
-}
-
-.red .gray {
-	background: url("images/skill_bg_red_gray.png") transparent;
-}
-
-.green .color {
-	background: url("images/skill_bg_green.png") transparent;
-}
-
-.blue .color {
-	background: url("images/skill_bg_blue.png") transparent;
-}
-
-.red .color {
-	background: url("images/skill_bg_red.png") transparent;
+#skillTrees .color {
+	background: url("images/skill_bg.png") transparent;
 }
 
 .skill {
@@ -231,24 +220,23 @@ em {
 	float: left;
 }
 
-.skill > img {
-	width: 52px;
-	height: 53px;
-}
-
 .points {
+	font-size: 12pt;
+	line-height: 15pt;
 	visibility: hidden;
 	position: absolute;
-	width: 40px;
-	height: 21px;
-	bottom: 0;
-	right: 0;
-	background: url("images/points_overlay.png") transparent;
+	width: 28px;
+	height: 18px;
+	bottom: 3px;
+	right: 3px;
+	background: url("images/points.png") transparent;
 	color: #fff;
 }
 
 .actionSkill .points {
 	visibility: initial;
+	bottom: 5px;
+	right: 0;
 }
 
 .tier, .totalPoints, .className {
@@ -257,19 +245,18 @@ em {
 
 .className, .totalPoints {
 	text-transform: uppercase;
-	font-weight: bold;
 	font-size: 18pt;
 	color: #fff;
 	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 	position: absolute;
 	display: block;
-	margin-top: 60px;
-	width: 174px;
+	margin: -6px 0 0 4px;
+	width: 199px;
 }
 
 .className {
 	text-align: left;
-	max-width: 145px;
+	max-width: 150px;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -293,13 +280,13 @@ em {
 	display: none;
 	position: absolute;
 	top: 0;
-	width: 300pt;
+	width: 400px;
 	z-index: 1;
 	background-color: rgba(0, 0, 0, 0.65);
 	border: 1px solid #fff;
 	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 	color: #fff;
-	padding: 0 0.25em 0.5em;
+	padding: 0 5px 5px;
 	text-align: justify;
 	text-align-last: center;
 }
@@ -346,29 +333,29 @@ em {
 	bottom: 0;
 }
 
-@media (max-width: 915pt) {
+@media (max-width: 1230px) {
 	.description {
 		position: fixed;
 		top: auto!important;
-		bottom: 8pt!important;
+		bottom: 10px!important;
 		left: 50%!important;
 		transform: translateX(-50%);
 	}
 }
 
 .description h2 {
-	padding: 0.15em 0;
-	margin-bottom: 0.15em;
+	padding: 2.5px 0;
+	margin-bottom: 2.5px;
 	font-size: 125%;
 	border-bottom: 1px solid #fff;
 }
 
 #classSelectors {
-	margin: 8pt;
+	margin: 10px;
 }
 
 select, option, button {
-	height: 20pt;
+	height: 26px;
 	border: 1px solid #fff;
 	background-color: #000;
 	color: #fff;
@@ -380,7 +367,7 @@ button:active {
 
 #extraButtons {
 	font-size: 0; /* inline-block spacing hack */
-	margin-bottom: 8pt;
+	height: 36px;
 	-moz-user-select: none;
 	-webkit-user-select: none;
 	-ms-user-select: none;
@@ -396,13 +383,13 @@ button:active {
 #summaryContainer {
 	flex-grow: 1;
 	margin-top: auto;
-	padding: 8pt 8pt 0;
+	padding: 10px 10px 0;
 }
 
 #summaryContainer * {
 	margin: auto;
 	line-height: 1.1;
-	max-width: 640pt;
+	max-width: 840px;
 }
 
 #primaryClassFeat, #secondaryClassFeat {
@@ -412,12 +399,12 @@ button:active {
 }
 
 .classFeat {
-	padding-top: 3pt;
+	padding-top: 5px;
 }
 
 #summarySpacer {
 	clear: both;
-	height: 15pt;
+	height: 20px;
 }
 
 #summaryContainer .skillText {
@@ -432,12 +419,13 @@ button:active {
 	font-size: 120%;
 	float: left;
 	clear: left;
-	width: 150pt;
+	width: 200px;
+	margin-top: 2.5px;
 	text-align: right;
 }
 
 #summaryContainer .descriptionText {
-	margin: 3pt 0 3pt 160pt;
+	margin: 5px 0 5px 210px;
 	text-align: justify;
 }
 
@@ -448,8 +436,8 @@ button:active {
 #footer {
 	font-size: 62%;
 	text-transform: uppercase;
-	padding-top: 12pt;
-	margin-bottom: 4pt;
+	padding-top: 15px;
+	margin-bottom: 5px;
 	color: rgba(255, 255, 255, 0.5);
 }
 
