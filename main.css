@@ -497,16 +497,24 @@ button:active {
 	color: #08f;
 }
 
-.description .red, #summaryContainer .red {
+.description .red, #summaryContainer .red, .partial, .partial .points {
 	color: red;
 }
 
-.description .orange, #summaryContainer .orange, .partial, .partial .label, .partial .points {
+.description .orange, #summaryContainer .orange {
 	color: #f80;
 }
 
-.description .green, #summaryContainer .green, .full, .full .label, .full .points {
+.description .green, #summaryContainer .green, .full, .full .points {
 	color: #0f0;
+}
+
+.skill.partial img {
+	background: rgba(255, 0, 0, 0.12);
+}
+
+.skill.full img {
+	background: rgba(0, 255, 0, 0.18);
 }
 
 .skill:hover .description {
