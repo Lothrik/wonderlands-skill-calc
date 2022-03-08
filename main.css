@@ -303,6 +303,10 @@ em {
 	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
+.actionSkill .label {
+	top: calc(50% - 2px);
+}
+
 .actionSkill .label:not(.full) {
 	text-shadow: 2px 2px 8px rgb(255 1 255 / 70%);
 }
