@@ -513,30 +513,30 @@ function loadFromHash(mode) {
 	let curHash = decompressHash();
 	// classes have 2 slots: [0, 1]
 	if (mode == 0 || mode == 2) {
-		$("#primaryClassSelector").prop("selectedIndex", Math.min(curHash.charAt(0), $("#primaryClassSelector option").length - 1));
-		$("#secondaryClassSelector").prop("selectedIndex", Math.min(curHash.charAt(1), $("#secondaryClassSelector option").length - 1));
+		$("#primaryClassSelector").prop("selectedIndex", Math.min(Number(curHash.charAt(0)), $("#primaryClassSelector option").length - 1));
+		$("#secondaryClassSelector").prop("selectedIndex", Math.min(Number(curHash.charAt(1)), $("#secondaryClassSelector option").length - 1));
 	}
 	if (mode == 1 || mode == 2) {
 		// action skills have 4 slots: [2, 3, 4, 5]
 		for (let i = 0; i < 4; i++) {
 			let actionSkill = i < 2 ? $("#primaryActionSkills .actionSkill")[i] : $("#secondaryActionSkills .actionSkill")[i - 2];
 			if (actionSkill) {
-				actionSkill.setAttribute("data-points", Math.min(curHash.charAt(i + 2), Number(actionSkill.getAttribute("data-max"))));
+				actionSkill.setAttribute("data-points", Math.min(Number(curHash.charAt(i + 2)), Number(actionSkill.getAttribute("data-max"))));
 			}
 		}
 		// passive skills have 42 slots: [6 ... 47]
 		for (let i = 0; i < 42; i++) {
 			let skill = i < 21 ? $("#primaryTree .skill")[i] : $("#secondaryTree .skill")[i - 21];
 			if (skill) {
-				skill.setAttribute("data-points", Math.min(curHash.charAt(i + 6), Number(skill.getAttribute("data-max"))));
+				skill.setAttribute("data-points", Math.min(Number(curHash.charAt(i + 6)), Number(skill.getAttribute("data-max"))));
 			}
 		}
 		// hero stats have 6 double-width slots: [48 ... 59]
 		for (let i = 0; i < 6; i++) {
-			$(".heroStatSlider").eq(i).val(curHash.slice(48 + i * 2, 50 + i * 2));
+			$(".heroStatSlider").eq(i).val(Number(curHash.slice(48 + i * 2, 50 + i * 2)));
 		}
 		// hero backstory has 1 slot [60]
-		$("#backstorySelector").prop("selectedIndex", Math.min(curHash.charAt(60), $("#backstorySelector option").length - 1)).trigger("change", true);
+		$("#backstorySelector").prop("selectedIndex", Math.min(Number(curHash.charAt(60)), $("#backstorySelector option").length - 1)).trigger("change", true);
 	}
 }
 function constructHash(mode) {
