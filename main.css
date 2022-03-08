@@ -293,12 +293,12 @@ em {
 
 .label {
 	width: 90%;
-	color: #fff;
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+	color: #fff;
+	text-shadow: 2px 2px 8px rgb(255 1 255 / 70%);
 }
 
 .skill .label {
