@@ -79,11 +79,11 @@ function handleSwitchViewButton(event) {
 function handleScreenshotButton(event) {
 	const screenshotTarget = document.body;
 	$(".description, #classSelectors, #extraButtons, #footer").addClass("disabled");
-	$("#summaryContainer").css({ "margin-top": "8pt" });
-	$("#skillSummaryContainer").css({ "padding-bottom": "8pt" });
+	$("#summaryContainer").css({ "margin-top": "10px" });
+	$("#skillSummaryContainer").css({ "padding-bottom": "10px" });
 	$("#primaryActionSkills").css({ "width": "100%" });
-	$("#skillTrees").css({ "flex-grow": "0", "margin-bottom": "280pt" });
-	$("#heroStats").css({ "margin-top": "430pt" });
+	$("#skillTrees").css({ "flex-grow": "0", "margin-bottom": "364px" });
+	$("#heroStats").css({ "margin-top": "565px" });
 	$("option").each(function() { $(this).html("&nbsp;" + $(this).html()); });
 	$("html, body").css({ "width": "auto", "height": "auto" });
 	$("#actionSkills").removeClass("hidden");
