@@ -454,7 +454,6 @@ button:active {
 	color: red;
 }
 
-/* The only thing this is used for is Elemental Damage, which is actually gold in-game.. I think this is better though. */
 .rainbow {
     background: linear-gradient(
         90deg,
