@@ -497,11 +497,11 @@ button:active {
 	color: #08f;
 }
 
-.description .red, #summaryContainer .red, .partial, .partial .points {
+.description .red, #summaryContainer .red {
 	color: red;
 }
 
-.description .orange, #summaryContainer .orange {
+.description .orange, #summaryContainer .orange, .partial, .partial .points {
 	color: #f80;
 }
 
@@ -510,7 +510,7 @@ button:active {
 }
 
 .skill.partial img {
-	background: rgba(255, 0, 0, 0.12);
+	background: rgba(255, 136, 0, 0.12);
 }
 
 .skill.full img {
