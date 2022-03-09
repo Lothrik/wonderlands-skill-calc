@@ -511,11 +511,11 @@ button:active {
 	color: red;
 }
 
-.description .orange, #summaryContainer .orange, .partial .points {
+.description .orange, #summaryContainer .orange, .partial, .partial .points {
 	color: #f80;
 }
 
-.description .green, #summaryContainer .green, .full .points {
+.description .green, #summaryContainer .green, .full, .full .points {
 	color: #0f0;
 }
 
