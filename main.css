@@ -220,6 +220,7 @@ em {
 
 #skillTrees .color {
 	background: url("images/skill_bg.png") transparent;
+	border-bottom: 1px solid #fff;
 }
 
 .skill {

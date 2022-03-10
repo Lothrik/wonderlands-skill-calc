@@ -452,7 +452,7 @@ function updatePassiveSkills(treeHandle) {
 		$(this).attr("data-total", tierTotal);
 	});
 	$(treeHandle).parent().find(".totalPoints").text(totalPoints);
-	$(treeHandle).parent().children(".color").height(Math.min(80 + totalPoints * 59.0 / 5 + (totalPoints > 25 ? 21 : 0), 396));
+	$(treeHandle).parent().children(".color").height(Math.min(75 + totalPoints * 59.0 / 5 + (totalPoints > 25 ? 21 : 0), 396));
 }
 function updateStats() {
 	let total = 0;
