@@ -54,7 +54,7 @@ function handleSwapTreeButton(event) {
 	let newURL = window.location.href.split("#")[0] + "#" + newHash;
 	window.location.replace(newURL);
 	loadFromHash(2);
-	restoreHTML();
+	rebuildHTML();
 	addHashToUndo(newHash);
 }
 function handleSwitchViewButton(event) {
@@ -261,22 +261,16 @@ function updateFeatTable() {
 		}
 	}
 }
-function rebuildHTML(className, targetElements) {
-	$.when($.get("classes/" + className + ".html")).then(function(classData) {
-		$.each([".actionSkill", ".classFeat", ".skillTree"], function(classIndex, classKey) {
-			$(targetElements[classIndex]).html($(classData).filter(classKey));
-		});
-	}).then(finishHTML);
-}
-function restoreHTML() {
-	let targetArray = [["#primaryActionSkills", "#primaryClassFeat", "#primaryTree"], ["#secondaryActionSkills", "#secondaryClassFeat", "#secondaryTree"]];
-	let className = [$("#primaryClassSelector").val(), $("#secondaryClassSelector").val()];
-	$.when($.get("classes/" + className[0] + ".html"), $.get("classes/" + className[1] + ".html")).then(function(primaryData, secondaryData) {
-		$.each([".actionSkill", ".classFeat", ".skillTree"], function(classIndex, classKey) {
-			$(targetArray[0][classIndex]).html($(primaryData[0]).filter(classKey));
-			$(targetArray[1][classIndex]).html($(secondaryData[0]).filter(classKey));
-		});
-	}).then(finishHTML);
+function rebuildHTML(_classNames, _targetElements) {
+	let targetElements = typeof(_targetElements) != "undefined" ? [_targetElements] : [["#primaryActionSkills", "#primaryClassFeat", "#primaryTree"], ["#secondaryActionSkills", "#secondaryClassFeat", "#secondaryTree"]];
+	let classNames = typeof(_classNames) != "undefined" ? [_classNames] : [$("#primaryClassSelector").val(), $("#secondaryClassSelector").val()];
+	classNames.forEach(function(className, classIndex) {
+		$.when($.get("classes/" + className + ".html")).then(function(classData) {
+			$.each([".actionSkill", ".classFeat", ".skillTree"], function(elementIndex, elementKey) {
+				$(targetElements[classIndex][elementIndex]).html($(classData).filter(elementKey));
+			});
+		}).then(finishHTML);
+	});
 }
 function finishHTML() {
 	$(".skill, .actionSkill, .skillTree").off();
@@ -579,7 +573,7 @@ function loadPreviousHashFromUndo() {
 		let newURL = window.location.href.split("#")[0] + "#" + newHash;
 		window.location.replace(newURL);
 		loadFromHash(2);
-		restoreHTML();
+		rebuildHTML();
 		hashUndoHistory.pop();
 	}
 	return false;
@@ -589,7 +583,7 @@ function handleResetButton() {
 	addHashToUndo(window.location.hash.replace("#", ""));
 	window.location.hash = newHash;
 	loadFromHash(2);
-	restoreHTML();
+	rebuildHTML();
 	addHashToUndo(newHash);
 	return false;
 }
