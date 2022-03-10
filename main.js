@@ -207,7 +207,6 @@ function handleClassSelection(event, ignoreEvent) {
 	$("#swapTreeButton, #resetButton, #switchViewButton").prop("disabled", $("#primaryClassSelector").val() == "none" && $("#secondaryClassSelector").val() == "none");
 	$("#screenshotButton").prop("disabled", $("#primaryClassSelector").val() == "none" || $("#secondaryClassSelector").val() == "none");
 	if (this.id == "primaryClassSelector") {
-		$("#primaryClassName").text($("#primaryClassSelector option:selected").text());
 		if (!ignoreEvent) {
 			$("#primaryActionSkills .actionSkill").each(function(index, key) {
 				$(this).attr("data-points", "0");
@@ -222,7 +221,6 @@ function handleClassSelection(event, ignoreEvent) {
 		}
 		rebuildHTML($(this).val(), ["#primaryActionSkills", "#primaryClassFeat", "#primaryTree"]);
 	} else {
-		$("#secondaryClassName").text($("#secondaryClassSelector option:selected").text());
 		if (!ignoreEvent) {
 			$("#secondaryActionSkills .actionSkill").each(function(index, key) {
 				$(this).attr("data-points", "0");
@@ -293,6 +291,8 @@ function finishHTML() {
 	updateStats();
 	updateHeroStats();
 	updateFeatTable();
+	$("#primaryClassName").text($("#primaryClassSelector option:selected").text());
+	$("#secondaryClassName").text($("#secondaryClassSelector option:selected").text());
 }
 function handleKeyDown(event) {
 	if (event.keyCode == 90 && event.ctrlKey) {
