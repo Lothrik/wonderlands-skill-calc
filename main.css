@@ -104,9 +104,26 @@ em {
 	width: 398px;
 }
 
+#heroStats > span {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
 .heroStatLabel, #heroPointsLabel, #backstoryLabel {
+	max-width: 105px;
 	float: left;
 	clear: both;
+}
+
+.heroStatNumber {
+	max-width: 28px;
+	margin-right: 5px;
+}
+
+#backstorySelector, .heroStatText {
+	max-width: 280px;
+	clear: right;
 }
 
 .heroStatSlider, .heroStatNumber, .heroStatText, #heroPointsText, #backstorySelector {
@@ -116,6 +133,7 @@ em {
 .heroStatSlider {
 	appearance: none;
 	height: 5px;
+	width: 160px;
 	background: rgba(255, 255, 255, 0.15);
 	border-radius: 2.5px;
 	margin-top: 8px;
@@ -128,14 +146,6 @@ em {
 	background-color: #fff;
 	cursor: pointer;
 	border-radius: 50%;
-}
-
-.heroStatNumber {
-	margin-right: 5px;
-}
-
-.heroStatText {
-	clear: right;
 }
 
 #heroPointsLabel, #heroPointsText {
