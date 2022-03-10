@@ -585,12 +585,12 @@ function loadPreviousHashFromUndo() {
 	return false;
 }
 function handleResetButton() {
-	let newHash = $("#primaryClassSelector").prop("selectedIndex").toString() + $("#secondaryClassSelector").prop("selectedIndex").toString();
-	addHashToUndo(window.location.hash.replace("#", newHash));
+	let newHash = compressHash($("#primaryClassSelector").prop("selectedIndex").toString() + $("#secondaryClassSelector").prop("selectedIndex").toString());
+	addHashToUndo(window.location.hash.replace("#", ""));
 	window.location.hash = newHash;
 	loadFromHash(2);
 	restoreHTML();
-	addHashToUndo("");
+	addHashToUndo(newHash);
 	return false;
 }
 function compressHash(rawHash) {
