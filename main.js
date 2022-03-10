@@ -585,8 +585,9 @@ function loadPreviousHashFromUndo() {
 	return false;
 }
 function handleResetButton() {
-	addHashToUndo(window.location.hash.replace("#", ""));
-	window.location.hash = "";
+	let newHash = $("#primaryClassSelector").prop("selectedIndex").toString() + $("#secondaryClassSelector").prop("selectedIndex").toString();
+	addHashToUndo(window.location.hash.replace("#", newHash));
+	window.location.hash = newHash;
 	loadFromHash(2);
 	restoreHTML();
 	addHashToUndo("");
