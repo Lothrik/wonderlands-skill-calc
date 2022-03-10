@@ -262,8 +262,8 @@ function updateFeatTable() {
 	}
 }
 function rebuildHTML(_classNames, _targetElements) {
-	let targetElements = typeof(_targetElements) != "undefined" ? [_targetElements] : [["#primaryActionSkills", "#primaryClassFeat", "#primaryTree"], ["#secondaryActionSkills", "#secondaryClassFeat", "#secondaryTree"]];
 	let classNames = typeof(_classNames) != "undefined" ? [_classNames] : [$("#primaryClassSelector").val(), $("#secondaryClassSelector").val()];
+	let targetElements = typeof(_targetElements) != "undefined" ? [_targetElements] : [["#primaryActionSkills", "#primaryClassFeat", "#primaryTree"], ["#secondaryActionSkills", "#secondaryClassFeat", "#secondaryTree"]];
 	classNames.forEach(function(className, classIndex) {
 		$.when($.get("classes/" + className + ".html")).then(function(classData) {
 			$.each([".actionSkill", ".classFeat", ".skillTree"], function(elementIndex, elementKey) {
