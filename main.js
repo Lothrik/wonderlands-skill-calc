@@ -372,7 +372,7 @@ function checkLongTouch(fromTimer) {
 	}
 }
 function handleButtonState(event) {
-	if (event && ["mouseleave", "blur"].includes(event.type)) {
+	if (event && event.type == "mouseleave") {
 		$(this).children().prop("disabled", false);
 	} else {
 		$("#swapTreeButton, #switchViewButton").prop("disabled", $("#primaryClassSelector").val() == "none" && $("#secondaryClassSelector").val() == "none");
