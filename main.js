@@ -296,16 +296,16 @@ function finishHTML() {
 			$("#primaryTree .progressLayer").css({ "background-color": "rgba(0, 255, 255, 0.25)" });
 			break;
 		case "graveborn":
-			$("#primaryTree .progressLayer").css({ "background-color": "rgba(255, 0, 0, 0.25)" });
+			$("#primaryTree .progressLayer").css({ "background-color": "rgba(255, 0, 0, 0.4)" });
 			break;
 		case "spellshot":
 			$("#primaryTree .progressLayer").css({ "background-color": "rgba(255, 0, 255, 0.25)" });
 			break;
 		case "sporewarden":
-			$("#primaryTree .progressLayer").css({ "background-color": "rgba(0, 255, 0, 0.35)" });
+			$("#primaryTree .progressLayer").css({ "background-color": "rgba(0, 255, 0, 0.4)" });
 			break;
 		case "stabbomancer":
-			$("#primaryTree .progressLayer").css({ "background-color": "rgba(255, 255, 0, 0.35)" });
+			$("#primaryTree .progressLayer").css({ "background-color": "rgba(255, 255, 0, 0.4)" });
 			break;
 	}
 	switch ($("#secondaryClassSelector option:selected").val()){
