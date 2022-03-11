@@ -279,6 +279,7 @@ function finishHTML() {
 	updateStats();
 	updateHeroStats();
 	updateFeatTable();
+	handleButtonState();
 	$("#primaryClassName").text($("#primaryClassSelector option:selected").text());
 	$("#secondaryClassName").text($("#secondaryClassSelector option:selected").text());
 	switch ($("#primaryClassSelector option:selected").val()){
@@ -630,7 +631,6 @@ function loadPreviousHashFromUndo() {
 		rebuildHTML();
 		hashUndoHistory.pop();
 	}
-	$("#undoButton").prop("disabled", hashUndoHistory.length <= 1);
 }
 function handleResetButton() {
 	let newHash = compressHash($("#primaryClassSelector").prop("selectedIndex").toString() + $("#secondaryClassSelector").prop("selectedIndex").toString());
@@ -639,7 +639,6 @@ function handleResetButton() {
 	loadFromHash(2);
 	rebuildHTML();
 	addHashToUndo(newHash);
-	$("#resetButton").prop("disabled", true);
 }
 function compressHash(rawHash) {
 	if (LZString) {
