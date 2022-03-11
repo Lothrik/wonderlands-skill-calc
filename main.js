@@ -99,7 +99,9 @@ function handleScreenshotButton(event) {
 		let newImage = new Image();
 		newImage.src = canvas.toDataURL("image/png");
 		let newWindow = window.open("");
-		newWindow.document.write(newImage.outerHTML);
+		if (newWindow != null) {
+			newWindow.document.write(newImage.outerHTML);
+		}
 		switch ($("#switchViewButton").text()) {
 			default:
 			case "View Hero Stats":
