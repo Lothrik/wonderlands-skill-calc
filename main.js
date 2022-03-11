@@ -296,16 +296,16 @@ function finishHTML() {
 			$("#primaryTree .progressLayer").css({ "background-color": "rgba(0, 255, 255, 0.25)" });
 			break;
 		case "graveborn":
-			$("#primaryTree .progressLayer").css({ "background-color": "rgba(255, 0, 0, 0.4)" });
+			$("#primaryTree .progressLayer").css({ "background-color": "rgba(255, 0, 0, 0.25)" });
 			break;
 		case "spellshot":
 			$("#primaryTree .progressLayer").css({ "background-color": "rgba(255, 0, 255, 0.25)" });
 			break;
 		case "sporewarden":
-			$("#primaryTree .progressLayer").css({ "background-color": "rgba(0, 255, 0, 0.4)" });
+			$("#primaryTree .progressLayer").css({ "background-color": "rgba(0, 255, 0, 0.25)" });
 			break;
 		case "stabbomancer":
-			$("#primaryTree .progressLayer").css({ "background-color": "rgba(255, 255, 0, 0.4)" });
+			$("#primaryTree .progressLayer").css({ "background-color": "rgba(255, 255, 0, 0.25)" });
 			break;
 	}
 	switch ($("#secondaryClassSelector option:selected").val()){
@@ -317,16 +317,16 @@ function finishHTML() {
 			$("#secondaryTree .progressLayer").css({ "background-color": "rgba(0, 255, 255, 0.25)" });
 			break;
 		case "graveborn":
-			$("#secondaryTree .progressLayer").css({ "background-color": "rgba(255, 0, 0, 0.4)" });
+			$("#secondaryTree .progressLayer").css({ "background-color": "rgba(255, 0, 0, 0.25)" });
 			break;
 		case "spellshot":
 			$("#secondaryTree .progressLayer").css({ "background-color": "rgba(255, 0, 255, 0.25)" });
 			break;
 		case "sporewarden":
-			$("#secondaryTree .progressLayer").css({ "background-color": "rgba(0, 255, 0, 0.4)" });
+			$("#secondaryTree .progressLayer").css({ "background-color": "rgba(0, 255, 0, 0.25)" });
 			break;
 		case "stabbomancer":
-			$("#secondaryTree .progressLayer").css({ "background-color": "rgba(255, 255, 0, 0.4)" });
+			$("#secondaryTree .progressLayer").css({ "background-color": "rgba(255, 255, 0, 0.25)" });
 			break;
 	}
 }
