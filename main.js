@@ -284,43 +284,43 @@ function finishHTML() {
 	switch ($("#primaryClassSelector option:selected").val()){
 		default:
 		case "brrzerker":
-			$("#primaryTree .colorLayer").css({ "background-color": "rgba(0, 0, 255, 0.25)" });
+			$("#primaryTree .colorLayer").css({ "background-color": "rgba(0, 127, 255, 0.45)" });
 			break;
 		case "clawbringer":
-			$("#primaryTree .colorLayer").css({ "background-color": "rgba(0, 255, 255, 0.25)" });
+			$("#primaryTree .colorLayer").css({ "background-color": "rgba(0, 255, 255, 0.35)" });
 			break;
 		case "graveborn":
-			$("#primaryTree .colorLayer").css({ "background-color": "rgba(255, 0, 0, 0.25)" });
+			$("#primaryTree .colorLayer").css({ "background-color": "rgba(255, 0, 0, 0.5)" });
 			break;
 		case "spellshot":
 			$("#primaryTree .colorLayer").css({ "background-color": "rgba(255, 0, 255, 0.25)" });
 			break;
 		case "sporewarden":
-			$("#primaryTree .colorLayer").css({ "background-color": "rgba(0, 255, 0, 0.25)" });
+			$("#primaryTree .colorLayer").css({ "background-color": "rgba(0, 255, 0, 0.45)" });
 			break;
 		case "stabbomancer":
-			$("#primaryTree .colorLayer").css({ "background-color": "rgba(255, 255, 0, 0.25)" });
+			$("#primaryTree .colorLayer").css({ "background-color": "rgba(255, 127, 0, 0.65)" });
 			break;
 	}
 	switch ($("#secondaryClassSelector option:selected").val()){
 		default:
 		case "brrzerker":
-			$("#secondaryTree .colorLayer").css({ "background-color": "rgba(0, 0, 255, 0.25)" });
+			$("#secondaryTree .colorLayer").css({ "background-color": "rgba(0, 127, 255, 0.45)" });
 			break;
 		case "clawbringer":
-			$("#secondaryTree .colorLayer").css({ "background-color": "rgba(0, 255, 255, 0.25)" });
+			$("#secondaryTree .colorLayer").css({ "background-color": "rgba(0, 255, 255, 0.35)" });
 			break;
 		case "graveborn":
-			$("#secondaryTree .colorLayer").css({ "background-color": "rgba(255, 0, 0, 0.25)" });
+			$("#secondaryTree .colorLayer").css({ "background-color": "rgba(255, 0, 0, 0.5)" });
 			break;
 		case "spellshot":
 			$("#secondaryTree .colorLayer").css({ "background-color": "rgba(255, 0, 255, 0.25)" });
 			break;
 		case "sporewarden":
-			$("#secondaryTree .colorLayer").css({ "background-color": "rgba(0, 255, 0, 0.25)" });
+			$("#secondaryTree .colorLayer").css({ "background-color": "rgba(0, 255, 0, 0.45)" });
 			break;
 		case "stabbomancer":
-			$("#secondaryTree .colorLayer").css({ "background-color": "rgba(255, 255, 0, 0.25)" });
+			$("#secondaryTree .colorLayer").css({ "background-color": "rgba(255, 127, 0, 0.65)" });
 			break;
 	}
 }
