@@ -233,14 +233,14 @@ function handleClassSelection(event) {
 function updateFeatTable() {
 	if ($("#primaryClassSelector").val() == "none" && $("#secondaryClassSelector").val() == "none") {
 		$("#errorMessage").text("No class selected.").css({ "width": "108px" }).removeClass("disabled");
-		$("#heroPoints").addClass("disabled");
+		$("#heroStats").addClass("disabled");
 		$("#featSummaryHeader").text("");
 		$("#primaryClassFeat").html("").css({ "padding": "0", "width": "0" });
 		$("#secondaryClassFeat").html("").css({ "padding": "0", "width": "0" });
 		$("#summarySpacer").addClass("disabled");
 	} else {
 		$("#errorMessage").addClass("disabled").removeAttr("style");
-		$("#heroPoints").removeClass("disabled");
+		$("#heroStats").removeClass("disabled");
 		$("#featSummaryHeader").text("List of Feats");
 		$("#summarySpacer").removeClass("disabled");
 		if ($("#primaryClassSelector").val() == "none") {
