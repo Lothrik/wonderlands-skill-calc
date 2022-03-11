@@ -87,21 +87,24 @@ em {
 	font-size: 80%;
 }
 
-#overlayContainer {
-	position: relative;
-}
-
 #overlayContainer > * {
-	max-height: 459px;
+	max-height: 452px;
 	position: absolute;
-	left: 50%;
-	transform: translateX(-50%);
+	margin: auto;
 	padding: 10px;
 	border: 1px solid #fff;
 }
 
+#errorMessage {
+	transform: translateX(-50%);
+	left: 50%;
+	right: auto;
+}
+
 #heroStats {
-	width: 398px;
+	width: 397px;
+	left: 0;
+	right: 0;
 }
 
 #heroStats > span {
@@ -157,8 +160,10 @@ em {
 }
 
 #actionSkills {
-	font-size: 0; /* inline-block spacing hack */
-	margin-bottom: -5px;
+	display: flex;
+	margin: auto;
+	justify-content: center;
+	flex-wrap: wrap;
 	-moz-user-select: none;
 	-webkit-user-select: none;
 	-ms-user-select: none;
@@ -166,23 +171,23 @@ em {
 	user-select: none;
 }
 
-#actionSkills > * {
-	font: 15pt/17pt Homenaje, Impact, sans-serif;
-}
-
 #primaryActionSkills, #secondaryActionSkills {
-	display: inline-block;
+	display: inline-flex;
+	margin-bottom: 5px;
 }
 
 .actionSkill {
-	display: inline-block;
 	position: relative;
+	width: 207px;
+	height: 72px;
 	cursor: pointer;
 	margin: 0 2.5px 0;
 }
 
 #skillTrees {
-	font-size: 0; /* inline-block spacing hack */
+	display: flex;
+	margin: 0 auto 10px;
+	justify-content: center;
 	flex-grow: 9999;
 	-moz-user-select: none;
 	-webkit-user-select: none;
@@ -192,14 +197,13 @@ em {
 }
 
 #primaryTree, #secondaryTree {
-	font: 15pt/17pt Homenaje, Impact, sans-serif;
-	display: inline-block;
+	display: inline-flex;
 	margin: 0 2.5px 0;
 }
 
 .skillTree {
 	width: 207px;
-	height: 396px;
+	height: 397px;
 }
 
 .skills {
@@ -208,17 +212,17 @@ em {
 	margin-top: 20px;
 }
 
-.bgLayer, .colorLayer, .progressLine {
+.bgLayer {
 	position: absolute;
 	width: 207px;
 	height: 397px;
-}
-
-.bgLayer {
 	background: url("images/skill_bg.png") transparent;
 }
 
 .colorLayer {
+	position: absolute;
+	width: 205px;
+	margin: 1px 0 0 1px;
 	background-color: rgba(255, 255, 255, 0.25);
 	background-image:
 		repeating-linear-gradient(120deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1) 1px, transparent 1px, transparent 60px),
@@ -226,11 +230,12 @@ em {
 		linear-gradient(60deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.1) 75%, rgba(0, 0, 0, 0.1)),
 		linear-gradient(120deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.1) 75%, rgba(0, 0, 0, 0.1));
 	background-size: 70px 120px;
-	z-index: -1;
 }
 
 .progressLine {
-	border-bottom: 1px solid #fff;
+	position: absolute;
+	width: 205px;
+	border: 1px solid #fff;
 }
 
 .skill {
@@ -258,7 +263,7 @@ em {
 
 .actionSkill .points {
 	visibility: initial;
-	bottom: 5px;
+	bottom: 0;
 	right: 0;
 }
 
@@ -324,10 +329,6 @@ em {
 	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
-.actionSkill .label {
-	top: calc(50% - 2px);
-}
-
 .actionSkill .label:not(.full) {
 	text-shadow: 2px 2px 8px rgb(255 1 255 / 70%);
 }
@@ -377,12 +378,23 @@ em {
 .description h2 {
 	padding: 2.5px 0;
 	margin-bottom: 2.5px;
-	font-size: 125%;
+	font-size: 24px;
 	border-bottom: 1px solid #fff;
 }
 
-#classSelectors {
-	margin: 10px;
+#classSelectors, #extraButtons {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 10px;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
+
+#classSelectors > *, #extraButtons > * {
+	margin: 0 2.5px 0;
 }
 
 select, option, button {
@@ -394,21 +406,6 @@ select, option, button {
 
 button:active {
 	background-color: #333;
-}
-
-#extraButtons {
-	font-size: 0; /* inline-block spacing hack */
-	height: 36px;
-	-moz-user-select: none;
-	-webkit-user-select: none;
-	-ms-user-select: none;
-	-o-user-select: none;
-	user-select: none;
-}
-
-#extraButtons > * {
-	font: 15pt/17pt Homenaje, Impact, sans-serif;
-	margin: 0 1pt 0;
 }
 
 #summaryContainer {
@@ -448,7 +445,7 @@ button:active {
 #summaryContainer strong {
 	display: block;
 	font-weight: normal;
-	font-size: 120%;
+	font-size: 24px;
 	float: left;
 	clear: left;
 	width: 200px;
@@ -466,7 +463,7 @@ button:active {
 }
 
 #footer {
-	font-size: 62%;
+	font-size: 12px;
 	text-transform: uppercase;
 	padding-top: 15px;
 	margin-bottom: 5px;
@@ -541,11 +538,11 @@ button:active {
 }
 
 .skill.partial img {
-	background: rgba(255, 255, 255, 0.04);
+	background: rgba(0, 0, 0, 0.1);
 }
 
 .skill.full img {
-	background: rgba(255, 255, 255, 0.08);
+	background: rgba(0, 0, 0, 0.2);
 }
 
 .skill:hover .description {

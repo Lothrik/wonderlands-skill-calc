@@ -81,14 +81,13 @@ function handleScreenshotButton(event) {
 	$(".description, #classSelectors, #extraButtons, #footer").addClass("disabled");
 	$("#summaryContainer").css({ "margin-top": "10px" });
 	$("#skillSummaryContainer").css({ "padding-bottom": "10px" });
-	$("#primaryActionSkills").css({ "width": "100%" });
-	$("#skillTrees").css({ "flex-grow": "0", "margin-bottom": "364px" });
-	$("#heroStats").css({ "margin-top": "565px" });
+	$("#skillTrees").css({ "flex-grow": "0", "margin-bottom": "362px" });
+	$("#heroStats").css({ "margin-top": "556px" });
 	$("option").each(function() { $(this).html("&nbsp;" + $(this).html()); });
 	$("html, body").css({ "width": "auto", "height": "auto" });
 	$(".descriptionText .rainbow").removeClass("rainbow").addClass("rainbow-disabled gold");
 	$(".label.rainbow").removeClass("rainbow").addClass("rainbow-disabled full");
-	$("#actionSkills").removeClass("hidden");
+	$("#actionSkills").css({ "max-width": "550px" }).removeClass("hidden");
 	$("#skillTrees").removeClass("hidden");
 	$("#heroStats").removeClass("hidden");
 	html2canvas(screenshotTarget, {
@@ -105,12 +104,12 @@ function handleScreenshotButton(event) {
 			default:
 			case "View Hero Stats":
 				$("#heroStats").addClass("hidden");
-				$("#actionSkills").removeClass("hidden");
+				$("#actionSkills").removeClass("hidden").removeAttr("style");
 				$("#skillTrees").removeClass("hidden");
 				break;
 			case "View Skill Trees":
 				if ($("#primaryClassSelector").val() != "none" || $("#secondaryClassSelector").val() != "none") {
-					$("#actionSkills").addClass("hidden");
+					$("#actionSkills").addClass("hidden").removeAttr("style");
 					$("#skillTrees").addClass("hidden");
 					$("#heroStats").removeClass("hidden");
 				}
@@ -122,7 +121,6 @@ function handleScreenshotButton(event) {
 		$("option").each(function() { $(this).html($(this).html().replace("&nbsp;", "")); });
 		$("#heroStats").removeAttr("style");
 		$("#skillTrees").removeAttr("style");
-		$("#primaryActionSkills").removeAttr("style");
 		$("#skillSummaryContainer").removeAttr("style");
 		$("#summaryContainer").removeAttr("style");
 		$(".description, #classSelectors, #extraButtons, #footer").removeClass("disabled");
@@ -238,14 +236,14 @@ function handleClassSelection(event, ignoreEvent) {
 }
 function updateFeatTable() {
 	if ($("#primaryClassSelector").val() == "none" && $("#secondaryClassSelector").val() == "none") {
-		$("#errorMessage").text("No class selected.").removeClass("disabled");
+		$("#errorMessage").text("No class selected.").css({ "width": "108px" }).removeClass("disabled");
 		$("#heroPoints").addClass("disabled");
 		$("#featSummaryHeader").text("");
 		$("#primaryClassFeat").html("").css({ "padding": "0", "width": "0" });
 		$("#secondaryClassFeat").html("").css({ "padding": "0", "width": "0" });
 		$("#summarySpacer").addClass("disabled");
 	} else {
-		$("#errorMessage").addClass("disabled");
+		$("#errorMessage").addClass("disabled").removeAttr("style");
 		$("#heroPoints").removeClass("disabled");
 		$("#featSummaryHeader").text("List of Feats");
 		$("#summarySpacer").removeClass("disabled");
@@ -488,7 +486,8 @@ function updatePassiveSkills(treeHandle) {
 		$(this).attr("data-total", tierTotal);
 	});
 	$(treeHandle).parent().find(".totalPoints").text(totalPoints);
-	$(treeHandle).parent().children(".colorLayer, .progressLine").height(Math.min(75 + totalPoints * 59.0 / 5 + (totalPoints > 25 ? 21 : 0), 370));
+	$(treeHandle).parent().children(".colorLayer").height(Math.min(74 + totalPoints * 59.0 / 5 + (totalPoints > 25 ? 21 : 0), 369));
+	$(treeHandle).parent().children(".progressLine").height($(treeHandle).parent().children(".colorLayer").height());
 }
 function updateStats() {
 	let total = 0;
