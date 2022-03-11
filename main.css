@@ -239,7 +239,7 @@ em {
 }
 
 .skill {
-	padding: 3px;
+	margin: 3px;
 	width: 52px;
 	height: 53px;
 	cursor: pointer;
@@ -248,23 +248,22 @@ em {
 }
 
 .points {
-	font-size: 12pt;
-	line-height: 15pt;
+	font-size: 15px;
+	line-height: 15px;
 	visibility: hidden;
 	position: absolute;
-	width: 28px;
-	height: 18px;
-	bottom: 3px;
-	right: 3px;
-	background: url("images/points.png") transparent;
+	width: 22px;
+	bottom: 0;
+	right: 0;
+	text-align: center;
+	padding: 2px 2px 0 2px;
+	border: 1px solid #fff;
 	color: #fff;
 	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
 .actionSkill .points {
 	visibility: initial;
-	bottom: 0;
-	right: 0;
 }
 
 .tier, .totalPoints, .className {
@@ -273,7 +272,7 @@ em {
 
 .className, .totalPoints {
 	text-transform: uppercase;
-	font-size: 18pt;
+	font-size: 24px;
 	color: #fff;
 	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 	position: absolute;
@@ -334,7 +333,7 @@ em {
 }
 
 .skill .label {
-	font-size: 11pt;
+	font-size: 15px;
 }
 
 #primaryTree .description {
