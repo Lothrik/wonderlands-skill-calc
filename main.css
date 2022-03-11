@@ -208,7 +208,7 @@ em {
 	margin-top: 20px;
 }
 
-.bgLayer, .progressLayer, .progressLine {
+.bgLayer, .colorLayer, .progressLine {
 	position: absolute;
 	width: 207px;
 	height: 397px;
@@ -218,11 +218,11 @@ em {
 	background: url("images/skill_bg.png") transparent;
 }
 
-.progressLayer {
+.colorLayer {
 	background-color: rgba(255, 255, 255, 0.25);
 	background-image:
-		repeating-linear-gradient(120deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2) 1px, transparent 1px, transparent 60px),
-		repeating-linear-gradient(60deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2) 1px, transparent 1px, transparent 60px),
+		repeating-linear-gradient(120deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2) 2px, transparent 2px, transparent 60px),
+		repeating-linear-gradient(60deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2) 2px, transparent 2px, transparent 60px),
 		linear-gradient(60deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.1) 75%, rgba(0, 0, 0, 0.1)),
 		linear-gradient(120deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.1) 75%, rgba(0, 0, 0, 0.1));
 	background-size: 70px 120px;
