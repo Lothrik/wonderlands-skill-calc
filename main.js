@@ -201,36 +201,32 @@ function handleBackstorySelection(event, ignoreEvent) {
 		saveToHash(2);
 	}
 }
-function handleClassSelection(event, ignoreEvent) {
+function handleClassSelection(event) {
 	$("#swapTreeButton, #resetButton, #switchViewButton").prop("disabled", $("#primaryClassSelector").val() == "none" && $("#secondaryClassSelector").val() == "none");
 	$("#screenshotButton").prop("disabled", $("#primaryClassSelector").val() == "none" || $("#secondaryClassSelector").val() == "none");
 	if (this.id == "primaryClassSelector") {
-		if (!ignoreEvent) {
-			$("#primaryActionSkills .actionSkill").each(function(index, key) {
-				$(this).attr("data-points", "0");
-			});
-			$("#primaryTree .tier").each(function(index, key) {
-				$(this).attr("data-invested", "0").attr("data-total", "0");
-			});
-			$("#primaryTree .skill").each(function(index, key) {
-				$(this).attr("data-points", "0");
-			});
-			saveToHash(2);
-		}
+		$("#primaryActionSkills .actionSkill").each(function(index, key) {
+			$(this).attr("data-points", "0");
+		});
+		$("#primaryTree .tier").each(function(index, key) {
+			$(this).attr("data-invested", "0").attr("data-total", "0");
+		});
+		$("#primaryTree .skill").each(function(index, key) {
+			$(this).attr("data-points", "0");
+		});
+		saveToHash(2);
 		rebuildHTML($(this).val(), ["#primaryActionSkills", "#primaryClassFeat", "#primaryTree"]);
 	} else {
-		if (!ignoreEvent) {
-			$("#secondaryActionSkills .actionSkill").each(function(index, key) {
-				$(this).attr("data-points", "0");
-			});
-			$("#secondaryTree .tier").each(function(index, key) {
-				$(this).attr("data-invested", "0").attr("data-total", "0");
-			});
-			$("#secondaryTree .skill").each(function(index, key) {
-				$(this).attr("data-points", "0");
-			});
-			saveToHash(2);
-		}
+		$("#secondaryActionSkills .actionSkill").each(function(index, key) {
+			$(this).attr("data-points", "0");
+		});
+		$("#secondaryTree .tier").each(function(index, key) {
+			$(this).attr("data-invested", "0").attr("data-total", "0");
+		});
+		$("#secondaryTree .skill").each(function(index, key) {
+			$(this).attr("data-points", "0");
+		});
+		saveToHash(2);
 		rebuildHTML($(this).val(), ["#secondaryActionSkills", "#secondaryClassFeat", "#secondaryTree"]);
 	}
 }
@@ -661,6 +657,6 @@ $(document).ready(function() {
 	$("#primaryClassSelector").on("change", handleClassSelection);
 	$("#secondaryClassSelector").on("change", handleClassSelection);
 	loadFromHash(2);
-	$("#primaryClassSelector").trigger("change", true);
-	$("#secondaryClassSelector").trigger("change", true);
+	rebuildHTML();
+	addHashToUndo(window.location.hash.replace("#", ""));
 });
