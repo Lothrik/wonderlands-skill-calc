@@ -287,6 +287,48 @@ function finishHTML() {
 	updateFeatTable();
 	$("#primaryClassName").text($("#primaryClassSelector option:selected").text());
 	$("#secondaryClassName").text($("#secondaryClassSelector option:selected").text());
+	switch ($("#primaryClassSelector option:selected").val()){
+		default:
+		case "brrzerker":
+			$("#primaryTree .progressLayer").css({ "background-color": "rgba(0, 0, 255, 0.25)" });
+			break;
+		case "clawbringer":
+			$("#primaryTree .progressLayer").css({ "background-color": "rgba(0, 255, 255, 0.25)" });
+			break;
+		case "graveborn":
+			$("#primaryTree .progressLayer").css({ "background-color": "rgba(255, 0, 0, 0.25)" });
+			break;
+		case "spellshot":
+			$("#primaryTree .progressLayer").css({ "background-color": "rgba(255, 0, 255, 0.25)" });
+			break;
+		case "sporewarden":
+			$("#primaryTree .progressLayer").css({ "background-color": "rgba(0, 255, 0, 0.35)" });
+			break;
+		case "stabbomancer":
+			$("#primaryTree .progressLayer").css({ "background-color": "rgba(255, 255, 0, 0.35)" });
+			break;
+	}
+	switch ($("#secondaryClassSelector option:selected").val()){
+		default:
+		case "brrzerker":
+			$("#secondaryTree .progressLayer").css({ "background-color": "rgba(0, 0, 255, 0.25)" });
+			break;
+		case "clawbringer":
+			$("#secondaryTree .progressLayer").css({ "background-color": "rgba(0, 255, 255, 0.25)" });
+			break;
+		case "graveborn":
+			$("#secondaryTree .progressLayer").css({ "background-color": "rgba(255, 0, 0, 0.4)" });
+			break;
+		case "spellshot":
+			$("#secondaryTree .progressLayer").css({ "background-color": "rgba(255, 0, 255, 0.25)" });
+			break;
+		case "sporewarden":
+			$("#secondaryTree .progressLayer").css({ "background-color": "rgba(0, 255, 0, 0.4)" });
+			break;
+		case "stabbomancer":
+			$("#secondaryTree .progressLayer").css({ "background-color": "rgba(255, 255, 0, 0.4)" });
+			break;
+	}
 }
 function handleKeyDown(event) {
 	if (event.keyCode == 90 && event.ctrlKey) {
@@ -446,7 +488,7 @@ function updatePassiveSkills(treeHandle) {
 		$(this).attr("data-total", tierTotal);
 	});
 	$(treeHandle).parent().find(".totalPoints").text(totalPoints);
-	$(treeHandle).parent().children(".color").height(Math.min(75 + totalPoints * 59.0 / 5 + (totalPoints > 25 ? 21 : 0), 396));
+	$(treeHandle).parent().children(".progressLayer, .progressLine").height(Math.min(75 + totalPoints * 59.0 / 5 + (totalPoints > 25 ? 21 : 0), 396));
 }
 function updateStats() {
 	let total = 0;
