@@ -630,7 +630,7 @@ function loadPreviousHashFromUndo() {
 		rebuildHTML();
 		hashUndoHistory.pop();
 	}
-	return false;
+	$("#undoButton").prop("disabled", hashUndoHistory.length <= 1);
 }
 function handleResetButton() {
 	let newHash = compressHash($("#primaryClassSelector").prop("selectedIndex").toString() + $("#secondaryClassSelector").prop("selectedIndex").toString());
@@ -639,7 +639,7 @@ function handleResetButton() {
 	loadFromHash(2);
 	rebuildHTML();
 	addHashToUndo(newHash);
-	return false;
+	$("#resetButton").prop("disabled", true);
 }
 function compressHash(rawHash) {
 	if (LZString) {
