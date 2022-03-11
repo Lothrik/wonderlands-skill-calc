@@ -87,24 +87,20 @@ em {
 	font-size: 80%;
 }
 
+#overlayContainer {
+	display: flex;
+	justify-content: center;
+}
+
 #overlayContainer > * {
 	max-height: 452px;
 	position: absolute;
-	margin: auto;
 	padding: 10px;
 	border: 1px solid #fff;
 }
 
-#errorMessage {
-	transform: translateX(-50%);
-	left: 50%;
-	right: auto;
-}
-
 #heroStats {
 	width: 397px;
-	left: 0;
-	right: 0;
 }
 
 #heroStats > span {
