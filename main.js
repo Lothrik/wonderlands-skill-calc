@@ -204,8 +204,6 @@ function handleBackstorySelection(event, ignoreEvent) {
 	}
 }
 function handleClassSelection(event) {
-	$("#swapTreeButton, #resetButton, #switchViewButton").prop("disabled", $("#primaryClassSelector").val() == "none" && $("#secondaryClassSelector").val() == "none");
-	$("#screenshotButton").prop("disabled", $("#primaryClassSelector").val() == "none" || $("#secondaryClassSelector").val() == "none");
 	if (this.id == "primaryClassSelector") {
 		$("#primaryActionSkills .actionSkill").each(function(index, key) {
 			$(this).attr("data-points", "0");
@@ -327,8 +325,15 @@ function finishHTML() {
 	}
 }
 function handleKeyDown(event) {
-	if (event.keyCode == 90 && event.ctrlKey) {
-		loadPreviousHashFromUndo();
+	switch (event.keyCode) {
+		case 9: // tab key
+			handleButtonState();
+			break;
+		case 90: // z key
+			if (event.ctrlKey) {
+				loadPreviousHashFromUndo();
+			}
+			break;
 	}
 }
 function handleMouseDown(event) {
@@ -364,6 +369,16 @@ function checkLongTouch(fromTimer) {
 			updatePoints(lastTouched, 1);
 		}
 		lastTouched = null;
+	}
+}
+function handleButtonState(event) {
+	if (event && ["mouseleave", "blur"].includes(event.type)) {
+		$(this).children().prop("disabled", false);
+	} else {
+		$("#swapTreeButton, #switchViewButton").prop("disabled", $("#primaryClassSelector").val() == "none" && $("#secondaryClassSelector").val() == "none");
+		$("#resetButton").prop("disabled", Number($("#charLevel").text()) == 0);
+		$("#screenshotButton").prop("disabled", $("#primaryClassSelector").val() == "none" || $("#secondaryClassSelector").val() == "none");
+		$("#undoButton").prop("disabled", hashUndoHistory.length <= 1);
 	}
 }
 
@@ -654,6 +669,7 @@ $(document).ready(function() {
 	$("#switchViewButton").on("click", handleSwitchViewButton);
 	$("#screenshotButton").on("click", handleScreenshotButton);
 	$("#undoButton").on("click", loadPreviousHashFromUndo);
+	$("#classSelectors, #extraButtons").on("keydown mouseenter mouseleave", handleButtonState);
 	$(".heroStatSlider").on("change", handleHeroStatSlider);
 	$("#backstorySelector").on("change", handleBackstorySelection);
 	$("#primaryClassSelector").on("change", handleClassSelection);

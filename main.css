@@ -400,7 +400,12 @@ select, option, button {
 	height: 26px;
 	border: 1px solid #fff;
 	background-color: #000;
+	cursor: pointer;
 	color: #fff;
+}
+
+:disabled {
+	cursor: not-allowed;
 }
 
 button:active {
