@@ -1,22 +1,22 @@
 ::-webkit-scrollbar {
-    background-color: #202324;
-    color: #aba499;
+	color: #aba499;
+	background-color: #202324;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #454a4d;
+	background-color: #454a4d;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #575e62;
+	background-color: #575e62;
 }
 
 ::-webkit-scrollbar-thumb:active {
-    background-color: #484e51;
+	background-color: #484e51;
 }
 
 ::-webkit-scrollbar-corner {
-    background-color: #181a1b;
+	background-color: #181a1b;
 }
 
 * {
@@ -24,19 +24,19 @@
 }
 
 html, body {
-	height: 100vh;
-	min-width: 440px;
 	display: flex;
 	flex-direction: column;
+	min-width: 440px;
+	height: 100vh;
 }
 
 body {
-	background: #0c0032 url("images/background.avif") no-repeat;
-	background-size: 100.885% auto;
-	color: #fff;
 	font: 15pt/17pt Homenaje, Impact, sans-serif;
 	cursor: default;
 	text-align: center;
+	color: #fff;
+	background: #0c0032 url(images/background.avif) no-repeat;
+	background-size: 100.885% auto;
 }
 
 @media (max-width: 1920px) {
@@ -55,8 +55,8 @@ body > * {
 }
 
 h1, h2, h3 {
-	margin: 0;
 	font-weight: normal;
+	margin: 0;
 }
 
 em {
@@ -65,10 +65,10 @@ em {
 
 #header {
 	font-size: 32px;
-	text-transform: uppercase;
 	line-height: 1;
-	padding: 10px 0;
 	margin-bottom: 10px;
+	padding: 10px 0;
+	text-transform: uppercase;
 	border-bottom: 2px solid #f0f;
 }
 
@@ -78,9 +78,9 @@ em {
 }
 
 #header h1 {
-	text-shadow: 2px 2px 8px rgb(255 1 255 / 70%);
 	font-size: 140%;
 	margin: 0 auto;
+	text-shadow: 2px 2px 8px rgb(255 1 255 / 70%);
 }
 
 #header h2 {
@@ -93,8 +93,8 @@ em {
 }
 
 #overlayContainer > * {
-	max-height: 452px;
 	position: absolute;
+	max-height: 452px;
 	padding: 10px;
 	border: 1px solid #fff;
 }
@@ -110,9 +110,9 @@ em {
 }
 
 .heroStatLabel, #heroPointsLabel, #backstoryLabel {
-	max-width: 105px;
 	float: left;
 	clear: both;
+	max-width: 105px;
 }
 
 .heroStatNumber {
@@ -121,8 +121,8 @@ em {
 }
 
 #backstorySelector, .heroStatText {
-	max-width: 280px;
 	clear: right;
+	max-width: 280px;
 }
 
 .heroStatSlider, .heroStatNumber, .heroStatText, #heroPointsText, #backstorySelector {
@@ -130,21 +130,21 @@ em {
 }
 
 .heroStatSlider {
-	appearance: none;
-	height: 5px;
 	width: 160px;
-	background: rgba(255, 255, 255, 0.15);
-	border-radius: 2.5px;
+	height: 5px;
 	margin-top: 8px;
+	border-radius: 2.5px;
+	background: rgba(255, 255, 255, 0.15);
+	appearance: none;
 }
 
 .heroStatSlider::-webkit-slider-thumb {
-	appearance: none;
 	width: 10px;
 	height: 10px;
-	background-color: #fff;
 	cursor: pointer;
 	border-radius: 50%;
+	background-color: #fff;
+	appearance: none;
 }
 
 #heroPointsLabel, #heroPointsText {
@@ -158,13 +158,9 @@ em {
 #actionSkills {
 	display: flex;
 	margin: auto;
-	justify-content: center;
-	flex-wrap: wrap;
-	-moz-user-select: none;
-	-webkit-user-select: none;
-	-ms-user-select: none;
-	-o-user-select: none;
 	user-select: none;
+	flex-wrap: wrap;
+	justify-content: center;
 }
 
 #primaryActionSkills, #secondaryActionSkills {
@@ -176,25 +172,21 @@ em {
 	position: relative;
 	width: 207px;
 	height: 72px;
+	margin: 0 2.5px;
 	cursor: pointer;
-	margin: 0 2.5px 0;
 }
 
 #skillTrees {
 	display: flex;
 	margin: 0 auto 10px;
-	justify-content: center;
-	flex-grow: 9999;
-	-moz-user-select: none;
-	-webkit-user-select: none;
-	-ms-user-select: none;
-	-o-user-select: none;
 	user-select: none;
+	flex-grow: 9999;
+	justify-content: center;
 }
 
 #primaryTree, #secondaryTree {
 	display: inline-flex;
-	margin: 0 2.5px 0;
+	margin: 0 2.5px;
 }
 
 .skillTree {
@@ -203,8 +195,8 @@ em {
 }
 
 .skills {
-	width: 174px;
 	display: inline-block;
+	width: 174px;
 	margin-top: 20px;
 }
 
@@ -212,7 +204,7 @@ em {
 	position: absolute;
 	width: 207px;
 	height: 397px;
-	background: url("images/skill_bg.png") transparent;
+	background: url(images/skill_bg.png) transparent;
 }
 
 .colorLayer {
@@ -236,27 +228,27 @@ em {
 }
 
 .skill {
-	margin: 3px;
-	width: 52px;
-	height: 53px;
-	cursor: pointer;
 	position: relative;
 	float: left;
+	width: 52px;
+	height: 53px;
+	margin: 3px;
+	cursor: pointer;
 }
 
 .points {
 	font-size: 15px;
 	line-height: 16px;
-	visibility: hidden;
 	position: absolute;
-	width: 25px;
-	height: 15px;
 	right: 1px;
 	bottom: 1px;
+	visibility: hidden;
+	width: 25px;
+	height: 15px;
 	text-align: center;
-	border-left: 1px solid #fff;
-	border-top: 1px solid #fff;
 	color: #fff;
+	border-top: 1px solid #fff;
+	border-left: 1px solid #fff;
 	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
@@ -269,20 +261,20 @@ em {
 }
 
 .className, .totalPoints {
-	text-transform: uppercase;
 	font-size: 24px;
-	color: #fff;
-	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 	position: absolute;
 	display: block;
-	margin: -6px 0 0 4px;
 	width: 199px;
+	margin: -6px 0 0 4px;
+	text-transform: uppercase;
+	color: #fff;
+	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
 .className {
-	text-align: left;
-	max-width: 150px;
 	overflow: hidden;
+	max-width: 150px;
+	text-align: left;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
@@ -306,25 +298,25 @@ em {
 }
 
 .description {
-	display: none;
 	position: absolute;
-	top: 0;
-	width: 400px;
 	z-index: 1;
-	background-color: rgba(0, 0, 0, 0.75);
-	border: 1px solid #fff;
-	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-	color: #fff;
+	top: 0;
+	display: none;
+	width: 400px;
 	padding: 0 5px 5px;
 	text-align: justify;
 	text-align-last: center;
+	color: #fff;
+	border: 1px solid #fff;
+	background-color: rgba(0, 0, 0, .75);
+	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
 .label {
-	width: 90%;
 	position: absolute;
 	top: 50%;
 	left: 50%;
+	width: 90%;
 	transform: translate(-50%, -50%);
 	color: #fff;
 	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
@@ -377,33 +369,29 @@ em {
 }
 
 .description h2 {
-	padding: 2.5px 0;
-	margin-bottom: 2.5px;
 	font-size: 24px;
+	margin-bottom: 2.5px;
+	padding: 2.5px 0;
 	border-bottom: 1px solid #fff;
 }
 
 #classSelectors, #extraButtons {
 	display: flex;
-	justify-content: center;
 	margin-bottom: 10px;
-	-moz-user-select: none;
-	-webkit-user-select: none;
-	-ms-user-select: none;
-	-o-user-select: none;
 	user-select: none;
+	justify-content: center;
 }
 
 #classSelectors > *, #extraButtons > * {
-	margin: 0 2.5px 0;
+	margin: 0 2.5px;
 }
 
 select, option, button {
 	height: 26px;
-	border: 1px solid #fff;
-	background-color: #000;
 	cursor: pointer;
 	color: #fff;
+	border: 1px solid #fff;
+	background-color: #000;
 }
 
 :disabled {
@@ -415,22 +403,22 @@ button:active {
 }
 
 #summaryContainer {
-	flex-grow: 1;
 	margin-top: auto;
 	padding: 10px 10px 0;
 	border-top: 2px solid #f0f;
+	flex-grow: 1;
 }
 
 #summaryContainer * {
-	margin: auto;
 	line-height: 1.1;
 	max-width: 840px;
+	margin: auto;
 }
 
 #primaryClassFeat, #secondaryClassFeat {
 	float: left;
-	border-top: 1px solid #fff;
 	text-align: justify;
+	border-top: 1px solid #fff;
 }
 
 .classFeat {
@@ -444,14 +432,14 @@ button:active {
 
 #summaryContainer .skillText {
 	clear: both;
-	border-top: 1px solid #fff;
 	text-align: left;
+	border-top: 1px solid #fff;
 }
 
 #summaryContainer strong {
-	display: block;
-	font-weight: normal;
 	font-size: 24px;
+	font-weight: normal;
+	display: block;
 	float: left;
 	clear: left;
 	width: 200px;
@@ -470,9 +458,9 @@ button:active {
 
 #footer {
 	font-size: 12px;
-	text-transform: uppercase;
-	padding-top: 15px;
 	margin-bottom: 5px;
+	padding-top: 15px;
+	text-transform: uppercase;
 	color: #fff;
 }
 
@@ -485,34 +473,34 @@ button:active {
 }
 
 .rainbow {
-    background: linear-gradient(
-        90deg,
-        rgb(255, 0, 0) 0%,
-        rgb(255, 154, 0) 10%,
-        rgb(208, 222, 33) 20%,
-        rgb(79, 220, 74) 30%,
-        rgb(63, 218, 216) 40%,
-        rgb(47, 201, 226) 50%,
-        rgb(28, 127, 238) 60%,
-        rgb(95, 21, 242) 70%,
-        rgb(186, 12, 248) 80%,
-        rgb(251, 7, 217) 90%,
-        rgb(255, 0, 0) 100%
-    );
+	animation: rainbow_animation 4s linear 0s infinite forwards;
+	background: linear-gradient(
+		90deg,
+		rgb(255, 0, 0) 0%,
+		rgb(255, 154, 0) 10%,
+		rgb(208, 222, 33) 20%,
+		rgb(79, 220, 74) 30%,
+		rgb(63, 218, 216) 40%,
+		rgb(47, 201, 226) 50%,
+		rgb(28, 127, 238) 60%,
+		rgb(95, 21, 242) 70%,
+		rgb(186, 12, 248) 80%,
+		rgb(251, 7, 217) 90%,
+		rgb(255, 0, 0) 100%
+	);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
-	animation: rainbow_animation 4s linear 0s infinite forwards;
 	background-size: 200% 100%;
 	text-shadow: none!important;
 }
 
 @keyframes rainbow_animation {
-    0% {
-        background-position: 0 0;
-    }
-    100% {
-        background-position: 200% 0;
-    }
+	0% {
+		background-position: 0 0;
+	}
+	100% {
+		background-position: 200% 0;
+	}
 }
 
 .description .gold, #summaryContainer .gold {
@@ -589,13 +577,13 @@ button:active {
 
 .stamp {
 	font-size: 80%;
+	position: absolute;
+	display: inline-block;
+	overflow: visible;
 	width: 0;
 	height: 0;
-	overflow: visible;
-	display: inline-block;
-	position: absolute;
-	transform: rotate(12deg);
 	margin: 0.2em 0 0 0.2em;
+	transform: rotate(12deg);
 }
 
 @media (max-width: 700px) {
