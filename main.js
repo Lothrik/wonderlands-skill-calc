@@ -87,6 +87,7 @@ function handleScreenshotButton(event) {
 	$("html, body").css({ "width": "auto", "height": "auto" });
 	$(".descriptionText .rainbow").removeClass("rainbow").addClass("rainbow-disabled gold");
 	$(".label.rainbow").removeClass("rainbow").addClass("rainbow-disabled full");
+	$(".points").css({ "height": "16px" });
 	$("#actionSkills").css({ "max-width": "550px" }).removeClass("hidden");
 	$("#skillTrees").removeClass("hidden");
 	$("#heroStats").removeClass("hidden");
@@ -117,6 +118,7 @@ function handleScreenshotButton(event) {
 				}
 				break;
 		}
+		$(".points").removeAttr("style");
 		$(".label.rainbow-disabled").removeClass("rainbow-disabled full").addClass("rainbow");
 		$(".descriptionText .rainbow-disabled").removeClass("rainbow-disabled gold").addClass("rainbow");
 		$("html, body").removeAttr("style");
@@ -471,7 +473,11 @@ function updatePassiveSkills(treeHandle) {
 			totalPoints += p;
 			tierTotal += p;
 			$(this).children(".points").text(p + "/" + m);
-			$(this).children(".points").css("visibility", (totalPoints < 5 * tierLevel) ? "hidden" : "visible");
+			if (totalPoints >= 5 * tierLevel) {
+				$(this).children(".points").addClass("visible");
+			} else {
+				$(this).children(".points").removeClass("visible");
+			}
 			$(this).removeClass("partial full");
 			if (p != 0) {
 				$(this).addClass(p < m ? "partial" : "full");
