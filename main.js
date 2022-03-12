@@ -467,7 +467,7 @@ function updatePassiveSkills(treeHandle) {
 		$(this).attr("data-invested", totalPoints); // the PREVIOUS tier running total
 		let tierLevel = Number($(this).attr("data-level"));
 		let tierTotal = 0;
-		$(this).children(".skill:not(.disabled)").each(function() {
+		$(this).children(".skill:not(.hidden)").each(function() {
 			let p = Number($(this).attr("data-points"));
 			let m = Number($(this).attr("data-max"));
 			totalPoints += p;
