@@ -221,8 +221,9 @@ em {
 	margin: 1px 0 0 1px;
 	background-color: rgba(255, 255, 255, 0.25);
 	background-image:
-		repeating-linear-gradient(120deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1) 1px, transparent 1px, transparent 60px),
-		repeating-linear-gradient(60deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1) 1px, transparent 1px, transparent 60px),
+		/*repeating-linear-gradient(120deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1) 1px, transparent 1px, transparent 60px),
+		repeating-linear-gradient(60deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1) 1px, transparent 1px, transparent 60px),*/
+		url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAAB4BAMAAAC9cJlqAAAAD1BMVEUAAAD19fX////19fX///8UbiXnAAAABXRSTlMAGhoxMXv9kGQAAAFISURBVFjDrZjdcYQwEIN3VAGTCjSeKyAlpP+q8pD7DTb6sPEDZxuBznh3JajvSk2liGklJ4yrHKkqkhGMn4cljN6Oo/b1h3GkOibTv99ZjHed/W382rVEdUTmbvezbRmjQf8sxsNBZ+Xj1etgNLi7JzEKY4pxnOjEZ4tUvRlPse+mdNHTAE++n5kN7LIyFYq6j2kS4aO0FMimtxNaym5lKlRtnqdIZWtHGFBF7/VGy1VdmYqrDFG0ljBAPctAqYUwkarKAHOrazCAi/xnsvYtY8hekD0lsYFdyrqTccY8KpAXc5nUBOJk6gyGOBll08ScTAMuZcXJAG0iGge0kmjujEuZdTLAk7Spq+SLVjHzxBzcM9zBNh0tOhuZxMl4AYOczBYTDlaJMxWJOBlQIck7o8Jb9z5Kpp0MUSLiZIAykm8F5JvDT1b8X2f5EfnCVs4IAAAAAElFTkSuQmCC),
 		linear-gradient(60deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.1) 75%, rgba(0, 0, 0, 0.1)),
 		linear-gradient(120deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.1) 75%, rgba(0, 0, 0, 0.1));
 	background-size: 70px 120px;
