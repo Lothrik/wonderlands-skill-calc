@@ -283,9 +283,8 @@ em {
 	text-align: right;
 }
 
-.partial .perLevel, .full .perLevel, .disabled, .disabled * {
-	display: none!important;
-	pointer-events: none;
+.visible, .visible * {
+	visibility: visible!important;
 }
 
 .hidden, .hidden * {
@@ -293,8 +292,9 @@ em {
 	pointer-events: none;
 }
 
-.visible, .visible * {
-	visibility: visible!important;
+.partial .perLevel, .full .perLevel, .disabled, .disabled * {
+	display: none!important;
+	pointer-events: none;
 }
 
 .description {
