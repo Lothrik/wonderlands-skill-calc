@@ -488,13 +488,15 @@ function updatePassiveSkills(treeHandle) {
 					$(this).addClass(p < m ? "partial" : "full");
 				}
 				if ($(this).attr("data-base")) {
-					let mod = parseFloat($(this).attr("data-mod")) || 0;
-					let base = parseFloat($(this).attr("data-base"));
-					let sum = Math.round((Math.max(p, 1) * base + mod) * 100) / 100; // Math.round to eliminate goofy float errors
+					let mod = Number($(this).attr("data-mod")) || 0;
+					let base = Number($(this).attr("data-base"));
+					let sum = Math.max(p, 1) * base + mod;
 					if ($(this).attr("data-fixed")) {
 						sum = sum.toFixed(1);
+					} else {
+						sum = sum.toFixed(0);
 					}
-					let plus = ($(this).attr("data-base").slice(0, 1) == "+" ? "+" : "");
+					let plus = ($(this).attr("data-base")[0] == "+" ? "+" : "");
 					$(this).text((sum > 0 ? plus : (sum == 0 ? "" : "-")) + sum + ($(this).attr("data-pct") ? "%" : ""));
 				}
 			});
@@ -505,7 +507,7 @@ function updatePassiveSkills(treeHandle) {
 		});
 		$(this).attr("data-total", tierTotal);
 	});
-	$(treeHandle).parent().find(".totalPoints").text(totalPoints);
+	$(treeHandle).parent().children(".totalPoints").text(totalPoints);
 	$(treeHandle).parent().children(".colorLayer").height(Math.min(74 + totalPoints * 59.0 / 5 + (totalPoints > 25 ? 21 : 0), 369));
 	$(treeHandle).parent().children(".progressLine").height($(treeHandle).parent().children(".colorLayer").height());
 }
