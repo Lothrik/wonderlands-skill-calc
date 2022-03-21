@@ -302,6 +302,7 @@ em {
 	top: 0;
 	display: none;
 	width: 400px;
+	margin-top: -1px;
 	padding: 0 5px 5px;
 	text-align: justify;
 	text-align-last: center;
@@ -360,14 +361,14 @@ em {
 	bottom: -59px;
 }
 
-.tier[data-level='4'] .description.shortTier4Description {
+.tier[data-level='4'] .description {
 	top: 0;
 	bottom: auto;
 }
 
 .tier[data-level='5'] .description {
 	top: auto;
-	bottom: 0;
+	bottom: -1px;
 }
 
 @media (max-width: 1230px) {
