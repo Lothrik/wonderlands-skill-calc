@@ -443,9 +443,9 @@ function updateActionSkills() {
 	$(".actionSkill > .description > h2").each(function(index, element) {
 		actionSkillNames[index] = $(element).text();
 	});
-	$(".actionSkill > img").each(function(index, element) {
-		if ($(".actionSkill").eq(index).children(".label").length == 0) {
-			$(element).after('<div class="label">' + actionSkillNames[index] + "</div>");
+	$(".actionSkill").each(function(index, element) {
+		if ($(element).children(".label").length == 0) {
+			$(element).append('<div class="label">' + actionSkillNames[index] + "</div>");
 		}
 	});
 	$(".actionSkill").each(function(_, element) {

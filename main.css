@@ -170,10 +170,12 @@ em {
 
 .actionSkill {
 	position: relative;
-	width: 207px;
-	height: 72px;
+	width: 205px;
+	height: 70px;
 	margin: 0 2.5px;
 	cursor: pointer;
+	border: 1px solid #fff;
+	background-color: rgba(0, 0, 0, 0.2);
 }
 
 #skillTrees {
@@ -202,9 +204,10 @@ em {
 
 .bgLayer {
 	position: absolute;
-	width: 207px;
-	height: 397px;
-	background: url(images/skill_bg.png) transparent;
+	width: 205px;
+	height: 395px;
+	border: 1px solid #fff;
+	background-color: rgba(0, 0, 0, 0.2);
 }
 
 .colorLayer {
@@ -230,18 +233,20 @@ em {
 .skill {
 	position: relative;
 	float: left;
-	width: 52px;
-	height: 53px;
+	width: 50px;
+	height: 51px;
 	margin: 3px;
 	cursor: pointer;
+	border: 1px solid #fff;
+	background-color: rgba(0, 0, 0, 0.1);
 }
 
 .points {
 	font-size: 15px;
 	line-height: 16px;
 	position: absolute;
-	right: 1px;
-	bottom: 1px;
+	right: 0;
+	bottom: 0;
 	visibility: hidden;
 	width: 25px;
 	height: 15px;
@@ -531,12 +536,12 @@ button:active {
 	color: #0f0;
 }
 
-.skill.partial img {
-	background: rgba(0, 0, 0, 0.2);
+.skill.partial {
+	background: rgba(0, 0, 0, 0.275);
 }
 
-.skill.full img {
-	background: rgba(0, 0, 0, 0.3);
+.skill.full {
+	background: rgba(0, 0, 0, 0.375);
 }
 
 .skill:hover .description {
