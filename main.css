@@ -309,6 +309,23 @@ em {
 	background-color: rgba(0, 0, 0, 0.75);
 }
 
+.icon {
+	display: block;
+	width: 100%;
+	min-height: 5px;
+	max-height: 90px;
+	filter: brightness(0.8) grayscale(1) contrast(5);
+	object-fit: none;
+}
+
+.actionSkill .icon {
+	max-height: 108px;
+}
+
+#summaryContainer .icon {
+	display: none;
+}
+
 .label {
 	position: absolute;
 	top: 50%;
@@ -365,8 +382,8 @@ em {
 
 .description h2 {
 	font-size: 24px;
-	margin-bottom: 2.5px;
-	padding: 2.5px 0;
+	margin-bottom: 5px;
+	padding-bottom: 5px;
 	border-bottom: 1px solid #fff;
 }
 

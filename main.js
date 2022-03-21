@@ -444,6 +444,10 @@ function updateActionSkills() {
 		actionSkillNames[index] = $(element).text();
 	});
 	$(".actionSkill").each(function(index, element) {
+		if ($(this).find(".icon").length == 0) {
+			let className = $(element).parent().prop("id") == "primaryActionSkills" ? $("#primaryClassSelector").val() : $("#secondaryClassSelector").val();
+			$(this).find(".description h2").before('<object class="icon" data="images/' + className + "/" + actionSkillNames[index].replace(/\s+/g, "_").replace(/\W/g, "").toLowerCase() + '.avif" type="image/avif"></object>');
+		}
 		if ($(element).children(".label").length == 0) {
 			$(element).append('<div class="label">' + actionSkillNames[index] + "</div>");
 		}
@@ -463,6 +467,7 @@ function updateActionSkills() {
 }
 function updatePassiveSkills(treeHandle) {
 	let totalPoints = 0;
+	let className = $(treeHandle).parent().parent().prop("id") == "primaryTree" ? $("#primaryClassSelector").val() : $("#secondaryClassSelector").val();
 	$(treeHandle).children(".tier").each(function() {
 		$(this).attr("data-invested", totalPoints); // the PREVIOUS tier running total
 		let tierLevel = Number($(this).attr("data-level"));
@@ -500,8 +505,11 @@ function updatePassiveSkills(treeHandle) {
 					$(this).text((sum > 0 ? plus : (sum == 0 ? "" : "-")) + sum + ($(this).attr("data-pct") ? "%" : ""));
 				}
 			});
+			let skillName = $(this).find(".description h2").text();
+			if ($(this).find(".icon").length == 0) {
+				$(this).find(".description h2").before('<object class="icon" data="images/' + className + "/" + skillName.replace(/\s+/g, "_").replace(/\W/g, "").toLowerCase() + '.avif" type="image/avif"></object>');
+			}
 			if ($(this).children(".label").length == 0) {
-				let skillName = $(this).find(".description h2").text();
 				$(this).children(".points").after('<div class="label">' + skillName.split(" ").map((n) => n[0]).join("") + "</div>");
 			}
 		});
