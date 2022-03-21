@@ -20,21 +20,18 @@
 }
 
 * {
+	color: #fff;
 	scrollbar-color: #454a4d #202324;
 }
 
-html, body {
+body {
+	font: 20px/23px Homenaje, Impact, sans-serif;
 	display: flex;
 	flex-direction: column;
 	min-width: 440px;
 	height: 100vh;
-}
-
-body {
-	font: 15pt/17pt Homenaje, Impact, sans-serif;
 	cursor: default;
 	text-align: center;
-	color: #fff;
 	background: #0c0032 url(images/background.avif) no-repeat;
 	background-size: 100.885% auto;
 }
@@ -50,7 +47,6 @@ body > * {
 }
 
 ::selection {
-	color: #fff;
 	background: #fbb406;
 }
 
@@ -72,14 +68,13 @@ em {
 	border-bottom: 2px solid #f0f;
 }
 
-#header, #summaryContainer, #overlayContainer > * {
+#header, .actionSkill, .skillTree, #overlayContainer > *, #summaryContainer {
 	background-color: rgba(0, 0, 0, 0.2);
 	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
 #header a {
 	text-decoration: none;
-	color: #fff;
 }
 
 #header h1 {
@@ -180,7 +175,6 @@ em {
 	margin: 0 2.5px;
 	cursor: pointer;
 	border: 1px solid #fff;
-	background-color: rgba(0, 0, 0, 0.2);
 }
 
 #skillTrees {
@@ -212,7 +206,6 @@ em {
 	width: 205px;
 	height: 395px;
 	border: 1px solid #fff;
-	background-color: rgba(0, 0, 0, 0.2);
 }
 
 .colorLayer {
@@ -256,10 +249,8 @@ em {
 	width: 25px;
 	height: 15px;
 	text-align: center;
-	color: #fff;
 	border-top: 1px solid #fff;
 	border-left: 1px solid #fff;
-	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
 .actionSkill .points {
@@ -277,8 +268,6 @@ em {
 	width: 199px;
 	margin: -6px 0 0 4px;
 	text-transform: uppercase;
-	color: #fff;
-	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
 .className {
@@ -316,10 +305,8 @@ em {
 	padding: 0 5px 5px;
 	text-align: justify;
 	text-align-last: center;
-	color: #fff;
 	border: 1px solid #fff;
-	background-color: rgba(0, 0, 0, .75);
-	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+	background-color: rgba(0, 0, 0, 0.75);
 }
 
 .label {
@@ -328,8 +315,6 @@ em {
 	left: 50%;
 	width: 90%;
 	transform: translate(-50%, -50%);
-	color: #fff;
-	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
 .actionSkill .label:not(.full) {
@@ -399,7 +384,6 @@ em {
 select, option, button {
 	height: 26px;
 	cursor: pointer;
-	color: #fff;
 	border: 1px solid #fff;
 	background-color: #000;
 }
@@ -471,11 +455,6 @@ button:active {
 	margin-bottom: 5px;
 	padding-top: 15px;
 	text-transform: uppercase;
-	color: #fff;
-}
-
-#footer a {
-	color: #fff;
 }
 
 #footer a:hover {
@@ -563,26 +542,6 @@ button:active {
 
 .actionSkill:hover .description:hover {
 	display: none;
-}
-
-.green .className {
-	color: #41974d;
-}
-
-.blue .className {
-	color: #2a87c7;
-}
-
-.red .className {
-	color: #a93640;
-}
-
-.unavailable {
-	cursor: not-allowed;
-}
-
-.unavailable:hover {
-	text-decoration: none;
 }
 
 .stamp {
