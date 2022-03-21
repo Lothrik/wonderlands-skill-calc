@@ -312,15 +312,20 @@ em {
 
 .icon {
 	display: block;
+	visibility: hidden;
 	width: 100%;
-	min-height: 5px;
-	max-height: 90px;
+	height: 5px;
 	filter: brightness(0.8) grayscale(1) contrast(5);
 	object-fit: none;
 }
 
-.actionSkill .icon {
-	max-height: 108px;
+.avif .icon {
+	visibility: visible;
+	height: 90px;
+}
+
+.avif .actionSkill .icon {
+	height: 108px;
 }
 
 #summaryContainer .icon {

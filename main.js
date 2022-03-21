@@ -17,6 +17,21 @@ String.prototype.split = function() {
 	return splitOrig.apply(this, arguments);
 };
 
+// check browser for AVIF or WEBP support
+async function supportsEncode() {
+	if (!this.createImageBitmap) return "jpg";
+	const avifData = "data:image/avif;base64,AAAAHGZ0eXBtaWYxAAAAAG1pZjFhdmlmbWlhZgAAAPFtZXRhAAAAAAAAACFoZGxyAAAAAAAAAABwaWN0AAAAAAAAAAAAAAAAAAAAAA5waXRtAAAAAAABAAAAHmlsb2MAAAAABEAAAQABAAAAAAEVAAEAAAAeAAAAKGlpbmYAAAAAAAEAAAAaaW5mZQIAAAAAAQAAYXYwMUltYWdlAAAAAHBpcHJwAAAAUWlwY28AAAAUaXNwZQAAAAAAAAABAAAAAQAAABBwYXNwAAAAAQAAAAEAAAAVYXYxQ4EgAAAKBzgABpAQ0AIAAAAQcGl4aQAAAAADCAgIAAAAF2lwbWEAAAAAAAAAAQABBAECg4QAAAAmbWRhdAoHOAAGkBDQAjITFkAAAEgAAAB5TNw9UxdXU6F6oA==",
+		webpData = "data:image/webp;base64,UklGRhwAAABXRUJQVlA4TBAAAAAvAAAAEAfQpv5HmQMR0f8A",
+		avifBlob = await fetch(avifData).then((r) => r.blob());
+	return createImageBitmap(avifBlob)
+		.then(() => "avif")
+		.catch(async() => {
+		const webpBlob = await fetch(webpData).then((r) => r.blob());
+		return createImageBitmap(webpBlob).then(() => "webp")
+	}).catch(() => "jpg")
+}
+(async () => { document.body.classList.add(await supportsEncode()); })()
+
 // event handlers
 var mousedownBegin;
 var lastTouched;
@@ -446,7 +461,11 @@ function updateActionSkills() {
 	$(".actionSkill").each(function(index, element) {
 		if ($(this).find(".icon").length == 0) {
 			let className = $(element).parent().prop("id") == "primaryActionSkills" ? $("#primaryClassSelector").val() : $("#secondaryClassSelector").val();
-			$(this).find(".description h2").before('<object class="icon" data="images/' + className + "/" + actionSkillNames[index].replace(/\s+/g, "_").replace(/\W/g, "").toLowerCase() + '.avif" type="image/avif"></object>');
+			if ($("body").hasClass("avif")) {
+				$(this).find(".description h2").before('<object class="icon" data="images/' + className + "/" + actionSkillNames[index].replace(/\s+/g, "_").replace(/\W/g, "").toLowerCase() + '.avif" type="image/avif"></object>');
+			} else {
+				$(this).find(".description h2").before('<object class="icon"></object>');
+			}
 		}
 		if ($(element).children(".label").length == 0) {
 			$(element).append('<div class="label">' + actionSkillNames[index] + "</div>");
@@ -507,7 +526,11 @@ function updatePassiveSkills(treeHandle) {
 			});
 			let skillName = $(this).find(".description h2").text();
 			if ($(this).find(".icon").length == 0) {
-				$(this).find(".description h2").before('<object class="icon" data="images/' + className + "/" + skillName.replace(/\s+/g, "_").replace(/\W/g, "").toLowerCase() + '.avif" type="image/avif"></object>');
+				if ($("body").hasClass("avif")) {
+					$(this).find(".description h2").before('<object class="icon" data="images/' + className + "/" + skillName.replace(/\s+/g, "_").replace(/\W/g, "").toLowerCase() + '.avif" type="image/avif"></object>');
+				} else {
+					$(this).find(".description h2").before('<object class="icon"></object>');
+				}
 			}
 			if ($(this).children(".label").length == 0) {
 				$(this).children(".points").after('<div class="label">' + skillName.split(" ").map((n) => n[0]).join("") + "</div>");
