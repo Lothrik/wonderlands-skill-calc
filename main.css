@@ -77,6 +77,11 @@ em {
 	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
+#header a {
+	text-decoration: none;
+	color: #fff;
+}
+
 #header h1 {
 	font-size: 140%;
 	margin: 0 auto;
