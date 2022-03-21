@@ -36,6 +36,10 @@ body {
 	background-size: 100.885% auto;
 }
 
+.webp {
+	background: #0c0032 url(images/background.webp) no-repeat;
+}
+
 @media (max-width: 1920px) {
 	body {
 		background-size: auto;
@@ -319,12 +323,12 @@ em {
 	object-fit: none;
 }
 
-.avif .icon {
+:not(.jpg) .icon {
 	visibility: visible;
 	height: 90px;
 }
 
-.avif .actionSkill .icon {
+:not(.jpg) .actionSkill .icon {
 	height: 108px;
 }
 

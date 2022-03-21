@@ -461,8 +461,11 @@ function updateActionSkills() {
 	$(".actionSkill").each(function(index, element) {
 		if ($(this).find(".icon").length == 0) {
 			let className = $(element).parent().prop("id") == "primaryActionSkills" ? $("#primaryClassSelector").val() : $("#secondaryClassSelector").val();
+			let imageName = actionSkillNames[index].replace(/\s+/g, "_").replace(/\W/g, "").toLowerCase();
 			if ($("body").hasClass("avif")) {
-				$(this).find(".description h2").before('<object class="icon" data="images/' + className + "/" + actionSkillNames[index].replace(/\s+/g, "_").replace(/\W/g, "").toLowerCase() + '.avif" type="image/avif"></object>');
+				$(this).find(".description h2").before('<object class="icon" data="images/' + className + "/" + imageName + '.avif" type="image/avif"></object>');
+			} else if ($("body").hasClass("webp")) {
+				$(this).find(".description h2").before('<object class="icon" data="images/' + className + "/" + imageName + '.webp" type="image/webp"></object>');
 			} else {
 				$(this).find(".description h2").before('<object class="icon"></object>');
 			}
@@ -526,8 +529,11 @@ function updatePassiveSkills(treeHandle) {
 			});
 			let skillName = $(this).find(".description h2").text();
 			if ($(this).find(".icon").length == 0) {
+				let imageName = skillName.replace(/\s+/g, "_").replace(/\W/g, "").toLowerCase();
 				if ($("body").hasClass("avif")) {
-					$(this).find(".description h2").before('<object class="icon" data="images/' + className + "/" + skillName.replace(/\s+/g, "_").replace(/\W/g, "").toLowerCase() + '.avif" type="image/avif"></object>');
+					$(this).find(".description h2").before('<object class="icon" data="images/' + className + "/" + imageName + '.avif" type="image/avif"></object>');
+				} else if ($("body").hasClass("webp")) {
+					$(this).find(".description h2").before('<object class="icon" data="images/' + className + "/" + imageName + '.webp" type="image/webp"></object>');
 				} else {
 					$(this).find(".description h2").before('<object class="icon"></object>');
 				}
