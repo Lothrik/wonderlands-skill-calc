@@ -19,7 +19,7 @@
 	background-color: #181a1b;
 }
 
-* {
+*, a {
 	color: #fff;
 	scrollbar-color: #454a4d #202324;
 }
