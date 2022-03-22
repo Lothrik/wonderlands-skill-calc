@@ -365,12 +365,7 @@ em {
 
 .tier[data-level='4'] .description {
 	top: auto;
-	bottom: -59px;
-}
-
-.tier[data-level='4'] .description {
-	top: 0;
-	bottom: auto;
+	bottom: -60px;
 }
 
 .tier[data-level='5'] .description {
