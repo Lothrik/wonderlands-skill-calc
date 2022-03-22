@@ -321,7 +321,7 @@ em {
 .icon {
 	display: block;
 	width: 100%;
-	height: 90px;
+	height: 84px;
 	filter: brightness(0.8) grayscale(1) contrast(5);
 	object-fit: none;
 }
@@ -351,16 +351,16 @@ em {
 }
 
 #primaryTree .description {
-	right: 110%;
+	right: calc(110% + 2px);
 }
 
 #secondaryTree .description {
-	left: 110%;
+	left: calc(110% + 2px);
 }
 
 .actionSkill .description {
 	top: 110%;
-	left: -25%;
+	left: -50%;
 }
 
 .tier[data-level='4'] .description {
