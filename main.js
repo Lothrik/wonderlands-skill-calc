@@ -648,7 +648,7 @@ function loadFromHash(mode) {
 }
 function constructHash(mode) {
 	let curHash = decompressHash();
-	let newHash;
+	let newHash = "";
 	if (mode == 1) {
 		newHash = curHash.slice(0, 2) || "00";
 	} else {
@@ -659,11 +659,11 @@ function constructHash(mode) {
 	} else {
 		for (let i = 0; i < 4; i++) {
 			let actionSkill = i < 2 ? $("#primaryActionSkills .actionSkill")[i] : $("#secondaryActionSkills .actionSkill")[i - 2];
-			newHash += typeof(actionSkill) === "undefined" ? "0" : actionSkill.getAttribute("data-points");
+			newHash += typeof(actionSkill) === "undefined" ? 0 : Number(actionSkill.getAttribute("data-points"));
 		}
 		for (let i = 0; i < 42; i++) {
 			let skill = i < 21 ? $("#primaryTree .skill")[i] : $("#secondaryTree .skill")[i - 21];
-			newHash += typeof(skill) === "undefined" ? "0" : skill.getAttribute("data-points");
+			newHash += typeof(skill) === "undefined" ? 0 : Number(skill.getAttribute("data-points"));
 		}
 		for (let i = 0; i < 6; i++) {
 			newHash += ("00" + $(".heroStatSlider")[i].value).slice(-2);
