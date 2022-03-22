@@ -95,6 +95,24 @@ em {
 	font-size: 80%;
 }
 
+@media (max-width: 532px) {
+	#header h1 {
+		font-size: 8.3vw;
+	}
+	#header h2 {
+		font-size: 4.8vw;
+	}
+}
+
+@media (max-width: 440px) {
+	#header h1 {
+		font-size: 114%;
+	}
+	#header h2 {
+		font-size: 66%;
+	}
+}
+
 #overlayContainer {
 	display: flex;
 	justify-content: center;
