@@ -337,8 +337,6 @@ em {
 }
 
 .icon {
-	display: block;
-	width: 100%;
 	height: 84px;
 	filter: brightness(0.8) grayscale(1) contrast(5);
 	object-fit: none;
