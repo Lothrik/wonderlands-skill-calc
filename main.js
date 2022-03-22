@@ -28,9 +28,9 @@ async function supportsEncode() {
 		.catch(async() => {
 		const webpBlob = await fetch(webpData).then((r) => r.blob());
 		return createImageBitmap(webpBlob).then(() => "webp")
-	}).catch(() => "jpg")
+	}).catch(() => "jpg");
 }
-(async () => { document.body.classList.add(await supportsEncode()); })()
+(async () => { document.body.classList.add(await supportsEncode()); })();
 
 // event handlers
 var mousedownBegin;
@@ -462,13 +462,8 @@ function updateActionSkills() {
 		if ($(this).find(".icon").length == 0) {
 			let className = $(element).parent().prop("id") == "primaryActionSkills" ? $("#primaryClassSelector").val() : $("#secondaryClassSelector").val();
 			let imageName = actionSkillNames[index].replace(/\s+/g, "_").replace(/\W/g, "").toLowerCase();
-			if ($("body").hasClass("avif")) {
-				$(this).find(".description h2").before('<object class="icon" data="images/' + className + "/" + imageName + '.avif" type="image/avif"></object>');
-			} else if ($("body").hasClass("webp")) {
-				$(this).find(".description h2").before('<object class="icon" data="images/' + className + "/" + imageName + '.webp" type="image/webp"></object>');
-			} else {
-				$(this).find(".description h2").before('<object class="icon"></object>');
-			}
+			let imageType = $("body").hasClass("avif") ? "avif" : $("body").hasClass("webp") ? "webp" : "png";
+			$(this).find(".description h2").before('<object class="icon" data="images/' + className + "/" + imageName + '.' + imageType + '" type="image/' + imageType + '"></object>');
 		}
 		if ($(element).children(".label").length == 0) {
 			$(element).append('<div class="label">' + actionSkillNames[index] + "</div>");
@@ -530,13 +525,8 @@ function updatePassiveSkills(treeHandle) {
 			let skillName = $(this).find(".description h2").text();
 			if ($(this).find(".icon").length == 0) {
 				let imageName = skillName.replace(/\s+/g, "_").replace(/\W/g, "").toLowerCase();
-				if ($("body").hasClass("avif")) {
-					$(this).find(".description h2").before('<object class="icon" data="images/' + className + "/" + imageName + '.avif" type="image/avif"></object>');
-				} else if ($("body").hasClass("webp")) {
-					$(this).find(".description h2").before('<object class="icon" data="images/' + className + "/" + imageName + '.webp" type="image/webp"></object>');
-				} else {
-					$(this).find(".description h2").before('<object class="icon"></object>');
-				}
+				let imageType = $("body").hasClass("avif") ? "avif" : $("body").hasClass("webp") ? "webp" : "png";
+				$(this).find(".description h2").before('<object class="icon" data="images/' + className + "/" + imageName + '.' + imageType + '" type="image/' + imageType + '"></object>');
 			}
 			if ($(this).children(".label").length == 0) {
 				$(this).children(".points").after('<div class="label">' + skillName.split(" ").map((n) => n[0]).join("") + "</div>");
