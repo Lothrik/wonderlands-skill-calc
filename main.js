@@ -342,14 +342,25 @@ function finishHTML() {
 			break;
 	}
 }
-function handleKeyDown(event) {
-	switch (event.keyCode) {
-		case 9: // tab key
-			handleButtonState();
+function handleDocumentInput(event) {
+	switch (event.type) {
+		case "click":
+			$(".description").each(function(index, element) {
+				if (!$(element).parent().is(lastTouched)) {
+					$(element).removeAttr("style");
+				}
+			});
 			break;
-		case 90: // z key
-			if (event.ctrlKey) {
-				loadPreviousHashFromUndo();
+		case "keydown":
+			switch (event.keyCode) {
+				case 9: // tab key
+					handleButtonState();
+					break;
+				case 90: // z key
+					if (event.ctrlKey) {
+						loadPreviousHashFromUndo();
+					}
+					break;
 			}
 			break;
 	}
@@ -360,6 +371,9 @@ function handleMouseDown(event) {
 			window.clearTimeout(touchTimer);
 			mousedownBegin = (new Date()).getTime();
 			lastTouched = $(this);
+			if (!window.matchMedia("(any-pointer: fine)").matches) {
+				lastTouched.children(".description").css({ "display": "block" });
+			}
 			touchTimer = window.setTimeout("checkLongTouch(true)", 500);
 			break;
 	}
@@ -383,10 +397,10 @@ function checkLongTouch(fromTimer) {
 			for (let i = 0; i < 4; i++) {
 				updatePoints(lastTouched, -1);
 			}
+			lastTouched = null;
 		} else {
 			updatePoints(lastTouched, 1);
 		}
-		lastTouched = null;
 	}
 }
 function handleButtonState(event) {
@@ -706,7 +720,7 @@ function decompressHash() {
 
 // finalize the page once DOM has loaded
 $(document).ready(function() {
-	$(document).on("keydown", handleKeyDown);
+	$(document).on("click keydown", handleDocumentInput);
 	$("#swapTreeButton").on("click", handleSwapTreeButton);
 	$("#resetButton").on("click", handleResetButton);
 	$("#switchViewButton").on("click", handleSwitchViewButton);

@@ -580,8 +580,10 @@ button:active {
 	background: rgba(0, 0, 0, 0.375);
 }
 
-:hover > .description {
-	display: block;
+@media (any-pointer: fine) {
+	:hover > .description {
+		display: block;
+	}
 }
 
 .stamp {
