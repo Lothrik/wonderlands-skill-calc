@@ -549,18 +549,27 @@ function updateStats() {
 		let p = Number($(this).attr("data-points"));
 		if (p > 0) {
 			descriptions += '<div class="skillText">';
-			let description = $(this).children(".description").html().replace("<h2>", "<strong>").replace("</h2>", " " + p + ':</strong><div class="descriptionText">').split(["<br><br>", "<br>"]);
-			description.forEach(function(element, index) {
-				if (element.length > 0) {
-					if (element[element.length-1] == ".") {
-						element += " ";
-					} else {
-						element += ". ";
-					}
-					descriptions += element;
+			let description = $(this).children(".description").html().replace("<h2>", "<strong>").replace("</h2>", " " + p + ":</strong>");
+			$(description).each(function(index, element) {
+				if (index == 1) {
+					descriptions += element.outerHTML;
+				} else if (index == 2) {
+					descriptions += '<div class="descriptionText">';
+					element = element.innerHTML.split(["<br><br>", "<br>"]);
+					element.forEach(function(childElement, childIndex) {
+						if (childElement.length > 0) {
+							if (childElement[childElement.length - 1] == ".") {
+								childElement += " ";
+							} else {
+								childElement += ". ";
+							}
+							descriptions += childElement;
+						}
+					});
+					descriptions += "</div>";
 				}
 			});
-			descriptions += "</div></div>";
+			descriptions += "</div>";
 		}
 	});
 	$("#skillSummaryHeader").text(total > 0 ? "List of Skills" : "");

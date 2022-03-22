@@ -330,13 +330,13 @@ em {
 	width: 400px;
 	margin-top: -1px;
 	padding: 0 5px 5px;
-	text-align: justify;
-	text-align-last: center;
+	pointer-events: none;
 	border: 1px solid #fff;
 	background-color: rgba(0, 0, 0, 0.75);
 }
 
 .icon {
+	width: 100%;
 	height: 84px;
 	filter: brightness(0.8) grayscale(1) contrast(5);
 	object-fit: none;
@@ -344,6 +344,20 @@ em {
 
 .actionSkill .icon {
 	height: 108px;
+}
+
+.description h2 {
+	font-size: 24px;
+	margin-bottom: 5px;
+	padding-bottom: 5px;
+	border-bottom: 1px solid #fff;
+}
+
+@supports (text-align-last: center) {
+	.description div {
+		text-align: justify;
+		text-align-last: center;
+	}
 }
 
 #summaryContainer .icon {
@@ -397,14 +411,6 @@ em {
 		left: 50%!important;
 		transform: translateX(-50%);
 	}
-}
-
-.description h2 {
-	font-size: 24px;
-	margin-bottom: 5px;
-	padding-bottom: 5px;
-	text-align: center;
-	border-bottom: 1px solid #fff;
 }
 
 #classSelectors, #extraButtons {
@@ -574,20 +580,8 @@ button:active {
 	background: rgba(0, 0, 0, 0.375);
 }
 
-.skill:hover .description {
+:hover > .description {
 	display: block;
-}
-
-.skill:hover .description:hover {
-	display: none;
-}
-
-.actionSkill:hover .description {
-	display: block;
-}
-
-.actionSkill:hover .description:hover {
-	display: none;
 }
 
 .stamp {
