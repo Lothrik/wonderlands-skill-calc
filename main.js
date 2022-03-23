@@ -385,8 +385,12 @@ function finishHTML() {
 			}
 		}
 	}
-	switch (primaryClass.val()){
+	$("#primaryTree, #secondaryTree").removeAttr("style");
+	switch (primaryClass.val()) {
 		default:
+		case "none":
+			$("#primaryTree").css({ "margin": 0 });
+			break;
 		case "brrzerker":
 			$("#primaryTree .colorLayer").css({ "background-color": "rgba(0, 127, 255, 0.45)" });
 			break;
@@ -406,8 +410,11 @@ function finishHTML() {
 			$("#primaryTree .colorLayer").css({ "background-color": "rgba(255, 127, 0, 0.65)" });
 			break;
 	}
-	switch (secondaryClass.val()){
+	switch (secondaryClass.val()) {
 		default:
+		case "none":
+			$("#secondaryTree").css({ "margin": 0 });
+			break;
 		case "brrzerker":
 			$("#secondaryTree .colorLayer").css({ "background-color": "rgba(0, 127, 255, 0.45)" });
 			break;
