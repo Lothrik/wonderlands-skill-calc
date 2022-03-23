@@ -345,11 +345,15 @@ function finishHTML() {
 function handleDocumentInput(event) {
 	switch (event.type) {
 		case "click":
-			$(".description").each(function(index, element) {
-				if (!$(element).parent().is(lastTouched)) {
-					$(element).removeAttr("style");
-				}
-			});
+			if (!window.matchMedia("(any-pointer: fine)").matches && (new Date()).getTime() - mousedownBegin > 500) {
+				$(".description").removeAttr("style");
+			} else {
+				$(".description").each(function(index, element) {
+					if (!$(element).parent().is(lastTouched)) {
+						$(element).removeAttr("style");
+					}
+				});
+			}
 			break;
 		case "keydown":
 			switch (event.keyCode) {
