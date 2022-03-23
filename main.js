@@ -345,6 +345,7 @@ function finishHTML() {
 function handleDocumentInput(event) {
 	switch (event.type) {
 		case "click":
+		case "touchstart":
 			if (!window.matchMedia("(any-pointer: fine)").matches && (new Date()).getTime() - mousedownBegin > 500) {
 				$(".description").removeAttr("style");
 			} else {
@@ -724,8 +725,7 @@ function decompressHash() {
 
 // finalize the page once DOM has loaded
 $(document).ready(function() {
-	$(document).on("click keydown", handleDocumentInput);
-	$("body > *").on("touchstart touchend touchcancel touchmove", () => {});
+	$(document).on("click keydown touchstart", handleDocumentInput);
 	$("#swapTreeButton").on("click", handleSwapTreeButton);
 	$("#resetButton").on("click", handleResetButton);
 	$("#switchViewButton").on("click", handleSwitchViewButton);
