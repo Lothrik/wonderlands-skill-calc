@@ -70,6 +70,30 @@ var multiClassNames = {
 	stabbomancersporewarden: "Ambusher"
 }
 var backstoryModifiers = {
+	none: {
+		strength: 0,
+		dexterity: 0,
+		intelligence: 0,
+		wisdom: 0,
+		constitution: 0,
+		attunement: 0
+	},
+	thicc: {
+		strength: 8,
+		dexterity: 0,
+		intelligence: -3,
+		wisdom: 0,
+		constitution: 0,
+		attunement: 0
+	},
+	nimble: {
+		strength: 0,
+		dexterity: 2,
+		intelligence: 0,
+		wisdom: 0,
+		constitution: -4,
+		attunement: 0
+	},
 	nerd: {
 		strength: -4,
 		dexterity: -2,
@@ -78,7 +102,7 @@ var backstoryModifiers = {
 		constitution: 0,
 		attunement: 0
 	},
-	ratpack: {
+	packrat: {
 		strength: 0,
 		dexterity: -2,
 		intelligence: 2,
@@ -86,12 +110,12 @@ var backstoryModifiers = {
 		constitution: -2,
 		attunement: 5
 	},
-	none: {
+	savvy: {
 		strength: 0,
-		dexterity: 0,
+		dexterity: -2,
 		intelligence: 0,
-		wisdom: 0,
-		constitution: 0,
+		wisdom: 8,
+		constitution: -5,
 		attunement: 0
 	}
 };
