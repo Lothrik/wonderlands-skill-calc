@@ -624,7 +624,7 @@ function updateStats() {
 		let p = Number($(this).attr("data-points"));
 		if (p > 0) {
 			descriptions += '<div class="skillText">';
-			let description = $(this).children(".description").html().replace("<h2>", "<strong>").replace("</h2>", " " + p + ":</strong>");
+			let description = $(this).children(".description").html().replace("<h2>", "<strong>").replace("</h2>", " " + p + ":</strong>").replace(/\n|\r|\t/g, "");
 			$(description).each(function(index, element) {
 				if (index == 1) {
 					descriptions += element.outerHTML;
