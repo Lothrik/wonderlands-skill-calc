@@ -156,6 +156,7 @@ function getAllocatedMaxHeroPoints() {
 	let allocatedHeroPoints = Number($("#strengthSlider").val()) + Number(   $("#dexteritySlider").val()) + Number($("#intelligenceSlider").val()) +
 							  Number(  $("#wisdomSlider").val()) + Number($("#constitutionSlider").val()) + Number(  $("#attunementSlider").val()) - 60;
 	let maxHeroPoints = Number($("#charLevel").text()) + 10;
+	if (maxHeroPoints < 30) { maxHeroPoints--; }
 	return [allocatedHeroPoints, maxHeroPoints];
 }
 function handleHeroStatSlider(event, ignoreEvent) {
@@ -412,7 +413,7 @@ function handleButtonState(event) {
 		$(this).children().prop("disabled", false);
 	} else {
 		$("#swapTreeButton, #switchViewButton").prop("disabled", $("#primaryClassSelector").val() == "none" && $("#secondaryClassSelector").val() == "none");
-		$("#resetButton").prop("disabled", Number($("#charLevel").text()) == 0);
+		$("#resetButton").prop("disabled", Number($("#charLevel").text()) == 1);
 		$("#screenshotButton").prop("disabled", $("#primaryClassSelector").val() == "none" || $("#secondaryClassSelector").val() == "none");
 		$("#undoButton").prop("disabled", hashUndoHistory.length <= 1);
 	}
@@ -561,7 +562,7 @@ function updateStats() {
 	$(".totalPoints").each(function() {
 		total += Number($(this).text());
 	});
-	$("#charLevel").text(total);
+	$("#charLevel").text(total >= 20 ? total : total + 1);
 	let descriptions = "";
 	$(".skill").each(function() {
 		let p = Number($(this).attr("data-points"));
