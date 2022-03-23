@@ -566,6 +566,10 @@ button:active {
 	color: #08f;
 }
 
+.description .cyan, #summaryContainer .cyan {
+	color: cyan;
+}
+
 .description .pink, #summaryContainer .pink {
 	color: #f0f;
 }
