@@ -36,6 +36,38 @@ async function supportsEncode() {
 var mousedownBegin;
 var lastTouched;
 var touchTimer;
+var multiClassNames = {
+	brrzerkerclawbringer: "",
+	brrzerkergraveborn: "",
+	brrzerkerspellshot: "",
+	brrzerkersporewarden: "",
+	brrzerkerstabbomancer: "Gladiator",
+	clawbringerbrrzerker: "Hammerzerker",
+	clawbringergraveborn: "",
+	clawbringerspellshot: "",
+	clawbringersporewarden: "Cavalier",
+	clawbringerstabbomancer: "",
+	gravebornbrrzerker: "",
+	gravebornclawbringer: "",
+	gravebornspellshot: "Lich",
+	gravebornsporewarden: "Ghostlight",
+	gravebornstabbomancer: "",
+	spellshotbrrzerker: "",
+	spellshotclawbringer: "Hexecutioner",
+	spellshotgraveborn: "",
+	spellshotsporewarden: "",
+	spellshotstabbomancer: "",
+	sporewardenbrrzerker: "",
+	sporewardenclawbringer: "",
+	sporewardengraveborn: "",
+	sporewardenspellshot: "",
+	sporewardenstabbomancer: "Pathfinder",
+	stabbomancerbrrzerker: "",
+	stabbomancerclawbringer: "",
+	stabbomancergraveborn: "",
+	stabbomancerspellshot: "",
+	stabbomancersporewarden: "Ambusher"
+}
 var backstoryModifiers = {
 	nerd: {
 		strength: -4,
@@ -298,9 +330,17 @@ function finishHTML() {
 	updateHeroStats();
 	updateFeatTable();
 	handleButtonState();
-	$("#primaryClassName").text($("#primaryClassSelector option:selected").text());
-	$("#secondaryClassName").text($("#secondaryClassSelector option:selected").text());
-	switch ($("#primaryClassSelector option:selected").val()){
+	let primaryClass = $("#primaryClassSelector option:selected");
+	let secondaryClass = $("#secondaryClassSelector option:selected");
+	let multiClassName = multiClassNames[primaryClass.val() + secondaryClass.val()];
+	if (multiClassName) {
+		$("#multiClassName").text(multiClassName);
+	} else if (primaryClass.text() == secondaryClass.text()) {
+		$("#multiClassName").text(primaryClass.text());
+	} else {
+		$("#multiClassName").text(primaryClass.text() + " / " + secondaryClass.text());
+	}
+	switch (primaryClass.val()){
 		default:
 		case "brrzerker":
 			$("#primaryTree .colorLayer").css({ "background-color": "rgba(0, 127, 255, 0.45)" });
@@ -321,7 +361,7 @@ function finishHTML() {
 			$("#primaryTree .colorLayer").css({ "background-color": "rgba(255, 127, 0, 0.65)" });
 			break;
 	}
-	switch ($("#secondaryClassSelector option:selected").val()){
+	switch (secondaryClass.val()){
 		default:
 		case "brrzerker":
 			$("#secondaryTree .colorLayer").css({ "background-color": "rgba(0, 127, 255, 0.45)" });
