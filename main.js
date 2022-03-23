@@ -36,6 +36,7 @@ async function supportsEncode() {
 var mousedownBegin;
 var lastTouched;
 var touchTimer;
+var actualSkillPoints = 0;
 var multiClassNames = {
 	brrzerkerclawbringer: "",
 	brrzerkergraveborn: "",
@@ -95,6 +96,8 @@ var backstoryModifiers = {
 	}
 };
 const heroStatRegex = /[-\+]+([^%]+)%/;
+const primaryClassString = "#primaryClassSelector option:selected";
+const secondaryClassString = "#secondaryClassSelector option:selected";
 function handleSwapTreeButton(event) {
 	let decompressedHash = decompressHash(window.location.hash.replace("#", ""));
 	let newHash = compressHash(decompressedHash.charAt(1) + decompressedHash.charAt(0) + decompressedHash.charAt(4) + decompressedHash.charAt(5) + decompressedHash.charAt(2) + decompressedHash.charAt(3) + decompressedHash.slice(27, 48) + decompressedHash.slice(6, 27) + decompressedHash.slice(48));
@@ -187,8 +190,7 @@ function formatHeroStat(statValue, statMultiplier) {
 function getAllocatedMaxHeroPoints() {
 	let allocatedHeroPoints = Number($("#strengthSlider").val()) + Number(   $("#dexteritySlider").val()) + Number($("#intelligenceSlider").val()) +
 							  Number(  $("#wisdomSlider").val()) + Number($("#constitutionSlider").val()) + Number(  $("#attunementSlider").val()) - 60;
-	let maxHeroPoints = Number($("#charLevel").text()) + 10;
-	if (maxHeroPoints < 30) { maxHeroPoints--; }
+	let maxHeroPoints = Number(actualSkillPoints) + 10;
 	return [allocatedHeroPoints, maxHeroPoints];
 }
 function handleHeroStatSlider(event, ignoreEvent) {
@@ -279,6 +281,7 @@ function handleClassSelection(event) {
 		saveToHash(2);
 		rebuildHTML($(this).val(), ["#secondaryActionSkills", "#secondaryClassFeat", "#secondaryTree"]);
 	}
+	updateCharacterLevel();
 }
 function updateFeatTable() {
 	if ($("#primaryClassSelector").val() == "none" && $("#secondaryClassSelector").val() == "none") {
@@ -330,24 +333,24 @@ function finishHTML() {
 	updateHeroStats();
 	updateFeatTable();
 	handleButtonState();
-	let primaryClass = $("#primaryClassSelector option:selected");
-	let secondaryClass = $("#secondaryClassSelector option:selected");
+	let primaryClass = $(primaryClassString);
+	let secondaryClass = $(secondaryClassString);
 	let multiClassName = multiClassNames[primaryClass.val() + secondaryClass.val()];
 	$("#header h2").removeClass("hidden");
 	if (multiClassName) {
 		$("#multiClassName").text(multiClassName);
 	} else {
-		if (primaryClass.text() == "None") {
-			if (secondaryClass.text() == "None") {
+		if (primaryClass.val() == "none") {
+			if (secondaryClass.val() == "none") {
 				$("#multiClassName").text("None");
 				$("#header h2").addClass("hidden");
 			} else {
 				$("#multiClassName").text(secondaryClass.text());
 			}
 		} else {
-			switch (secondaryClass.text()) {
-				case "None":
-				case primaryClass.text():
+			switch (secondaryClass.val()) {
+				case "none":
+				case primaryClass.val():
 					$("#multiClassName").text(primaryClass.text());
 					break;
 				default:
@@ -613,12 +616,27 @@ function updatePassiveSkills(treeHandle) {
 	$(treeHandle).parent().children(".colorLayer").height(Math.min(74 + totalPoints * 59.0 / 5 + (totalPoints > 25 ? 21 : 0), 369));
 	$(treeHandle).parent().children(".progressLine").height($(treeHandle).parent().children(".colorLayer").height());
 }
-function updateStats() {
-	let total = 0;
+function updateCharacterLevel() {
+	let hasMultiClass = $(primaryClassString).val() != "none" && $(secondaryClassString).val() != "none";
+	let allocatedTotal = 0;
 	$(".totalPoints").each(function() {
-		total += Number($(this).text());
+		allocatedTotal += Number($(this).text());
 	});
-	$("#charLevel").text(total >= 20 ? total : total + 1);
+	let internalCharLevel = allocatedTotal + 1;
+	if (hasMultiClass) {
+		internalCharLevel--;
+	}
+	if (allocatedTotal >= 20) {
+		internalCharLevel--;
+	}
+	if (allocatedTotal >= 40) {
+		internalCharLevel = allocatedTotal >= (hasMultiClass ? 44 : 43) ? (allocatedTotal - (hasMultiClass ? 4 : 3)) : 39;
+	}
+	actualSkillPoints = allocatedTotal;
+	$("#charLevel").text(Math.max(internalCharLevel, 1));
+}
+function updateStats() {
+	updateCharacterLevel();
 	let descriptions = "";
 	$(".skill").each(function() {
 		let p = Number($(this).attr("data-points"));
@@ -647,7 +665,7 @@ function updateStats() {
 			descriptions += "</div>";
 		}
 	});
-	$("#skillSummaryHeader").text(total > 0 ? "List of Skills" : "");
+	$("#skillSummaryHeader").text(Number($("#charLevel").text()) > 0 ? "List of Skills" : "");
 	$("#skillSummaryContainer").html(descriptions);
 }
 function updateHeroStats() {
