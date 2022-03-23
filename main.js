@@ -37,6 +37,8 @@ var mousedownBegin;
 var lastTouched;
 var touchTimer;
 var actualSkillPoints = 0;
+var internalCharLevel = 0;
+var hasMultiClass = false;
 var multiClassNames = {
 	brrzerkerclawbringer: "",
 	brrzerkergraveborn: "",
@@ -641,12 +643,12 @@ function updatePassiveSkills(treeHandle) {
 	$(treeHandle).parent().children(".progressLine").height($(treeHandle).parent().children(".colorLayer").height());
 }
 function updateCharacterLevel() {
-	let hasMultiClass = $(primaryClassString).val() != "none" && $(secondaryClassString).val() != "none";
+	hasMultiClass = $(primaryClassString).val() != "none" && $(secondaryClassString).val() != "none";
 	let allocatedTotal = 0;
 	$(".totalPoints").each(function() {
 		allocatedTotal += Number($(this).text());
 	});
-	let internalCharLevel = allocatedTotal + 1;
+	internalCharLevel = allocatedTotal + 1;
 	if (hasMultiClass) {
 		internalCharLevel--;
 	}
@@ -689,7 +691,7 @@ function updateStats() {
 			descriptions += "</div>";
 		}
 	});
-	$("#skillSummaryHeader").text(Number($("#charLevel").text()) > 0 ? "List of Skills" : "");
+	$("#skillSummaryHeader").text(internalCharLevel > (hasMultiClass ? 0 : 1) ? "List of Skills" : "");
 	$("#skillSummaryContainer").html(descriptions);
 }
 function updateHeroStats() {
