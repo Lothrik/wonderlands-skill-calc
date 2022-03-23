@@ -721,7 +721,7 @@ function decompressHash() {
 // finalize the page once DOM has loaded
 $(document).ready(function() {
 	$(document).on("click keydown", handleDocumentInput);
-	$("body > *").on("touchstart touchend touchcancel touchmove", () => { });
+	$("body > *").on("touchstart touchend touchcancel touchmove", () => {});
 	$("#swapTreeButton").on("click", handleSwapTreeButton);
 	$("#resetButton").on("click", handleResetButton);
 	$("#switchViewButton").on("click", handleSwitchViewButton);
