@@ -333,6 +333,7 @@ function finishHTML() {
 	let primaryClass = $("#primaryClassSelector option:selected");
 	let secondaryClass = $("#secondaryClassSelector option:selected");
 	let multiClassName = multiClassNames[primaryClass.val() + secondaryClass.val()];
+	$("#header h2").removeClass("hidden");
 	if (multiClassName) {
 		$("#multiClassName").text(multiClassName);
 	} else {
@@ -342,15 +343,16 @@ function finishHTML() {
 				$("#header h2").addClass("hidden");
 			} else {
 				$("#multiClassName").text(secondaryClass.text());
-				$("#header h2").removeClass("hidden");
 			}
 		} else {
-			if (secondaryClass.text() == "None") {
-				$("#multiClassName").text(primaryClass.text());
-				$("#header h2").removeClass("hidden");
-			} else {
-				$("#multiClassName").text(primaryClass.text() + " / " + secondaryClass.text());
-				$("#header h2").removeClass("hidden");
+			switch (secondaryClass.text()) {
+				case "None":
+				case primaryClass.text():
+					$("#multiClassName").text(primaryClass.text());
+					break;
+				default:
+					$("#multiClassName").text(primaryClass.text() + " / " + secondaryClass.text());
+					break;
 			}
 		}
 	}
