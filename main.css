@@ -30,10 +30,21 @@ body {
 	flex-direction: column;
 	min-width: 440px;
 	height: 100vh;
-	cursor: default;
+	cursor: pointer;
 	text-align: center;
 	background: #0c0032 url(images/background.avif) no-repeat;
 	background-size: 100.885% auto;
+	-webkit-tap-highlight-color: transparent;
+}
+
+body > * {
+	-webkit-tap-highlight-color: initial;
+}
+
+@media (any-pointer: fine) {
+	body {
+		cursor: default;
+	}
 }
 
 .webp {
