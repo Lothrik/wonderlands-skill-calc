@@ -448,8 +448,8 @@ select, option, button {
 
 select {
 	padding: 0 18px 0 4px;
-	background: #000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAwIDEwMDAiPjxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik04NzUuNywxNzkuOEw1MDAsNTc3LjlMMTI0LjMsMTc5LjhMMTAsMzAxbDQ5MCw1MTkuMkw5OTAsMzAxTDg3NS43LDE3OS44eiIvPjwvc3ZnPg==") no-repeat right 4% center;
-	background-size: 8%;
+	background: #000 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAwIDEwMDAiPjxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik04NzUuNywxNzkuOEw1MDAsNTc3LjlMMTI0LjMsMTc5LjhMMTAsMzAxbDQ5MCw1MTkuMkw5OTAsMzAxTDg3NS43LDE3OS44eiIvPjwvc3ZnPg==") no-repeat right 4px center;
+	background-size: 8px;
 	-webkit-appearance: none;
 	appearance: none;
 }
