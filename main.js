@@ -335,10 +335,24 @@ function finishHTML() {
 	let multiClassName = multiClassNames[primaryClass.val() + secondaryClass.val()];
 	if (multiClassName) {
 		$("#multiClassName").text(multiClassName);
-	} else if (primaryClass.text() == secondaryClass.text()) {
-		$("#multiClassName").text(primaryClass.text());
 	} else {
-		$("#multiClassName").text(primaryClass.text() + " / " + secondaryClass.text());
+		if (primaryClass.text() == "None") {
+			if (secondaryClass.text() == "None") {
+				$("#multiClassName").text("None");
+				$("#header h2").addClass("hidden");
+			} else {
+				$("#multiClassName").text(secondaryClass.text());
+				$("#header h2").removeClass("hidden");
+			}
+		} else {
+			if (secondaryClass.text() == "None") {
+				$("#multiClassName").text(primaryClass.text());
+				$("#header h2").removeClass("hidden");
+			} else {
+				$("#multiClassName").text(primaryClass.text() + " / " + secondaryClass.text());
+				$("#header h2").removeClass("hidden");
+			}
+		}
 	}
 	switch (primaryClass.val()){
 		default:
