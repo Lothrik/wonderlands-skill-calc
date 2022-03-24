@@ -36,9 +36,8 @@ async function supportsEncode() {
 var mousedownBegin;
 var lastTouched;
 var touchTimer;
-var actualSkillPoints = 0;
-var unusedSkillPoints = 0;
-var internalCharLevel = 0;
+var allocatedSkillPoints = 0;
+var unallocatedSkillPoints = 0;
 var hasMultiClass = false;
 var multiClassNames = {
 	brrzerkerclawbringer: "Hammerzerker",
@@ -202,7 +201,7 @@ function formatHeroStat(statValue, statMultiplier) {
 function getAllocatedMaxHeroPoints() {
 	let allocatedHeroPoints = Number($("#strengthSlider").val()) + Number(   $("#dexteritySlider").val()) + Number($("#intelligenceSlider").val()) +
 							  Number(  $("#wisdomSlider").val()) + Number($("#constitutionSlider").val()) + Number(  $("#attunementSlider").val()) - 60;
-	let maxHeroPoints = actualSkillPoints + unusedSkillPoints + 10;
+	let maxHeroPoints = allocatedSkillPoints + unallocatedSkillPoints + 10;
 	return [allocatedHeroPoints, maxHeroPoints];
 }
 function handleHeroStatSlider(event, ignoreEvent) {
@@ -490,7 +489,7 @@ function handleButtonState(event) {
 		$(this).children().prop("disabled", false);
 	} else {
 		$("#swapTreeButton, #switchViewButton").prop("disabled", $("#primaryClassSelector").val() == "none" && $("#secondaryClassSelector").val() == "none");
-		$("#resetButton").prop("disabled", Number($("#charLevel").text()) == 1 && (!hasMultiClass || unusedSkillPoints == 1));
+		$("#resetButton").prop("disabled", Number($("#charLevel").text()) == 1 && (!hasMultiClass || unallocatedSkillPoints == 1));
 		$("#screenshotButton").prop("disabled", $("#primaryClassSelector").val() == "none" || $("#secondaryClassSelector").val() == "none");
 		$("#undoButton").prop("disabled", hashUndoHistory.length <= 1);
 	}
@@ -521,7 +520,7 @@ function updatePoints(skillHandle, change) {
 		let max = Number(skillHandle.attr("data-max"));
 		let charLevel = Number($("#charLevel").text());
 		if (change > 0) {
-			if (points < max && treeTotal >= 5 * thisLevel && (charLevel < 40 || unusedSkillPoints > 0)) {
+			if (points < max && treeTotal >= 5 * thisLevel && (charLevel < 40 || unallocatedSkillPoints > 0)) {
 				++points;
 			}
 		} else {
@@ -640,8 +639,8 @@ function updateCharacterLevel() {
 	$(".totalPoints").each(function() {
 		allocatedTotal += Number($(this).text());
 	});
-	actualSkillPoints = allocatedTotal;
-	internalCharLevel = allocatedTotal + 1;
+	allocatedSkillPoints = allocatedTotal;
+	let internalCharLevel = allocatedTotal + 1;
 	if (hasMultiClass) {
 		internalCharLevel--;
 	}
@@ -650,17 +649,17 @@ function updateCharacterLevel() {
 	}
 	if (allocatedTotal > (hasMultiClass ? 40 : 39)) {
 		internalCharLevel = Math.max(allocatedTotal - 4, 40);
-		unusedSkillPoints = (hasMultiClass ? 44 : 43) - allocatedTotal;
+		unallocatedSkillPoints = (hasMultiClass ? 44 : 43) - allocatedTotal;
 	} else if (allocatedTotal == (hasMultiClass ? 20 : 19)) {
 		internalCharLevel = 20;
-		unusedSkillPoints = 1;
+		unallocatedSkillPoints = 1;
 	} else {
-		unusedSkillPoints = Math.max(1 - internalCharLevel, 0);
+		unallocatedSkillPoints = Math.max(1 - internalCharLevel, 0);
 	}
 	$("#charLevel").text(Math.min(Math.max(internalCharLevel, 1), 40));
-	if (unusedSkillPoints > 1) {
-		$("#unusedPoints").text(" (" + unusedSkillPoints + " unused Skill Points)");
-	} else if (unusedSkillPoints == 1) {
+	if (unallocatedSkillPoints > 1) {
+		$("#unusedPoints").text(" (" + unallocatedSkillPoints + " unused Skill Points)");
+	} else if (unallocatedSkillPoints == 1) {
 		$("#unusedPoints").text(" (1 unused Skill Point)");
 	} else {
 		$("#unusedPoints").text("");
@@ -696,7 +695,7 @@ function updateStats() {
 			descriptions += "</div>";
 		}
 	});
-	$("#skillSummaryHeader").text(internalCharLevel > (hasMultiClass ? 0 : 1) ? "List of Skills" : "");
+	$("#skillSummaryHeader").text(allocatedSkillPoints > 1 ? "List of Skills" : "");
 	$("#skillSummaryContainer").html(descriptions);
 }
 function updateHeroStats() {
