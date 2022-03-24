@@ -202,7 +202,7 @@ function formatHeroStat(statValue, statMultiplier) {
 function getAllocatedMaxHeroPoints() {
 	let allocatedHeroPoints = Number($("#strengthSlider").val()) + Number(   $("#dexteritySlider").val()) + Number($("#intelligenceSlider").val()) +
 							  Number(  $("#wisdomSlider").val()) + Number($("#constitutionSlider").val()) + Number(  $("#attunementSlider").val()) - 60;
-	let maxHeroPoints = Number(actualSkillPoints) + 10;
+	let maxHeroPoints = actualSkillPoints + unusedSkillPoints + 10;
 	return [allocatedHeroPoints, maxHeroPoints];
 }
 function handleHeroStatSlider(event, ignoreEvent) {
