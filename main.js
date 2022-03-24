@@ -40,36 +40,21 @@ var actualSkillPoints = 0;
 var internalCharLevel = 0;
 var hasMultiClass = false;
 var multiClassNames = {
-	brrzerkerclawbringer: "",
+	brrzerkerclawbringer: "Hammerzerker",
 	brrzerkergraveborn: "",
-	brrzerkerspellshot: "",
-	brrzerkersporewarden: "",
-	brrzerkerstabbomancer: "Gladiator",
-	clawbringerbrrzerker: "Hammerzerker",
-	clawbringergraveborn: "",
-	clawbringerspellshot: "",
-	clawbringersporewarden: "Cavalier",
-	clawbringerstabbomancer: "",
-	gravebornbrrzerker: "",
-	gravebornclawbringer: "",
-	gravebornspellshot: "Lich",
-	gravebornsporewarden: "Ghostlight",
+	brrzerkerspellshot: "Chillmonger",
+	brrzerkersporewarden: "Frostwilder",
+	brrzerkerstabbomancer: "Frostshivver",
+	clawbringergraveborn: "Gloombringer",
+	clawbringerspellshot: "Hexecutioner",
+	clawbringersporewarden: "Wildfire",
+	clawbringerstabbomancer: "Clawstalker",
+	gravebornspellshot: "Deadshot",
+	gravebornsporewarden: "Morticulturalist",
 	gravebornstabbomancer: "",
-	spellshotbrrzerker: "",
-	spellshotclawbringer: "Hexecutioner",
-	spellshotgraveborn: "",
-	spellshotsporewarden: "",
-	spellshotstabbomancer: "",
-	sporewardenbrrzerker: "",
-	sporewardenclawbringer: "",
-	sporewardengraveborn: "",
-	sporewardenspellshot: "",
-	sporewardenstabbomancer: "Pathfinder",
-	stabbomancerbrrzerker: "",
-	stabbomancerclawbringer: "",
-	stabbomancergraveborn: "",
-	stabbomancerspellshot: "",
-	stabbomancersporewarden: "Ambusher"
+	spellshotsporewarden: "Sporceror",
+	spellshotstabbomancer: "Trapscallion",
+	sporewardenstabbomancer: "Mistdancer",
 }
 var backstoryModifiers = {
 	none: {
@@ -361,7 +346,7 @@ function finishHTML() {
 	handleButtonState();
 	let primaryClass = $(primaryClassString);
 	let secondaryClass = $(secondaryClassString);
-	let multiClassName = multiClassNames[primaryClass.val() + secondaryClass.val()];
+	let multiClassName = multiClassNames[primaryClass.val() + secondaryClass.val()] || multiClassNames[secondaryClass.val() + primaryClass.val()];
 	$("#header h2").removeClass("hidden");
 	if (multiClassName) {
 		$("#multiClassName").text(multiClassName);
