@@ -293,7 +293,6 @@ function handleClassSelection(event) {
 		saveToHash(2);
 		rebuildHTML($(this).val(), ["#secondaryActionSkills", "#secondaryClassFeat", "#secondaryTree"]);
 	}
-	updateCharacterLevel();
 }
 function updateFeatTable() {
 	if ($("#primaryClassSelector").val() == "none" && $("#secondaryClassSelector").val() == "none") {
