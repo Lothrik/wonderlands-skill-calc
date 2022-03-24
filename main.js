@@ -37,6 +37,7 @@ var mousedownBegin;
 var lastTouched;
 var touchTimer;
 var actualSkillPoints = 0;
+var unusedSkillPoints = 0;
 var internalCharLevel = 0;
 var hasMultiClass = false;
 var multiClassNames = {
@@ -521,7 +522,7 @@ function updatePoints(skillHandle, change) {
 		let max = Number(skillHandle.attr("data-max"));
 		let charLevel = Number($("#charLevel").text());
 		if (change > 0) {
-			if (points < max && treeTotal >= 5 * thisLevel && charLevel < 40) {
+			if (points < max && treeTotal >= 5 * thisLevel && (charLevel < 40 || unusedSkillPoints > 0)) {
 				++points;
 			}
 		} else {
@@ -644,14 +645,26 @@ function updateCharacterLevel() {
 	if (hasMultiClass) {
 		internalCharLevel--;
 	}
-	if (allocatedTotal >= 20) {
+	if (allocatedTotal > 19) {
 		internalCharLevel--;
 	}
-	if (allocatedTotal >= 40) {
+	if (allocatedTotal > 39) {
 		internalCharLevel = allocatedTotal >= (hasMultiClass ? 44 : 43) ? (allocatedTotal - (hasMultiClass ? 4 : 3)) : 39;
+		unusedSkillPoints = (hasMultiClass ? 44 : 43) - allocatedTotal;
+	} else if (allocatedTotal == (hasMultiClass ? 19 : 18)) {
+		unusedSkillPoints = 1;
+	} else {
+		unusedSkillPoints = Math.max((hasMultiClass ? 2 : 1) - internalCharLevel, 0);
 	}
 	actualSkillPoints = allocatedTotal;
-	$("#charLevel").text(Math.max(internalCharLevel, 1));
+	$("#charLevel").text(Math.min(internalCharLevel + (hasMultiClass ? 1 : 0), 40));
+	if (unusedSkillPoints > 1) {
+		$("#unusedPoints").text(" (" + unusedSkillPoints + " unused Skill Points)");
+	} else if (unusedSkillPoints == 1) {
+		$("#unusedPoints").text(" (1 unused Skill Point)");
+	} else {
+		$("#unusedPoints").text("");
+	}
 }
 function updateStats() {
 	updateCharacterLevel();
