@@ -490,7 +490,7 @@ function handleButtonState(event) {
 		$(this).children().prop("disabled", false);
 	} else {
 		$("#swapTreeButton, #switchViewButton").prop("disabled", $("#primaryClassSelector").val() == "none" && $("#secondaryClassSelector").val() == "none");
-		$("#resetButton").prop("disabled", Number($("#charLevel").text()) == 1);
+		$("#resetButton").prop("disabled", Number($("#charLevel").text()) == 1 && (!hasMultiClass || unusedSkillPoints == 1));
 		$("#screenshotButton").prop("disabled", $("#primaryClassSelector").val() == "none" || $("#secondaryClassSelector").val() == "none");
 		$("#undoButton").prop("disabled", hashUndoHistory.length <= 1);
 	}
@@ -640,6 +640,7 @@ function updateCharacterLevel() {
 	$(".totalPoints").each(function() {
 		allocatedTotal += Number($(this).text());
 	});
+	actualSkillPoints = allocatedTotal;
 	internalCharLevel = allocatedTotal + 1;
 	if (hasMultiClass) {
 		internalCharLevel--;
@@ -647,16 +648,16 @@ function updateCharacterLevel() {
 	if (allocatedTotal > 19) {
 		internalCharLevel--;
 	}
-	if (allocatedTotal > 39) {
-		internalCharLevel = allocatedTotal >= (hasMultiClass ? 44 : 43) ? (allocatedTotal - (hasMultiClass ? 4 : 3)) : 39;
+	if (allocatedTotal > (hasMultiClass ? 40 : 39)) {
+		internalCharLevel = Math.max(allocatedTotal - 4, 40);
 		unusedSkillPoints = (hasMultiClass ? 44 : 43) - allocatedTotal;
-	} else if (allocatedTotal == (hasMultiClass ? 19 : 18)) {
+	} else if (allocatedTotal == (hasMultiClass ? 20 : 19)) {
+		internalCharLevel = 20;
 		unusedSkillPoints = 1;
 	} else {
-		unusedSkillPoints = Math.max((hasMultiClass ? 2 : 1) - internalCharLevel, 0);
+		unusedSkillPoints = Math.max(1 - internalCharLevel, 0);
 	}
-	actualSkillPoints = allocatedTotal;
-	$("#charLevel").text(Math.min(internalCharLevel + (hasMultiClass ? 1 : 0), 40));
+	$("#charLevel").text(Math.min(Math.max(internalCharLevel, 1), 40));
 	if (unusedSkillPoints > 1) {
 		$("#unusedPoints").text(" (" + unusedSkillPoints + " unused Skill Points)");
 	} else if (unusedSkillPoints == 1) {
