@@ -41,7 +41,7 @@ var unallocatedSkillPoints = 0;
 var hasMultiClass = false;
 var multiClassNames = {
 	brrzerkerclawbringer: "Hammerzerker",
-	brrzerkergraveborn: "",
+	brrzerkergraveborn: "Brr-reaver",
 	brrzerkerspellshot: "Chillmonger",
 	brrzerkersporewarden: "Frostwilder",
 	brrzerkerstabbomancer: "Frostshivver",
