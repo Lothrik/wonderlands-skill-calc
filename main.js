@@ -51,7 +51,7 @@ var multiClassNames = {
 	clawbringerstabbomancer: "Clawstalker",
 	gravebornspellshot: "Deadshot",
 	gravebornsporewarden: "Morticulturalist",
-	gravebornstabbomancer: "",
+	gravebornstabbomancer: "Bonecarver",
 	spellshotsporewarden: "Sporceror",
 	spellshotstabbomancer: "Trapscallion",
 	sporewardenstabbomancer: "Mistdancer",
