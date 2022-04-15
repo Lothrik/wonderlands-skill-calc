@@ -69,23 +69,23 @@ var backstoryModifiers = {
 		strength: 8,
 		dexterity: 0,
 		intelligence: -3,
-		wisdom: 0,
+		wisdom: -3,
 		constitution: 0,
 		attunement: 0
 	},
 	nimble: {
 		strength: 0,
-		dexterity: 2,
+		dexterity: 4,
 		intelligence: 0,
 		wisdom: 0,
 		constitution: -4,
-		attunement: 0
+		attunement: 2
 	},
 	nerd: {
 		strength: -4,
 		dexterity: -2,
-		intelligence: 2,
-		wisdom: 4,
+		intelligence: 3,
+		wisdom: 6,
 		constitution: 0,
 		attunement: 0
 	},
@@ -103,7 +103,7 @@ var backstoryModifiers = {
 		intelligence: 0,
 		wisdom: 8,
 		constitution: -5,
-		attunement: 0
+		attunement: 2
 	}
 };
 const heroStatRegex = /[-\+]+([^%]+)%/;
