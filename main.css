@@ -606,14 +606,9 @@ button:active {
 }
 
 .stamp {
-	display: none;
-}
-
-/*
-.stamp {
 	font-size: 80%;
 	position: absolute;
-	display: inline-block;
+	display: none; /* inline-block */
 	overflow: visible;
 	width: 0;
 	height: 0;
@@ -626,4 +621,3 @@ button:active {
 		display: none;
 	}
 }
-*/
