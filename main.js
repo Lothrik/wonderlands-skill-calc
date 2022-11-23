@@ -303,7 +303,7 @@ function updateFeatTable() {
 	if ($("#primaryClassSelector").val() == "none" && $("#secondaryClassSelector").val() == "none") {
 		$("#errorMessage").text("No class selected.").removeClass("disabled");
 		$("#heroStats").addClass("disabled");
-		$("#featSummaryHeader").text("");
+		$("#featSummaryHeader").empty();
 		$("#primaryClassFeat").html("").css({ "padding": "0", "width": "0" });
 		$("#secondaryClassFeat").html("").css({ "padding": "0", "width": "0" });
 		$("#summarySpacer").addClass("disabled");
@@ -674,7 +674,7 @@ function updateCharacterLevel() {
 	} else if (unallocatedSkillPoints == 1) {
 		$("#unusedPoints").text(" (1 unused Skill Point)");
 	} else {
-		$("#unusedPoints").text("");
+		$("#unusedPoints").empty();
 	}
 }
 function updateStats() {
