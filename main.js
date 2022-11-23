@@ -304,8 +304,8 @@ function updateFeatTable() {
 		$("#errorMessage").text("No class selected.").removeClass("disabled");
 		$("#heroStats").addClass("disabled");
 		$("#featSummaryHeader").empty();
-		$("#primaryClassFeat").html("").css({ "padding": "0", "width": "0" });
-		$("#secondaryClassFeat").html("").css({ "padding": "0", "width": "0" });
+		$("#primaryClassFeat").empty().css({ "padding": "0", "width": "0" });
+		$("#secondaryClassFeat").empty().css({ "padding": "0", "width": "0" });
 		$("#summarySpacer").addClass("disabled");
 	} else {
 		$("#errorMessage").addClass("disabled");
