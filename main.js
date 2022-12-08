@@ -145,8 +145,9 @@ function handleSwitchViewButton(event) {
 }
 function handleScreenshotButton(event) {
 	const screenshotTarget = document.body;
-	$(".description, #classSelectors, #extraButtons, #footer").addClass("disabled");
-	$("#summaryContainer").css({ "margin-top": "10px" });
+	$(".description, #classSelectors, #extraButtons, #footerText").addClass("disabled");
+	$("#footer").css({ "margin-top": "15px" });
+	$(".footerSpacer:last").css({ "height": "0" });
 	$("#skillSummaryContainer").css({ "padding-bottom": "10px" });
 	$("#skillTrees").css({ "flex-grow": "0", "margin-bottom": "362px" });
 	$("#heroStats").css({ "margin-top": "556px" });
@@ -193,8 +194,9 @@ function handleScreenshotButton(event) {
 		$("#heroStats").removeAttr("style");
 		$("#skillTrees").removeAttr("style");
 		$("#skillSummaryContainer").removeAttr("style");
-		$("#summaryContainer").removeAttr("style");
-		$(".description, #classSelectors, #extraButtons, #footer").removeClass("disabled");
+		$(".footerSpacer:last").removeAttr("style");
+		$("#footer").removeAttr("style");
+		$(".description, #classSelectors, #extraButtons, #footerText").removeClass("disabled");
 	});
 }
 function formatHeroStat(statValue, statMultiplier) {
@@ -306,12 +308,12 @@ function updateFeatTable() {
 		$("#featSummaryHeader").empty();
 		$("#primaryClassFeat").empty().css({ "padding": "0", "width": "0" });
 		$("#secondaryClassFeat").empty().css({ "padding": "0", "width": "0" });
-		$("#summarySpacer").addClass("disabled");
+		$(".footerSpacer").addClass("disabled");
 	} else {
 		$("#errorMessage").addClass("disabled");
 		$("#heroStats").removeClass("disabled");
 		$("#featSummaryHeader").text("List of Feats");
-		$("#summarySpacer").removeClass("disabled");
+		$(".footerSpacer").removeClass("disabled");
 		if ($("#primaryClassSelector").val() == "none") {
 			$("#primaryClassFeat").css({ "padding": "0", "width": "0" });
 			$("#secondaryClassFeat").css({ "padding": "0", "width": "100%" });

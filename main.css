@@ -87,7 +87,7 @@ em {
 	border-bottom: 2px solid #f0f;
 }
 
-#header, .actionSkill, .skillTree, #overlayContainer > *, #summaryContainer {
+#header, .actionSkill, .skillTree, #overlayContainer > *, #footer {
 	background-color: rgba(0, 0, 0, 0.2);
 	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
@@ -375,7 +375,7 @@ em {
 	}
 }
 
-#summaryContainer .icon {
+#footer .icon {
 	display: none;
 }
 
@@ -463,14 +463,14 @@ button:active {
 	background-color: #333;
 }
 
-#summaryContainer {
+#footer {
 	margin-top: auto;
-	padding: 10px 10px 0;
+	padding: 10px 10px 5px;
 	border-top: 2px solid #f0f;
 	flex-grow: 1;
 }
 
-#summaryContainer * {
+#footer * {
 	line-height: 1.1;
 	max-width: 840px;
 	margin: auto;
@@ -486,18 +486,18 @@ button:active {
 	padding-top: 5px;
 }
 
-#summarySpacer {
+.footerSpacer {
 	clear: both;
-	height: 20px;
+	height: 10px;
 }
 
-#summaryContainer .skillText {
+#footer .skillText {
 	clear: both;
 	text-align: left;
 	border-top: 1px solid #fff;
 }
 
-#summaryContainer strong {
+#footer strong {
 	font-size: 24px;
 	font-weight: normal;
 	display: block;
@@ -508,23 +508,21 @@ button:active {
 	text-align: right;
 }
 
-#summaryContainer .descriptionText {
+#footer .descriptionText {
 	margin: 5px 0 5px 210px;
 	text-align: justify;
 }
 
-#summaryContainer .perLevel {
+#footer .perLevel {
 	display: none;
 }
 
-#footer {
+#footerText {
 	font-size: 12px;
-	margin-bottom: 5px;
-	padding-top: 15px;
 	text-transform: uppercase;
 }
 
-#footer a:hover {
+#footerText a:hover {
 	color: #f0f;
 }
 
@@ -559,35 +557,35 @@ button:active {
 	}
 }
 
-.description .gold, #summaryContainer .gold {
+.description .gold, #footer .gold {
 	color: gold;
 }
 
-.description .blue, #summaryContainer .blue {
+.description .blue, #footer .blue {
 	color: #08f;
 }
 
-.description .cyan, #summaryContainer .cyan {
+.description .cyan, #footer .cyan {
 	color: cyan;
 }
 
-.description .pink, #summaryContainer .pink {
+.description .pink, #footer .pink {
 	color: #f0f;
 }
 
-.description .purple, #summaryContainer .purple {
+.description .purple, #footer .purple {
 	color: #a0c;
 }
 
-.description .red, #summaryContainer .red {
+.description .red, #footer .red {
 	color: red;
 }
 
-.description .orange, #summaryContainer .orange, .partial, .partial .points {
+.description .orange, #footer .orange, .partial, .partial .points {
 	color: #f80;
 }
 
-.description .green, #summaryContainer .green, .full, .full .points {
+.description .green, #footer .green, .full, .full .points {
 	color: #0f0;
 }
 
