@@ -614,7 +614,7 @@ button:active {
 	transform: rotate(12deg);
 }
 
-@media (max-width: 700px) {
+@media (max-width: 720px) {
 	.stamp {
 		display: none;
 	}
