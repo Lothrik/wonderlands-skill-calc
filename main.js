@@ -110,7 +110,39 @@ var backstoryModifiers = {
 		wisdom: 8,
 		constitution: -5,
 		attunement: 2
-	}
+	},
+	nerfed: {
+		strength: 2,
+		dexterity: -8,
+		intelligence: 2,
+		wisdom: 2,
+		constitution: 2,
+		attunement: 2
+	},
+	clown: {
+		strength: 2,
+		dexterity: 0,
+		intelligence: 8,
+		wisdom: -3,
+		constitution: 0,
+		attunement: -4
+	},
+	scraper: {
+		strength: 3,
+		dexterity: 0,
+		intelligence: -6,
+		wisdom: 0,
+		constitution: 0,
+		attunement: 7
+	},
+	urchin: {
+		strength: 4,
+		dexterity: 0,
+		intelligence: 5,
+		wisdom: 0,
+		constitution: -6,
+		attunement: 0
+	},
 };
 const heroStatRegex = /[-\+]+([^%]+)%/;
 const primaryClassString = "#primaryClassSelector option:selected";
