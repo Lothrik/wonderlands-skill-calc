@@ -582,11 +582,11 @@ button:active {
 	color: red;
 }
 
-.description .orange, #footer .orange, .partial, .partial .points {
+.description .orange, #footer .orange, em.partial, .partial .label, .partial .points {
 	color: #f80;
 }
 
-.description .green, #footer .green, .full, .full .points {
+.description .green, #footer .green, em.full, .full .label, .full .points {
 	color: #0f0;
 }
 
