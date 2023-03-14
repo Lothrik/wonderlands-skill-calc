@@ -148,9 +148,10 @@ const heroStatRegex = /[-\+]+([^%]+)%/;
 const primaryClassString = "#primaryClassSelector option:selected";
 const secondaryClassString = "#secondaryClassSelector option:selected";
 function handleSwapTreeButton(event) {
-	let decompressedHash = decompressHash(window.location.hash.replace("#", ""));
-	let newHash = compressHash(decompressedHash.charAt(1) + decompressedHash.charAt(0) + decompressedHash.charAt(4) + decompressedHash.charAt(5) + decompressedHash.charAt(2) + decompressedHash.charAt(3) + decompressedHash.slice(27, 48) + decompressedHash.slice(6, 27) + decompressedHash.slice(48));
-	let newURL = window.location.href.split("#")[0] + "#" + newHash;
+	const rawHash = window.location.hash.replace("#", "").split(/[?&]/)[0];
+	const decompressedHash = decompressHash(rawHash);
+	const newHash = compressHash(decompressedHash.charAt(1) + decompressedHash.charAt(0) + decompressedHash.charAt(4) + decompressedHash.charAt(5) + decompressedHash.charAt(2) + decompressedHash.charAt(3) + decompressedHash.slice(27, 48) + decompressedHash.slice(6, 27) + decompressedHash.slice(48));
+	const newURL = window.location.href.split(/[#?&]/)[0] + "#" + newHash;
 	window.location.replace(newURL);
 	loadFromHash(2);
 	rebuildHTML();
@@ -766,8 +767,8 @@ function updateHeroStats() {
 // url hash functions
 var hashUndoHistory = [];
 function saveToHash(mode) {
-	let newHash = compressHash(constructHash(mode));
-	let newURL = window.location.href.split("#")[0] + "#" + newHash;
+	const newHash = compressHash(constructHash(mode));
+	const newURL = window.location.href.split(/[#?&]/)[0] + "#" + newHash;
 	window.location.replace(newURL);
 	addHashToUndo(newHash);
 }
@@ -837,8 +838,8 @@ function addHashToUndo(curHash) {
 }
 function loadPreviousHashFromUndo() {
 	if (hashUndoHistory.length > 1) {
-		let newHash = hashUndoHistory[hashUndoHistory.length - 2];
-		let newURL = window.location.href.split("#")[0] + "#" + newHash;
+		const newHash = hashUndoHistory[hashUndoHistory.length - 2];
+		const newURL = window.location.href.split(/[#?&]/)[0] + "#" + newHash;
 		window.location.replace(newURL);
 		loadFromHash(2);
 		rebuildHTML();
@@ -846,8 +847,9 @@ function loadPreviousHashFromUndo() {
 	}
 }
 function handleResetButton() {
-	let newHash = compressHash($("#primaryClassSelector").prop("selectedIndex").toString() + $("#secondaryClassSelector").prop("selectedIndex").toString());
-	addHashToUndo(window.location.hash.replace("#", ""));
+	const oldHash = window.location.hash.replace("#", "").split(/[?&]/)[0];
+	const newHash = compressHash($("#primaryClassSelector").prop("selectedIndex").toString() + $("#secondaryClassSelector").prop("selectedIndex").toString());
+	addHashToUndo(oldHash);
 	window.location.hash = newHash;
 	loadFromHash(2);
 	rebuildHTML();
@@ -855,7 +857,7 @@ function handleResetButton() {
 }
 function compressHash(rawHash) {
 	if (LZString) {
-		let compressedHash = LZString.compressToEncodedURIComponent(rawHash);
+		const compressedHash = LZString.compressToEncodedURIComponent(rawHash);
 		if (compressedHash) {
 			return compressedHash;
 		}
@@ -863,9 +865,9 @@ function compressHash(rawHash) {
 	return rawHash;
 }
 function decompressHash() {
-	let rawHash = window.location.hash.replace("#", "");
+	const rawHash = window.location.hash.replace("#", "").split(/[?&]/)[0];
 	if (LZString) {
-		let decompressedHash = LZString.decompressFromEncodedURIComponent(rawHash);
+		const decompressedHash = LZString.decompressFromEncodedURIComponent(rawHash);
 		if (decompressedHash) {
 			return decompressedHash;
 		}
@@ -888,5 +890,6 @@ $(document).ready(function() {
 	$("#secondaryClassSelector").on("change", handleClassSelection);
 	loadFromHash(2);
 	rebuildHTML();
-	addHashToUndo(window.location.hash.replace("#", ""));
+	const oldHash = window.location.hash.replace("#", "").split(/[?&]/)[0];
+	addHashToUndo(oldHash);
 });
