@@ -742,7 +742,7 @@ function updateStats() {
 			descriptions += "</div>";
 		}
 	});
-	$("#skillSummaryHeader").text(allocatedSkillPoints > 1 ? "List of Skills" : "");
+	$("#skillSummaryHeader").text(allocatedSkillPoints > 0 ? "List of Skills" : "");
 	$("#skillSummaryContainer").html(descriptions);
 }
 function updateHeroStats() {
